@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Next.js</a> + <a href= "https://tailwindcss.com/"> Tailwind CSS </a> + <a href = "https://www.vivid.lol/">Vivid!</a>
         </h1>
 
         <p className={styles.description}>
@@ -24,21 +24,21 @@ const Home: NextPage = () => {
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
+            <h2>Next Docs &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a href="https://tailwindcss.com/docs/installation" className={styles.card}>
+            <h2>Tailwind Docs &rarr;</h2>
+            <p>Find in-depth information about Tailwind CSS and utility classes </p>
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="https://docs.vivid.lol/"
             className={styles.card}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            <h2>Vivid Docs &rarr;</h2>
+            <p>Find in-depth information about Vivid and in-browser styling. </p>
           </a>
 
           <a
