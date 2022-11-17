@@ -1,24 +1,28 @@
+# next-tailwind-vivid-starter
 A starter repository with React, NextJS, Tailwind, and Vivid set up.
 
-## Getting Started
+# Getting Started
 
-First, run the development server:
+To get started, clone the repository, install the necessary dependencies, and run the app. 
 
 ```bash
+git clone https://github.com/aryamankha/next-tailwind-vivid-starter.git
+cd next-tailwind-vivid-starter
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+With NextJS, there's no need to run a separate server. You can build out an API through the pages/api directory. [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+## NextJS
+
+NextJS is the easiest way to build a web application with React. You can also deploy your application in a flash with Vercel. 
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -27,8 +31,11 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Vivid
+Vivid lets you style with Tailwind in your browser. <kbd>Cmd</kbd>-Click (Windows: <kbd>Ctrl</kbd>) on any component to see its code. Check out [Vivid's docs](https://docs.vivid.lol) for a guide to its full functionality. 
