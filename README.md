@@ -6,7 +6,7 @@ A starter repository with React, NextJS, Tailwind, and Vivid set up - all using 
 To get started, clone the repository, install the necessary dependencies, and run the app. Navigate to your terminal and execute the following commands.
 
 ```bash
-git clone https://github.com/aryamankha/next-tailwind-vivid-starter.git
+git clone https://github.com/vivid-labs/next-ts-tailwind-vivid-starter.git
 cd next-tailwind-vivid-starter
 #If you don't already have yarn
 npm install --global yarn
