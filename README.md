@@ -3,7 +3,7 @@ A starter repository with React, NextJS, Tailwind, and Vivid set up - all using 
 
 # Getting Started
 
-To get started, clone the repository, install the necessary dependencies, and run the app. 
+To get started, clone the repository, install the necessary dependencies, and run the app. Navigate to your terminal and execute the following commands.
 
 ```bash
 git clone https://github.com/aryamankha/next-tailwind-vivid-starter.git
