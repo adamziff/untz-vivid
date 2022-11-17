@@ -20,7 +20,7 @@ With NextJS, there's no need to run a separate server. You can build out an API 
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## NextJS
+# NextJS
 
 NextJS is the easiest way to build a web application with React. You can also deploy your application in a flash with Vercel. 
 
@@ -31,11 +31,11 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-### Deploy on Vercel
+## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Vivid
+# Vivid
 Vivid lets you style with Tailwind in your browser. <kbd>Cmd</kbd>-Click (Windows: <kbd>Ctrl</kbd>) on any component to see its code. Check out [Vivid's docs](https://docs.vivid.lol) for a guide to its full functionality. 
