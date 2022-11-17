@@ -1,5 +1,5 @@
 # next-tailwind-vivid-starter
-A starter repository with React, NextJS, Tailwind, and Vivid set up.
+A starter repository with React, NextJS, Tailwind, and Vivid set up - all using TypeScript.
 
 # Getting Started
 
