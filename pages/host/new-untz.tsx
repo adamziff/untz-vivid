@@ -1,6 +1,8 @@
 import Link from "next/link"
 import styles from '../../styles/Home.module.css'
 import Head from "next/head"
+import BarChart from "../../components/BarChart"
+import SearchBar from "../../components/SearchBar"
 
 export default function NewUntz() {
     return (
@@ -33,6 +35,10 @@ export default function NewUntz() {
                     className="form-control px-10 py-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl"
                   ></input>
                 </div>
+
+                <SearchBar></SearchBar>
+
+                <BarChart></BarChart>
                 
                 <button className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold">
                     <Link href="/host/new-untz">share üntz</Link>
