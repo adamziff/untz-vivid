@@ -8,8 +8,6 @@ import SearchBarRed from "../../components/SearchBarRed"
 /*
 
 TODO:
-- red search bar
-- figure out width of search
 - figure out why search works locally but not hosted
 - entropy slider
 - buy domain

@@ -51,7 +51,7 @@ const SearchBarRed: React.FC = () => {
   };
 
   return (
-    <div className="p-2 w-50">
+    <div className="p-2 w-full md:w-1/3">
       <input
         type="text"
         placeholder="Search Spotify"
