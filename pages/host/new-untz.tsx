@@ -36,7 +36,7 @@ export default function NewUntz() {
                   ></input>
                 </div>
 
-                {/* <SearchBar></SearchBar> */}
+                <SearchBar></SearchBar>
 
                 <BarChart></BarChart>
                 

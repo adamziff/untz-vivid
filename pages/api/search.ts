@@ -1,10 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 var SpotifyWebApi = require('spotify-web-api-node');
 
 const clientId = 'f5e1c0e33ba2435ca10ef8beb593984d';
-const clientSecret = 'ff8ae941089642a2b9d429c9bb075043';
+const clientSecret = process.env.CLIENT_SECRET;
 
 // Create the api object with the credentials
 var spotifyApi = new SpotifyWebApi({
