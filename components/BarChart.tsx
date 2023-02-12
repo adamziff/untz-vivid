@@ -57,7 +57,7 @@ const BarChart: React.FC = () => {
   };
 
   return (
-    <div className="styles.container flex flex-col h-64" ref={containerRef}>
+    <div className="styles.container flex flex-col h-40" ref={containerRef}>
       <div className="-mx-1 flex flex-row">
         {bars.map((bar, index) => (
           <div

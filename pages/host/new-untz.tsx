@@ -5,17 +5,6 @@ import BarChart from "../../components/BarChart"
 import SearchBar from "../../components/SearchBar"
 import SearchBarRed from "../../components/SearchBarRed"
 
-/*
-
-TODO:
-- figure out why search works locally but not hosted
-- entropy slider
-- buy domain
-- ü favicon
-- clear search results if empty on key update
-
-*/
-
 export default function NewUntz() {
     return (
         <div className={styles.container}>
