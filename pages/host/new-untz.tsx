@@ -36,13 +36,13 @@ export default function NewUntz() {
                   ></input>
                 </div>
 
-                <SearchBar></SearchBar>
+                {/* <SearchBar></SearchBar> */}
 
                 <BarChart></BarChart>
                 
-                <button className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold">
+                {/* <button className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold">
                     <Link href="/host/new-untz">share üntz</Link>
-                </button>
+                </button> */}
             </div>
         </main>
         </div>

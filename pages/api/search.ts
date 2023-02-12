@@ -24,8 +24,8 @@ export default function handler(
   // Retrieve an access token.
   spotifyApi.clientCredentialsGrant().then(
     function(data: any) {
-      console.log('The access token expires in ' + data.body['expires_in']);
-      console.log('The access token is ' + data.body['access_token']);
+      // console.log('The access token expires in ' + data.body['expires_in']);
+      // console.log('The access token is ' + data.body['access_token']);
 
       // Save the access token so that it's used in future calls
       spotifyApi.setAccessToken(data.body['access_token']);
@@ -34,8 +34,8 @@ export default function handler(
       console.log('Something went wrong when retrieving an access token', err);
     }
   );
-  console.log('req.query.q');
-  console.log(req.query.q);
+  // console.log('req.query.q');
+  // console.log(req.query.q);
   spotifyApi.searchTracks(req.query.q, {limit: 5})
   .then(function(data: any) {
     console.log('Search', data.body);

@@ -4,7 +4,7 @@ import axios, { CancelToken } from 'axios';
 const SearchBar: React.FC = () => {
   const [results, setResults] = useState<any>([]);
   const [selectedSong, setSelectedSong] = useState<any>(null);
-  const [savedSongs, setSavedSongs] = useState<any>([]);
+  const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [query, setQuery] = useState<string>('');
   const source = useRef(axios.CancelToken.source());
 
@@ -21,7 +21,7 @@ const SearchBar: React.FC = () => {
         setResults(response.data.tracks.items);
       } catch (error) {
         if (axios.isCancel(error)) {
-          console.log('Request cancelled', error.message);
+          // console.log('Request cancelled', error.message);
         } else {
           throw error;
         }
@@ -41,7 +41,13 @@ const SearchBar: React.FC = () => {
 
   const handleSongClick = (song: any) => {
     setSelectedSong(song);
-    setSavedSongs([...savedSongs, song]);
+    if (!savedSongs.find(savedSong => savedSong.id === song.id)) {
+      setSavedSongs([...savedSongs, song]);
+    }
+  };
+
+  const handleSelectedSongClick = (song: any) => {
+    setSavedSongs(savedSongs.filter(savedSong => savedSong.id !== song.id));
   };
 
   return (
@@ -54,27 +60,24 @@ const SearchBar: React.FC = () => {
         onChange={handleInputChange}
       />
       {results.length > 0 && (
-        <ul className="list-none">
-          {results.map((song: any) => (
-            <li
-              key={song.id}
-              className="cursor-pointer p-2 mb-2"
-              onClick={() => handleSongClick(song)}
-            >
-              {song.name} - {song.artists[0].name}
-            </li>
-          ))}
+        <ul className="list-none bg-gray-600">
+         {results.map((song: any) => (
+           <li
+             key={song.id}
+             className="cursor-pointer p-2 mb-2"
+             onClick={() => handleSongClick(song)}
+           >
+             {song.name} - {song.artists[0].name}
+           </li>
+         ))}
         </ul>
-      )}
-      {selectedSong && (
-        <div className="p-2 bg-green-200">
-          {selectedSong.name} - {selectedSong.artists[0].name}
-        </div>
       )}
       {savedSongs.length > 0 && (
         <ul className="list-none">
           {savedSongs.map((song: any) => (
-            <li key={song.id} className="p-2 bg-green-200">
+            <li key={song.id} 
+                className="p-2 bg-emerald-300"
+                onClick={() => handleSelectedSongClick(song)}>
               {song.name} - {song.artists[0].name}
             </li>
           ))}
