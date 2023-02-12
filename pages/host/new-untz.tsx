@@ -3,15 +3,18 @@ import styles from '../../styles/Home.module.css'
 import Head from "next/head"
 import BarChart from "../../components/BarChart"
 import SearchBar from "../../components/SearchBar"
+import SearchBarRed from "../../components/SearchBarRed"
 
 /*
 
 TODO:
-- polish create untz ui
+- red search bar
+- figure out width of search
 - figure out why search works locally but not hosted
 - entropy slider
 - buy domain
 - ü favicon
+- clear search results if empty on key update
 
 */
 
@@ -47,17 +50,17 @@ export default function NewUntz() {
                 ></input>
               </div>
             
-              <h2 className="text-blue-300">must play</h2>
+              <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
               <SearchBar></SearchBar>
             
-              <h2 className="text-red-400">do not play</h2>
-              <SearchBar></SearchBar>
+              <h2 className="text-red-400 text-3xl font-bold pt-4">do not play</h2>
+              <SearchBarRed></SearchBarRed>
             
               <BarChart></BarChart>
             
-              {/* <button className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold">
-            <Link href="/host/new-untz">share üntz</Link>
-            tton> */}
+              <button className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold">
+                <Link href="/host/new-untz">share üntz</Link>
+              </button>
             </div>
         </main>
         </div>
