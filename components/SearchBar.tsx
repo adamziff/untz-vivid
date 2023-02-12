@@ -51,34 +51,35 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-200">
+    <div className="p-2 w-50">
       <input
         type="text"
         placeholder="Search Spotify"
-        className="p-2 w-full"
+        className="p-2 w-full outline outline-emerald-300 rounded-md"
         value={query}
         onChange={handleInputChange}
       />
       {results.length > 0 && (
-        <ul className="list-none bg-gray-600">
+        <ul className="list-none bg-black">
          {results.map((song: any) => (
            <li
              key={song.id}
-             className="cursor-pointer p-2 mb-2"
+             className="cursor-pointer p-2 text-emerald-300"
              onClick={() => handleSongClick(song)}
            >
-             {song.name} - {song.artists[0].name}
+            {song.name} - {song.artists[0].name}
            </li>
          ))}
         </ul>
       )}
+      {/* <h2 className="p-2 text-blue-300">Selected Songs</h2> */}
       {savedSongs.length > 0 && (
-        <ul className="list-none">
+        <ul className="list-none bg-emerald-300 rounded-md">
           {savedSongs.map((song: any) => (
             <li key={song.id} 
-                className="p-2 bg-emerald-300"
+                className="p-2 text-black"
                 onClick={() => handleSelectedSongClick(song)}>
-              {song.name} - {song.artists[0].name}
+             {song.name}-{song.artists[0].name}
             </li>
           ))}
         </ul>

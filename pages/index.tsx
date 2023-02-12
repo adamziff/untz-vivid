@@ -14,12 +14,12 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className="text-7xl font-bold text-center text-white">
+        <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
           welcome to üntz
         </h1>
       
         <p className="text-emerald-300 p-10 text-center">
-          your next party starts here
+          ür next party starts here
         </p>
       
         <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
