@@ -29,10 +29,15 @@ const SearchBarRed: React.FC = () => {
     };
 
     if (query.length > 0) {
-      source.current.cancel();
       source.current = axios.CancelToken.source();
       fetchData();
     }
+    else {
+      setResults([]);
+    }
+    return () => {
+      source.current.cancel('Cancelling previous request');
+    };
   }, [query]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
