@@ -29,7 +29,6 @@ const SearchBar: React.FC = () => {
     };
 
     if (query.length > 0) {
-      // source.current.cancel();
       source.current = axios.CancelToken.source();
       fetchData();
     } else {
