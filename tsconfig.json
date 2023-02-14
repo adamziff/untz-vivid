@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/SearchBar.tsx", "components/BarChart.jsx", "components/BarChart.jsx", "components/BarChart.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/SearchBar.tsx", "components/BarChart.jsx", "components/BarChart.jsx", "components/BarChart.jsx", "components/LineGraph.jsx"],
   "exclude": ["node_modules"]
 }

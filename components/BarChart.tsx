@@ -43,6 +43,7 @@ const BarChart: React.FC = () => {
     const initialY = event.touches[0].clientY;
 
     const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
       const container = containerRef.current;
       if (!container) return;
 
@@ -50,7 +51,7 @@ const BarChart: React.FC = () => {
       handleBarChange(index, newValue);
     };
 
-    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', () => {
       document.removeEventListener('touchmove', handleTouchMove);
     });
@@ -58,16 +59,27 @@ const BarChart: React.FC = () => {
 
   return (
     <div className="styles.container flex flex-col h-40" ref={containerRef}>
+      <h1 className="text-center py-3 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500">
+        ~energy curve~
+      </h1>
       <div className="-mx-1 flex flex-row">
+          <div
+            className="w-full mx-1 p-2 bg-black align-bottom"
+            style={{ height: 100}}  // subtract the bar height from 100
+          />
         {bars.map((bar, index) => (
           <div
             key={index}
-            className="w-full mx-1 p-2 bg-gray-300"
-            style={{ height: `${bar}px` }}
+            className="w-full mx-1 p-2 bg-gray-300 align-bottom"
+            style={{ height: `${bar}px`}}  // subtract the bar height from 100
             onMouseDown={event => handleBarMouseDown(index, event)}
             onTouchStart={event => handleTouchStart(index, event)}
           />
         ))}
+        <div
+            className="w-full mx-1 p-2 bg-black align-bottom"
+            style={{ height: 100}}  // subtract the bar height from 100
+          />
       </div>
       <div className="flex flex-row justify-between mt-2">
         <button className="btn btn-blue" onClick={handleAddBar}>
