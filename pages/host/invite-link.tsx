@@ -5,9 +5,9 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 
-const Home: NextPage = () => {
+const InviteLink: NextPage = () => {
   // const [data, setData] = useState(null);
   // useEffect(() => {
   //   // axios.get('https://untz.azurewebsites.net/api/data').then(response => {
@@ -18,15 +18,15 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Head>
-        <title>üntz</title>
+        <title>Invite Link</title>
         <meta name="description" content="playlists for every party" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.main}>
-        {/* <div className={styles.index}> */}
+      {/* <main className='bg-black'> */}
+        <div className={styles.container}>
             <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
-              welcome to üntz
+              invite link
             </h1>
         
             <p className="text-emerald-300 p-10 text-center">
@@ -56,4 +56,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default InviteLink

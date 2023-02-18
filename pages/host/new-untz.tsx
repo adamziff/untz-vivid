@@ -6,6 +6,7 @@ import SearchBar from "../../components/SearchBar"
 import SearchBarRed from "../../components/SearchBarRed"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import Layout from "../../components/Layout"
 
 export default function NewUntz() {
   const router = useRouter()
@@ -19,7 +20,7 @@ export default function NewUntz() {
       if (response.ok) {
         setIsLoading(false)
         router.push("/")
-      // router.push("/host/invite-link")
+        // router.push("/host/invite-link")
       } else {
         setIsLoading(false)
         console.log("Failed to share üntz")
@@ -31,22 +32,20 @@ export default function NewUntz() {
   }
 
   return (
-      <div className={styles.container}>
+      <Layout>
           <Head>
             <title>üntz</title>
             <meta name="description" content="playlists for every party" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
-
-          <main className="bg-black flex justify-center items-center">
-              <Link href="/">Home</Link>
-              <div className="flex flex-col justify-center items-center">
-                <h1 className="basis-full text-7xl font-bold text-center text-emerald-300">
+          <div className={styles.newuntz}>
+              {/* <div className="flex flex-col justify-center items-center"> */}
+                <h1 className="basis-full text-6xl md:text-7xl font-bold text-center text-emerald-300">
                   new üntz
                 </h1>
               
                 <div className="py-5">
-                  <label className="text-blue-300">party name:</label>
+                  <label className="text-blue-300 text-3xl">party name:</label>
                   <input
                     placeholder="Charter Friday: Prism"
                     className="form-control md:px-10 p-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl outline-blue-300"
@@ -54,7 +53,7 @@ export default function NewUntz() {
                 </div>
               
                 <div className="py-5">
-                  <label className="text-blue-300">duration (min):</label>
+                  <label className="text-blue-300 text-3xl">duration (min):</label>
                   <input
                     placeholder="180"
                     className="form-control md:px-10 py-2 px-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl outline-blue-300"
@@ -75,8 +74,8 @@ export default function NewUntz() {
                   disabled={isLoading}>
                   share üntz
                 </button>
+              {/* </div> */}
               </div>
-          </main>
-      </div>
+      </Layout>
   )
 }
