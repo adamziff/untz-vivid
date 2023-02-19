@@ -4,14 +4,6 @@ import Party from './models/party';
 import dbConnect from './dbconnect';
 import mongoose from 'mongoose';
 
-// const { MongoClient } = require('mongodb');
-
-// Replace the connection string with your own
-// const uri = process.env.MONGODB_URI;
-// const uri = 'mongodb+srv://adamhziff:MYPjCy9rBxypHQOQ@untz-db.fmdbumb.mongodb.net/?retryWrites=true&w=majority';
-
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
 // change this datatype to an interface that matches the response from mongo
 type Data = {
   message: string;
