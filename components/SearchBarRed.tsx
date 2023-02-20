@@ -1,10 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import axios, { CancelToken } from 'axios';
+import { Song } from '../pages/api/models/song';
 
-const SearchBarRed: React.FC = () => {
+interface Props {
+  savedSongsRed: any[]
+  setSavedSongsRed: any
+}
+
+const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
   const [results, setResults] = useState<any>([]);
   const [selectedSong, setSelectedSong] = useState<any>(null);
-  const [savedSongs, setSavedSongs] = useState<any[]>([]);
+  // const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [query, setQuery] = useState<string>('');
   const source = useRef(axios.CancelToken.source());
 
@@ -46,13 +52,13 @@ const SearchBarRed: React.FC = () => {
 
   const handleSongClick = (song: any) => {
     setSelectedSong(song);
-    if (!savedSongs.find(savedSong => savedSong.id === song.id)) {
-      setSavedSongs([...savedSongs, song]);
+    if (!savedSongsRed.find(savedSong => savedSong.id === song.id)) {
+      setSavedSongsRed([...savedSongsRed, song]);
     }
   };
 
   const handleSelectedSongClick = (song: any) => {
-    setSavedSongs(savedSongs.filter(savedSong => savedSong.id !== song.id));
+    setSavedSongsRed(savedSongsRed.filter(savedSong => savedSong.id !== song.id));
   };
 
   return (
@@ -78,9 +84,9 @@ const SearchBarRed: React.FC = () => {
         </ul>
       )}
       {/* <h2 className="p-2 text-blue-300">Selected Songs</h2> */}
-      {savedSongs.length > 0 && (
+      {savedSongsRed.length > 0 && (
         <ul className="list-none bg-red-400 rounded-md">
-          {savedSongs.map((song: any) => (
+          {savedSongsRed.map((song: any) => (
             <li key={song.id} 
                 className="p-2 text-black"
                 onClick={() => handleSelectedSongClick(song)}>

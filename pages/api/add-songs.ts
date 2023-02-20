@@ -3,6 +3,7 @@ import Song, { songSchema } from './models/song';
 import Party from './models/party';
 import dbConnect from './dbconnect';
 import mongoose from 'mongoose';
+import { spotifyToSongs } from './models/song';
 
 // const { MongoClient } = require('mongodb');
 
@@ -71,6 +72,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  // console.log(req.body.savedSongs)
+  // console.log(req.body.savedSongsRed)
+  const mustPlaySongs = spotifyToSongs(req.body.savedSongs, 1);
+  const doNotPlaySongs = spotifyToSongs(req.body.savedSongsRed, -1);
+  console.log(mustPlaySongs);
+  console.log(doNotPlaySongs);
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
   if (allowedOrigins.includes(origin)) {
@@ -81,7 +88,8 @@ export default async function handler(
     await dbConnect();
     console.log('Connected to MongoDB Atlas');
 
-    await Song.insertMany(testSongs)
+    const allSongs = mustPlaySongs.concat(doNotPlaySongs);
+    await Song.insertMany(allSongs)
       .then((result) => {
         console.log(result)
         // Send a success message

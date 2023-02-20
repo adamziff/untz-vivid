@@ -7,16 +7,39 @@ import SearchBarRed from "../../components/SearchBarRed"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Layout from "../../components/Layout"
+import { Song } from "../api/models/song"
+import { Party } from "../api/models/party"
 
 export default function NewUntz() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [savedSongs, setSavedSongs] = useState<any[]>([]);
+  const [savedSongsRed, setSavedSongsRed] = useState<any[]>([]);
+  // const [bars, setBars] = useState<number[]>([]);
+  const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
 
   async function handleShareUntz() {
     setIsLoading(true)
-    const response = await fetch("/api/add-songs")
+    const response = await fetch("/api/add-songs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        savedSongs,
+        savedSongsRed,
+      }),
+    })
     if (response.ok) {
-      const response = await fetch("/api/add-party")
+      const response = await fetch("/api/add-party", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bars,
+        }),
+      })
       if (response.ok) {
         setIsLoading(false)
         router.push("/")
@@ -61,12 +84,12 @@ export default function NewUntz() {
                 </div>
               
                 <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
-                <SearchBar></SearchBar>
+                <SearchBar savedSongs={savedSongs} setSavedSongs={setSavedSongs}></SearchBar>
               
                 <h2 className="text-red-400 text-3xl font-bold pt-4">do not play</h2>
-                <SearchBarRed></SearchBarRed>
+                <SearchBarRed savedSongsRed={savedSongsRed} setSavedSongsRed={setSavedSongsRed}></SearchBarRed>
               
-                <BarChart></BarChart>
+                <BarChart bars={bars} setBars={setBars}></BarChart>
               
                 <button 
                   className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold"

@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import axios, { CancelToken } from 'axios';
 
-const SearchBar: React.FC = () => {
+interface Props {
+  savedSongs: any[]
+  setSavedSongs: any
+}
+
+const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
   const [results, setResults] = useState<any>([]);
   const [selectedSong, setSelectedSong] = useState<any>(null);
-  const [savedSongs, setSavedSongs] = useState<any[]>([]);
+  // const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [query, setQuery] = useState<string>('');
   const source = useRef(axios.CancelToken.source());
 
@@ -49,6 +54,11 @@ const SearchBar: React.FC = () => {
       setSavedSongs([...savedSongs, song]);
     }
   };
+
+  // useEffect(() => {
+  //   console.log(savedSongs);
+  // }, [savedSongs]);  
+  
 
   const handleSelectedSongClick = (song: any) => {
     setSavedSongs(savedSongs.filter(savedSong => savedSong.id !== song.id));

@@ -1,11 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const BarChart: React.FC = () => {
-  const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
+interface Props {
+  bars: number[]
+  setBars: any
+}
+
+const BarChart: React.FC<Props> = ({ bars, setBars }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleBarChange = (index: number, newValue: number) => {
-    setBars(prevBars => {
+    setBars((prevBars: number[]) => {
       const updatedBars = [...prevBars];
       updatedBars[index] = newValue;
       return updatedBars;
@@ -13,11 +17,11 @@ const BarChart: React.FC = () => {
   };
 
   const handleAddBar = () => {
-    setBars(prevBars => [...prevBars, 0]);
+    setBars((prevBars: number[]) => [...prevBars, 0]);
   };
 
   const handleRemoveBar = () => {
-    setBars(prevBars => prevBars.slice(0, prevBars.length - 1));
+    setBars((prevBars: number[]) => prevBars.slice(0, prevBars.length - 1));
   };
 
   const handleBarMouseDown = (index: number, event: React.MouseEvent) => {
