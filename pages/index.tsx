@@ -7,14 +7,33 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Layout from '../components/Layout'
 
+
+async function getDataFromAzure(setData: any) {
+  try {
+    const response = await fetch("/api/select-songs");
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setData(data);
+    } else {
+      throw new Error("Failed to access select-songs");
+    }
+  } catch (error) {
+    console.error(error);
+    // handle error here (e.g. display an error message)
+  }
+}
+
+
 const Home: NextPage = () => {
-  // const [data, setData] = useState(null);
-  // useEffect(() => {
-  //   // axios.get('https://untz.azurewebsites.net/api/data').then(response => {
-  //   axios.get('http://127.0.0.1:8000/api/data').then(response => {
-  //     setData(response.data.data);
-  //   });
-  // }, []);
+  const [data, setData] = useState<any>(null);
+  useEffect(() => {
+    // axios.get('https://untz-backend.azurewebsites.net/api/data').then(response => {
+    // axios.get('http://127.0.0.1:8000/api/data').then(response => {
+      // setData(response.data.data);
+    // });
+    getDataFromAzure(setData);
+  }, []);
   return (
     <Layout>
       <Head>
@@ -33,7 +52,7 @@ const Home: NextPage = () => {
               ür next party starts here
             </p>
         
-            {/* <p>{data}</p> : <p>Loading...</p>} */}
+            {data ? <p>{data.data.data}</p> : <p>Loading...</p>}
         
             <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
               <Link href="/host/new-untz">get started</Link>
@@ -57,3 +76,21 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+
+// async function getDataFromAzure(setData: any) {
+//   const response = await fetch("/api/select-songs", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//     }
+//   })
+//   if (response.ok) {
+//     console.log(response.formData);
+//     // router.push("/")
+//     // router.push("/host/invite-link")
+//     setData(response.formData);
+//   } else {
+//     console.log("Failed to access select-songs")
+//   }
+// }
