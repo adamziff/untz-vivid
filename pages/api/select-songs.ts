@@ -36,6 +36,7 @@ export default async function handler(
     // Find the party with the given access code
     const party = await Party.findOne({ party_id: partyId });
     if (!party) {
+      console.log('select-songs.tsx: party not found')
       res.status(404).json({ message: 'Party not found', data: '' });
       return;
       }
@@ -44,6 +45,7 @@ export default async function handler(
     // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
     const playlistResponse = await fetch(`https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
     // const res = await axios.get(`/api/dashboard?partyId=${partyId}`);
+    console.log('generate-playlist returned')
     if (playlistResponse.ok) {
         const playlist = await playlistResponse.json()
         console.log('generated playlist successfully')

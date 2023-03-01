@@ -55,7 +55,9 @@ const Dashboard: NextPage = () => {
           // setSongs(songs.data)
         } else {
           // setSongs([]);
-          console.log("Failed to select songs")
+          const error = await res.json()
+          console.log("dashboard.tsx: Failed to select songs")
+          console.log(error)
         }
     } catch (error) {
       console.log(error);
