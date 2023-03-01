@@ -42,7 +42,7 @@ const Dashboard: NextPage = () => {
   const handleGeneratePlaylistClick = async () => {
     try {
       const res = await fetch("/api/select-songs", {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
