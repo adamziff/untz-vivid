@@ -10,6 +10,7 @@ export interface Party {
     attendees: number,
     host_id: string,
     access_code: string,
+    requests: string[][],
 }
 
 const partySchema = new mongoose.Schema<Party>({
@@ -22,6 +23,7 @@ const partySchema = new mongoose.Schema<Party>({
     attendees: Number,
     host_id: String,
     access_code: String,
+    requests: [[String]],
 });
 
 export default mongoose.models.Party || mongoose.model<Party>('Party', partySchema, 'parties');

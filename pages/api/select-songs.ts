@@ -11,6 +11,8 @@ const allowedOrigins = [
   'untz-vivid-adamziff.vercel.app',
 ];
 
+const playlistId = 0
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -28,7 +30,9 @@ export default async function handler(
     // const { data } = await response.json();
     console.log('returned data:');
     console.log(data); // { data: 'Hello, World!' }
-    res.status(200).json({ message: 'Songs selected successfully!', data: data });
+
+    console.log('fetching songs from playlist with id' + playlistId);
+    res.status(200).json({ message: 'python server accessed successfully', data: data });
     // res.status(200).json({ message: 'Songs selected successfully!', data });
 
 

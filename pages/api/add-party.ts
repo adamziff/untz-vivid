@@ -19,7 +19,8 @@ const testParty = new Party({
   invite_link: '', 
   attendees: 0, 
   host_id: '', 
-  access_code: '',
+  access_code: '0',
+  requests: [['a', 'b'], ['c', 'd']]
 });
 
 const allowedOrigins = [

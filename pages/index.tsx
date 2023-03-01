@@ -27,6 +27,7 @@ async function getDataFromAzure(setData: any) {
 
 const Home: NextPage = () => {
   const [data, setData] = useState<any>(null);
+  const accessCode = 0;
   useEffect(() => {
     // axios.get('https://untz-backend.azurewebsites.net/api/data').then(response => {
     // axios.get('http://127.0.0.1:8000/api/data').then(response => {
@@ -53,10 +54,19 @@ const Home: NextPage = () => {
             </p>
         
             {data ? <p>{data.data.data}</p> : <p>Loading...</p>}
+            <div className='p-3'></div>
         
-            <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
-              <Link href="/host/new-untz">get started</Link>
-            </button>
+            <Link href="/host/new-untz">
+              <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
+                get started
+              </button>
+            </Link>
+            <div className='p-3'></div>
+            <Link href={`/guest/request-songs?accessCode=${accessCode}`}>
+              <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
+                request songs
+              </button>
+            </Link>
         </div>
 
       <footer className={styles.footer}>

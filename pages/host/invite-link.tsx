@@ -8,23 +8,19 @@ import axios from 'axios'
 import Layout from '../../components/Layout'
 
 const InviteLink: NextPage = () => {
-  // const [data, setData] = useState(null);
-  // useEffect(() => {
-  //   // axios.get('https://untz.azurewebsites.net/api/data').then(response => {
-  //   axios.get('http://127.0.0.1:8000/api/data').then(response => {
-  //     setData(response.data.data);
-  //   });
-  // }, []);
+
+  const partyId = 0;
+
   return (
     <Layout>
       <Head>
-        <title>Invite Link</title>
+        <title>üntz invite link</title>
         <meta name="description" content="playlists for every party" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {/* <main className='bg-black'> */}
-        <div className={styles.container}>
+        <div className={styles.main}>
             <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
               invite link
             </h1>
@@ -32,12 +28,12 @@ const InviteLink: NextPage = () => {
             <p className="text-emerald-300 p-10 text-center">
               ür next party starts here
             </p>
-        
-            {/* <p>{data}</p> : <p>Loading...</p>} */}
-        
-            <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
-              <Link href="/host/new-untz">get started</Link>
-            </button>
+                    
+            <Link href={`/host/dashboard?partyId=${partyId}`}>
+              <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
+                dashboard
+              </button>
+            </Link>
         </div>
 
       <footer className={styles.footer}>

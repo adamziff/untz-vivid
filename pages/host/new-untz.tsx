@@ -18,42 +18,6 @@ export default function NewUntz() {
   // const [bars, setBars] = useState<number[]>([]);
   const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
 
-  // async function handleShareUntz() {
-  //   setIsLoading(true)
-  //   const response = await fetch("/api/add-songs", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       savedSongs,
-  //       savedSongsRed,
-  //     }),
-  //   })
-  //   if (response.ok) {
-  //     const response = await fetch("/api/add-party", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         bars,
-  //       }),
-  //     })
-  //     if (response.ok) {
-  //       setIsLoading(false)
-  //       router.push("/")
-  //       // router.push("/host/invite-link")
-  //     } else {
-  //       setIsLoading(false)
-  //       console.log("Failed to share üntz")
-  //     }
-  //   } else {
-  //     setIsLoading(false)
-  //     console.log("Failed to share üntz")
-  //   }
-  // }
-
   async function handleShareUntz() {
     setIsLoading(true)
     const response = await fetch("/api/add-songs", {
@@ -77,22 +41,9 @@ export default function NewUntz() {
         }),
       })
       if (response.ok) {
-        console.log('waiting to select songs');
-        const response = await fetch("/api/select-songs", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
-        if (response.ok) {
-          console.log(response);
-          setIsLoading(false)
-          // router.push("/")
-          // router.push("/host/invite-link")
-        } else {
-          setIsLoading(false)
-          console.log("Failed to share üntz")
-        }
+        setIsLoading(false)
+        // router.push("/")
+        router.push("/host/invite-link")
       } else {
         setIsLoading(false)
         console.log("Failed to share üntz")
@@ -103,10 +54,11 @@ export default function NewUntz() {
     }
   }
 
+
   return (
       <Layout>
           <Head>
-            <title>üntz</title>
+            <title>new üntz</title>
             <meta name="description" content="playlists for every party" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
