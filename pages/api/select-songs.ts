@@ -40,22 +40,10 @@ export default async function handler(
       return;
       }
 
-    console.log('party requests')
-    console.log(party.requests)
     const requests = party.requests;
-    console.log('encode stringify requests')
-    console.log(encodeURIComponent(JSON.stringify(requests)))
-    // then i need to send that list of uris as a parameter to the python endpoint
-    // const playlistResponse = await fetch("https://untz-backend.azurewebsites.net/api/generate-playlist", {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(requests),
-    //   })
+    // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
     const playlistResponse = await fetch(`https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
     // const res = await axios.get(`/api/dashboard?partyId=${partyId}`);
-    console.log('generate playlist returned')
     if (playlistResponse.ok) {
         const playlist = await playlistResponse.json()
         console.log('generated playlist successfully')
