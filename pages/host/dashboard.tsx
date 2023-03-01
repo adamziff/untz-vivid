@@ -41,13 +41,7 @@ const Dashboard: NextPage = () => {
 
   const handleGeneratePlaylistClick = async () => {
     try {
-      const res = await fetch("/api/select-songs", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(partyId),
-        })
+      const res = await fetch(`/api/select-songs?partyId=${encodeURIComponent(JSON.stringify(partyId))}`);
       if (res.ok) {
           const songs = await res.json()
           console.log('selected songs')

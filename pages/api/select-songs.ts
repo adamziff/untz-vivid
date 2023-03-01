@@ -19,9 +19,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log('req body')
-  console.log(req.body)
-  const partyId = req.body;
+  console.log('req query')
+  console.log(req.query)
+  const partyId = req.query.partyId;
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
   if (allowedOrigins.includes(origin)) {
@@ -40,10 +40,17 @@ export default async function handler(
       res.status(404).json({ message: 'Party not found', data: '' });
       return;
       }
+    else {
+      console.log('party found')
+    }
 
-    const requests = party.requests;
+    const users = party.requests;
+    console.log('requests')
+    console.log(users)
+    console.log(encodeURIComponent(JSON.stringify(users)))
+    console.log('generating playlist')
     // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
-    const playlistResponse = await fetch(`https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
+    const playlistResponse = await fetch(`https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(users))}`);
     // const res = await axios.get(`/api/dashboard?partyId=${partyId}`);
     console.log('generate-playlist returned')
     if (playlistResponse.ok) {
