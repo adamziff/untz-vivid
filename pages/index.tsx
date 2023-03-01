@@ -53,7 +53,7 @@ const Home: NextPage = () => {
               ür next party starts here
             </p>
         
-            {data ? <p>{data.data.data}</p> : <p>Loading...</p>}
+            {/* {data ? <p>{data.data.data}</p> : <p>Loading...</p>} */}
             <div className='p-3'></div>
         
             <Link href="/host/new-untz">
@@ -86,21 +86,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
-
-
-// async function getDataFromAzure(setData: any) {
-//   const response = await fetch("/api/select-songs", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//     }
-//   })
-//   if (response.ok) {
-//     console.log(response.formData);
-//     // router.push("/")
-//     // router.push("/host/invite-link")
-//     setData(response.formData);
-//   } else {
-//     console.log("Failed to access select-songs")
-//   }
-// }

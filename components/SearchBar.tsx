@@ -93,7 +93,7 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
             <li key={song.id} 
                 className="p-2 text-black"
                 onClick={() => handleSelectedSongClick(song)}>
-             {song.name}-{song.artists[0].name}
+             {song.name} - {song.artists[0].name}
             </li>
           ))}
         </ul>

@@ -29,7 +29,7 @@ const Dashboard: NextPage = () => {
             setSongs(songs.data)
           } else {
             setSongs([]);
-            console.log("Failed to share üntz")
+            console.log("Failed to get requested songs from db")
           }
       } catch (error) {
         console.log(error);
@@ -38,6 +38,29 @@ const Dashboard: NextPage = () => {
 
 //     fetchData();
 //   }, [partyId]);
+
+  const handleGeneratePlaylistClick = async () => {
+    try {
+      const res = await fetch("/api/select-songs", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(partyId),
+        })
+      if (res.ok) {
+          const songs = await res.json()
+          console.log('selected songs')
+          console.log(songs.data)
+          // setSongs(songs.data)
+        } else {
+          // setSongs([]);
+          console.log("Failed to select songs")
+        }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleMustPlayClick = async (songId: string) => {
     try {
@@ -79,6 +102,10 @@ const Dashboard: NextPage = () => {
 
       <button onClick={fetchData} className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
             refresh dashboard data
+        </button>
+
+        <button onClick={handleGeneratePlaylistClick} className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold">
+            generate playlist
         </button>
 
       {!songs || songs.length === 0 ? (

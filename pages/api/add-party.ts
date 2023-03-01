@@ -20,7 +20,7 @@ const testParty = new Party({
   attendees: 0, 
   host_id: '', 
   access_code: '0',
-  requests: [['a', 'b'], ['c', 'd']]
+  requests: [['7LP4Es66zdY7CyjepqmvAg', '27NovPIUIRrOZoCHxABJwK'], ['7LP4Es66zdY7CyjepqmvAg', '27NovPIUIRrOZoCHxABJwK'], ['6I9VzXrHxO9rA9A5euc8Ak', '2gam98EZKrF9XuOkU13ApN', '4omisSlTk6Dsq2iQD7MA07', '7xYnUQigPoIDAMPVK79NEq', '3uoQULcUWfnt6nc6J7Vgai']]
 });
 
 const allowedOrigins = [
