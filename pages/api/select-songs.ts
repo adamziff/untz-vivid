@@ -19,7 +19,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  req.setTimeout(300000);
+  req.setTimeout(600000);
   console.log('req query')
   console.log(req.query)
   const partyId = req.query.partyId;

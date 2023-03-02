@@ -30,9 +30,9 @@ const Home: NextPage = () => {
   const accessCode = 0;
   useEffect(() => {
     // axios.get('https://untz-backend.azurewebsites.net/api/data').then(response => {
-    // axios.get('http://127.0.0.1:8000/api/data').then(response => {
-      // setData(response.data.data);
-    // });
+    axios.get('http://127.0.0.1:8000/api/data').then(response => {
+      setData(response.data.data);
+    });
     getDataFromAzure(setData);
   }, []);
   return (
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
               ür next party starts here
             </p>
         
-            {/* {data ? <p>{data.data.data}</p> : <p>Loading...</p>} */}
+            {data ? <p>{data}</p> : <p>Loading...</p>}
             <div className='p-3'></div>
         
             <Link href="/host/new-untz">
