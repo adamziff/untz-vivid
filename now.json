@@ -1,0 +1,11 @@
+{
+    "version": 2,
+    "name": "untz",
+    "build": {
+      "timeout": 150000
+    },
+    "routes": [
+      { "src": "/(.*)", "dest": "/index.html" }
+    ]
+  }
+  
