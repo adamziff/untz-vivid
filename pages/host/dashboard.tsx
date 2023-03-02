@@ -11,6 +11,21 @@ const Dashboard: NextPage = () => {
   const router = useRouter()
   const partyId = router.query.partyId as string;
 
+  // const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   // fetch('https://untz.azurewebsites.net/api/data')
+  //   fetch('/api/hello')
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       console.log(response)
+  //       setData(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
 //   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -95,6 +110,7 @@ const Dashboard: NextPage = () => {
           </Head>
     <div className="p-8">
       <h1 className="text-4xl font-bold mb-8">Party Dashboard</h1>
+      {/* {data ? <p>{data}</p> : <p>Loading...</p>} */}
 
       <button onClick={fetchData} className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
             refresh dashboard data
