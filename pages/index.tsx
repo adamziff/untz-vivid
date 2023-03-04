@@ -8,32 +8,15 @@ import axios from 'axios'
 import Layout from '../components/Layout'
 
 
-async function getDataFromAzure(setData: any) {
-  try {
-    const response = await fetch("/api/select-songs");
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      setData(data);
-    } else {
-      throw new Error("Failed to access select-songs");
-    }
-  } catch (error) {
-    console.error(error);
-    // handle error here (e.g. display an error message)
-  }
-}
-
-
 const Home: NextPage = () => {
   const [data, setData] = useState<any>(null);
   const accessCode = 0;
   useEffect(() => {
-    // axios.get('https://untz-backend.azurewebsites.net/api/data').then(response => {
-    axios.get('http://127.0.0.1:8000/api/data').then(response => {
+    axios.get('https://untz-backend.azurewebsites.net/api/data').then(response => {
+    // axios.get('http://127.0.0.1:8000/api/data').then(response => {
       setData(response.data.data);
     });
-    getDataFromAzure(setData);
+    // getDataFromAzure(setData);
   }, []);
   return (
     <Layout>

@@ -27,10 +27,9 @@ export default async function handler(
     console.log('Connected to MongoDB Atlas');
 
     console.log(req.body)
-    const partyId = req.body;
-    console.log(typeof partyId)
+    const accessCode = req.body;
 
-    const songs: SongType[] = await Song.find({ party_id: partyId });
+    const songs: SongType[] = await Song.find({ party_ac: accessCode });
     console.log('server songs')
     console.log(songs)
     res.status(200).json({data: songs});

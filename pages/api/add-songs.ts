@@ -17,7 +17,7 @@ const testSong1 = new Song({
   request_count: 5,
   play: 1,
   spotify_id: 'asdf',
-  party_id: 'tyui',
+  party_ac: 'tyui',
 });
 
 const testSong2 = new Song({
@@ -27,7 +27,7 @@ const testSong2 = new Song({
   request_count: 2,
   play: 0,
   spotify_id: 'fdsa',
-  party_id: 'ghkj',
+  party_ac: 'ghkj',
 });
 
 const testSong3 = new Song({
@@ -37,7 +37,7 @@ const testSong3 = new Song({
   request_count: 7,
   play: -1,
   spotify_id: 'qwer',
-  party_id: 'rewq',
+  party_ac: 'rewq',
 });
 
 const testParty = new Party({ 

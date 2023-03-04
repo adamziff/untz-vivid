@@ -7,7 +7,7 @@ export interface Song {
     request_count: number,
     play: number,
     spotify_id: string,
-    party_id: string,
+    party_ac: string,
 }
 
 export const spotifyToSongs = (spotifyData: Array<object>, play: number): Array<Song> => {
@@ -20,7 +20,7 @@ export const spotifyToSongs = (spotifyData: Array<object>, play: number): Array<
       request_count: 0,
       play: play,
       spotify_id: obj.uri,
-      party_id: '0',
+      party_ac: '0',
     };
     return song;
   });
@@ -33,7 +33,7 @@ export const songSchema = new mongoose.Schema<Song>({
     request_count: Number,
     play: Number,
     spotify_id: String,
-    party_id: String,
+    party_ac: String,
   });
 
 export default mongoose.models.Song || mongoose.model<Song>('Song', songSchema, 'songs');

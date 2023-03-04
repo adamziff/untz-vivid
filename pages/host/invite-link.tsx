@@ -9,7 +9,7 @@ import Layout from '../../components/Layout'
 
 const InviteLink: NextPage = () => {
 
-  const partyId = 0;
+  const accessCode = 0;
 
   return (
     <Layout>
@@ -29,7 +29,7 @@ const InviteLink: NextPage = () => {
               ür next party starts here
             </p>
                     
-            <Link href={`/host/dashboard?partyId=${partyId}`}>
+            <Link href={`/host/dashboard?accessCode=${accessCode}`}>
               <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
                 dashboard
               </button>

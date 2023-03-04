@@ -19,10 +19,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  req.setTimeout(600000);
   console.log('req query')
   console.log(req.query)
-  const partyId = req.query.partyId;
+  const accessCode = req.query.accessCode;
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
   if (allowedOrigins.includes(origin)) {
@@ -31,11 +30,11 @@ export default async function handler(
 
   try {
 
-    // first i need to get the party from the database that matches the partyId, and get the list of user uris from that
+    // first i need to get the party from the database that matches the accessCode, and get the list of user uris from that
     await dbConnect();
 
     // Find the party with the given access code
-    const party = await Party.findOne({ party_id: partyId });
+    const party = await Party.findOne({ party_ac: accessCode });
     if (!party) {
       console.log('select-songs.tsx: party not found')
       res.status(404).json({ message: 'Party not found', data: '' });
@@ -49,10 +48,11 @@ export default async function handler(
     console.log('requests')
     console.log(users)
     console.log(encodeURIComponent(JSON.stringify(users)))
+    const energyCurve = [0.3, 0.5, 0.9, 0.8, 0.7]
     console.log('generating playlist')
     // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(requests))}`);
-    const playlistResponse = await fetch(`https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(users))}`);
-    // const res = await axios.get(`/api/dashboard?partyId=${partyId}`);
+    const playlistResponse = await fetch(`https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(users))}&energy_curve=${encodeURIComponent(JSON.stringify(energyCurve))}`);
+    // const res = await axios.get(`/api/dashboard?accessCode=${accessCode}`);
     console.log('generate-playlist returned')
     if (playlistResponse.ok) {
         const playlist = await playlistResponse.json()

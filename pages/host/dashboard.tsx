@@ -5,11 +5,12 @@ import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import Layout from '../../components/Layout';
 import Head from 'next/head';
+import Link from 'next/link';
 
 const Dashboard: NextPage = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const router = useRouter()
-  const partyId = router.query.partyId as string;
+  const accessCode = router.query.accessCode as string;
 
   // const [data, setData] = useState(null);
 
@@ -34,9 +35,9 @@ const Dashboard: NextPage = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(partyId),
+            body: JSON.stringify(accessCode),
           })
-        // const res = await axios.get(`/api/dashboard?partyId=${partyId}`);
+        // const res = await axios.get(`/api/dashboard?accessCode=${accessCode}`);
         if (res.ok) {
             const songs = await res.json()
             console.log('client songs')
@@ -52,18 +53,22 @@ const Dashboard: NextPage = () => {
     };
 
 //     fetchData();
-//   }, [partyId]);
+//   }, [accessCode]);
 
   const handleGeneratePlaylistClick = async () => {
     try {
-      const res = await fetch(`/api/select-songs?partyId=${encodeURIComponent(JSON.stringify(partyId))}`);
+      const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, { timeout: 300000 } as any);
       if (res.ok) {
           const songs = await res.json()
           console.log('selected songs')
-          console.log(songs.data)
-          // setSongs(songs.data)
+          console.log(songs.data.tracks.uri)
+          const createPlaylistRes = await fetch(`/api/playlist?songs=${encodeURIComponent(JSON.stringify(songs.data.tracks.uri))}`);
+          if (createPlaylistRes.ok) {
+            console.log('playlist created! now notify the user')
+          } else {
+          console.log("dashboard.tsx: Failed to create playlist on user account")
+          }
         } else {
-          // setSongs([]);
           const error = await res.json()
           console.log("dashboard.tsx: Failed to select songs")
           console.log(error)
@@ -72,6 +77,32 @@ const Dashboard: NextPage = () => {
       console.log(error);
     }
   }
+
+  const handleCreateTestPlaylistClick = async () => {
+    try {
+      const res = await fetch(`/api/spotify-auth-code-url?accessCode=${accessCode}`);
+      if (res.ok) {
+          const data = await res.json()
+          console.log('url')
+          console.log(data.data)
+          router.push(data.data)
+          // const createPlaylistRes = await fetch(`/api/playlist?songs=${encodeURIComponent(JSON.stringify(songs.data.tracks.uri))}`);
+          // if (createPlaylistRes.ok) {
+          //   console.log('playlist created! now notify the user')
+          // } else {
+          // console.log("dashboard.tsx: Failed to create playlist on user account")
+          // }
+        } else {
+          const error = await res.json()
+          console.log("dashboard.tsx: Failed to create test playlist")
+          console.log(error)
+        }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
   const handleMustPlayClick = async (songId: string) => {
     try {
@@ -117,7 +148,11 @@ const Dashboard: NextPage = () => {
         </button>
 
         <button onClick={handleGeneratePlaylistClick} className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold">
-            generate playlist
+            generate test playlist
+        </button>
+
+        <button onClick={handleCreateTestPlaylistClick} className="bg-black text-blue-500 rounded-md px-3 py-1 font-bold">
+            create test playlist
         </button>
 
       {!songs || songs.length === 0 ? (
