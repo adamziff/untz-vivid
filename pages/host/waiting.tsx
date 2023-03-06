@@ -37,18 +37,21 @@ const Waiting: NextPage = () => {
 
     const selectSongs = async (accessCode: string) => {
         try {
-          const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, { timeout: 300000 } as any);
-          if (res.ok) {
-              const songs = await res.json()
-            //   console.log('selected songs')
-            //   console.log(songs)
-            //   console.log(songs.data.tracks.uri)
-              return (songs.data.tracks)
-            } else {
-              const error = await res.json()
-              console.log("dashboard.tsx: Failed to select songs")
-              console.log(error)
-            }
+            const fetchOptions: Partial<RequestInit> & { timeout: number } = {
+                timeout: 300000,
+              };
+            const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, fetchOptions);
+            if (res.ok) {
+                const songs = await res.json()
+                //   console.log('selected songs')
+                //   console.log(songs)
+                //   console.log(songs.data.tracks.uri)
+                return (songs.data.tracks)
+                } else {
+                const error = await res.json()
+                console.log("dashboard.tsx: Failed to select songs")
+                console.log(error)
+                }
         } catch (error) {
           console.log(error);
         }
