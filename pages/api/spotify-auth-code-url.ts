@@ -26,8 +26,8 @@ export default function handler(
     const clientId = 'f5e1c0e33ba2435ca10ef8beb593984d';
     const clientSecret = process.env.CLIENT_SECRET;
     var scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'playlist-read-private', 'playlist-read-collaborative'],
-    redirectUri = 'http://localhost:3000/host/waiting', 
-    // redirectUri = 'https://www.untz.studio/host/waiting', 
+    // redirectUri = 'http://localhost:3000/host/waiting', 
+    redirectUri = 'https://www.untz.studio/host/waiting', 
     state=req.query.accessCode
 
     // Create the api object with the credentials
