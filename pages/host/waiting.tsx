@@ -16,11 +16,6 @@ const Waiting: NextPage = () => {
     // console.log('state')
     // console.log(state)
 
-    const testPlaylistSongs = ['spotify:track:6I9VzXrHxO9rA9A5euc8Ak',
-    'spotify:track:2gam98EZKrF9XuOkU13ApN',
-    'spotify:track:4omisSlTk6Dsq2iQD7MA07',
-    'spotify:track:7xYnUQigPoIDAMPVK79NEq',
-    'spotify:track:3uoQULcUWfnt6nc6J7Vgai']
     // const createPlaylist = async (songs: string[]) => {
     // try {
     //     console.log('waiting.tsx: generatePlaylistCalled')
@@ -88,8 +83,7 @@ const Waiting: NextPage = () => {
                     }
                 }
                 // Call createPlaylist after selectSongs
-                const playlistResponse = await createPlaylist(songs)
-                console.log(playlistResponse)
+                await createPlaylist(songs)
             } catch (error) {
                 console.log(error)
             }

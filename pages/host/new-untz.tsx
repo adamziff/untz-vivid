@@ -20,6 +20,9 @@ export default function NewUntz() {
 
   async function handleShareUntz() {
     setIsLoading(true)
+    const partyNameInput = document.getElementById('party-name') as HTMLInputElement
+    const durationInput = document.getElementById('duration') as HTMLInputElement
+
     const response = await fetch("/api/add-songs", {
       method: "POST",
       headers: {
@@ -37,6 +40,10 @@ export default function NewUntz() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          savedSongs,
+          savedSongsRed,
+          partyName: partyNameInput.value,
+          duration: parseInt(durationInput.value),
           bars,
         }),
       })
@@ -71,6 +78,7 @@ export default function NewUntz() {
                 <div className="py-5">
                   <label className="text-blue-300 text-3xl">party name:</label>
                   <input
+                    id="party-name"
                     placeholder="Charter Friday: Prism"
                     className="form-control md:px-10 p-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl outline-blue-300"
                   ></input>
@@ -79,6 +87,7 @@ export default function NewUntz() {
                 <div className="py-5">
                   <label className="text-blue-300 text-3xl">duration (min):</label>
                   <input
+                    id="duration"
                     placeholder="180"
                     className="form-control md:px-10 py-2 px-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl outline-blue-300"
                   ></input>

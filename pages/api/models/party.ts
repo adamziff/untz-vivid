@@ -5,12 +5,12 @@ export interface Party {
     duration: number, // minutes
     energy_curve: number[], // range = [0,1]
     chaos: number, // range: [0,100], low == focus on attendee picks, high == more recommendations from spotify included (hence more chaos)
-    date: Date,
     invite_link: string,
     attendees: number,
-    host_id: string,
     access_code: string,
     requests: string[][],
+    mustPlays: string[],
+    doNotPlays: string[],
 }
 
 const partySchema = new mongoose.Schema<Party>({
@@ -18,12 +18,12 @@ const partySchema = new mongoose.Schema<Party>({
     duration: Number,
     energy_curve: [Number],
     chaos: Number,
-    date: Date,
     invite_link: String,
     attendees: Number,
-    host_id: String,
     access_code: String,
     requests: [[String]],
+    mustPlays: [String],
+    doNotPlays: [String]
 });
 
 export default mongoose.models.Party || mongoose.model<Party>('Party', partySchema, 'parties');

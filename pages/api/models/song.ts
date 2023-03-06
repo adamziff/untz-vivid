@@ -26,6 +26,12 @@ export const spotifyToSongs = (spotifyData: Array<object>, play: number): Array<
   });
 };
 
+export const getSpotifyIds = (spotifyData: Array<object>): Array<string> => {
+  return spotifyData.map((obj: any) => {
+    return obj.uri;
+  });
+};
+
 export const songSchema = new mongoose.Schema<Song>({
     name: String,
     artist: String,
