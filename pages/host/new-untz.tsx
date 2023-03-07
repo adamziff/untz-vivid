@@ -8,7 +8,6 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import Layout from "../../components/Layout"
 import { Song } from "../api/models/song"
-import { Party } from "../api/models/party"
 
 export default function NewUntz() {
   const router = useRouter()
@@ -49,8 +48,8 @@ export default function NewUntz() {
       })
       if (response.ok) {
         setIsLoading(false)
-        // router.push("/")
-        router.push("/host/invite-link")
+        const data = await response.json()
+        router.push(`/host/invite-link?access_code=${data.accessCode}&invite_link=${data.inviteLink}`)
       } else {
         setIsLoading(false)
         console.log("Failed to share üntz")

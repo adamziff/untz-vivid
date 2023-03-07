@@ -4,8 +4,6 @@ import SearchBar from "../../components/SearchBar"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Layout from "../../components/Layout"
-import { Song } from "../api/models/song"
-import { Party } from "../api/models/party"
 
 export default function RequestSongs() {
   const router = useRouter()
@@ -13,7 +11,7 @@ export default function RequestSongs() {
   const [savedSongs, setSavedSongs] = useState<any[]>([]);
   // const [bars, setBars] = useState<number[]>([]);
 //   const accessCode = '0';
-  const accessCode = router.query.accessCode as string;
+  const guestCode = router.query.guestCode as string;
 
   async function handleSubmitSongs() {
     setIsLoading(true)
@@ -23,7 +21,7 @@ export default function RequestSongs() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        accessCode,
+        guestCode,
         savedSongs,
       }),
     })

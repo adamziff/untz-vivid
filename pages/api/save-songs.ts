@@ -2,7 +2,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from './dbconnect';
 import Party from './models/party';
-import { Song } from './models/song';
 
 const allowedOrigins = [
     'www.untz.studio',
@@ -11,8 +10,8 @@ const allowedOrigins = [
   ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { accessCode, savedSongs } = req.body;
-    console.log(accessCode)
+    const { guestCode, savedSongs } = req.body;
+    console.log(guestCode)
     console.log(savedSongs)
 
     // Set up CORS
@@ -23,8 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         await dbConnect();
 
-        // Find the party with the given access code
-        const party = await Party.findOne({ access_code: accessCode });
+        // Find the party with the given guest code
+        const party = await Party.findOne({ guest_code: guestCode });
 
         if (!party) {
         res.status(404).json({ error: 'Party not found' });

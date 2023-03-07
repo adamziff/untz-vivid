@@ -3,13 +3,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Layout from '../../components/Layout'
+import { useRouter } from 'next/router'
 
 const InviteLink: NextPage = () => {
-
-  const accessCode = 0;
+  const router = useRouter()
+  console.log(router.query)
+  const accessCode = router.query.access_code as string;
+  const inviteLink = router.query.invite_link as string;
 
   return (
     <Layout>
@@ -25,9 +26,12 @@ const InviteLink: NextPage = () => {
               invite link
             </h1>
         
-            <p className="text-emerald-300 p-10 text-center">
-              ür next party starts here
-            </p>
+            <Link href={inviteLink}>
+              <p className="text-emerald-300 p-10 text-center">
+                {/* ür next party starts here */}
+                {inviteLink}
+              </p>
+            </Link>
                     
             <Link href={`/host/dashboard?accessCode=${accessCode}`}>
               <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">

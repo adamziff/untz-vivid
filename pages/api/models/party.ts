@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const { v4: uuidv4 } = require('uuid');
 
 
-export interface Party {
+export interface PartyType {
     name: string, 
     duration: number, // minutes
     energy_curve: number[], // range = [0,1]
@@ -18,7 +18,7 @@ export interface Party {
     doNotPlays: string[],
 }
 
-const partySchema = new mongoose.Schema<Party>({
+const partySchema = new mongoose.Schema<PartyType>({
     name: String,
     duration: Number,
     energy_curve: [Number],
@@ -33,9 +33,9 @@ const partySchema = new mongoose.Schema<Party>({
 });
 
 // Middleware to set the invite_link field when a new Party is created
-partySchema.pre('save', function(this: Party, next) {
+partySchema.pre('save', function(this: PartyType, next) {
     this.invite_link = `https://untz.studio/guest/request-songs?guestCode=${this.guest_code}`;
     next();
 });
 
-export default mongoose.models.Party || mongoose.model<Party>('Party', partySchema, 'parties');
+export default mongoose.models.Party || mongoose.model<PartyType>('Party', partySchema, 'parties');
