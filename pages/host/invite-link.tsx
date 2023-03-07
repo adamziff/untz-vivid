@@ -10,7 +10,7 @@ const InviteLink: NextPage = () => {
   const router = useRouter()
   console.log(router.query)
   const accessCode = router.query.access_code as string;
-  const inviteLink = router.query.invite_link as string;
+  const inviteLink = router.query.invite_link ? router.query.invite_link as string: '/';
 
   return (
     <Layout>
