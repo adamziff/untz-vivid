@@ -11,6 +11,7 @@ const Dashboard: NextPage = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const router = useRouter()
   const accessCode = router.query.accessCode as string;
+  console.log(accessCode)
 
   // const [data, setData] = useState(null);
 
@@ -30,18 +31,18 @@ const Dashboard: NextPage = () => {
 //   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const res = await fetch("/api/dashboard", {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(accessCode),
-        //   })
+        const res = await fetch(`/api/dashboard?accessCode=${accessCode}`)//, {
+          //   method: "GET",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          // body: JSON.stringify(accessCode),
+          // })
         // const res = await axios.get(`/api/dashboard?accessCode=${accessCode}`);
-        const res = await fetch(`/api/get-party?accessCode=${accessCode}`)
+        // const res = await fetch(`/api/get-party?accessCode=${accessCode}`)
         if (res.ok) {
             const party = await res.json()
-            const songs = party.data.requests.flat().concat(party.data.must_plays, party.data.do_not_plays)
+            const songs = party.data
             console.log('client songs')
             console.log(songs)
             setSongs(songs)
@@ -149,13 +150,13 @@ const Dashboard: NextPage = () => {
                 <div className="flex justify-between">
                     <p className="text-sm text-gray-500">{song.request_count} Requests</p>
                     {song.play === 1 ? (
-                    <div className="border border-emerald-300 text-white px-4 py-2 rounded-lg">
+                    <div className="bg-emerald-300 text-white px-4 py-2 rounded-lg">
                         Must Play
                     </div>
                     ) : (
                     <button
                         onClick={() => handleMustPlayClick(song.spotify_id)}
-                        className="bg-emerald-300 text-white px-4 py-2 rounded-lg"
+                        className="border border-emerald-300 text-white px-4 py-2 rounded-lg"
                     >
                         Must Play
                     </button>

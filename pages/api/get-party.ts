@@ -18,8 +18,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log(req.body)
-  const { accessCode } = req.body
+//   console.log(req.query)
+  const { accessCode } = req.query
+//   console.log(accessCode)
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
   if (allowedOrigins.includes(origin)) {

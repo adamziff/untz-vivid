@@ -22,7 +22,7 @@ export default function NewUntz() {
     const partyNameInput = document.getElementById('party-name') as HTMLInputElement
     const durationInput = document.getElementById('duration') as HTMLInputElement
 
-    const response = await fetch("/api/add-songs", {
+    const partyResponse = await fetch("/api/add-party", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,10 +30,14 @@ export default function NewUntz() {
       body: JSON.stringify({
         savedSongs,
         savedSongsRed,
+        partyName: partyNameInput.value,
+        duration: parseInt(durationInput.value),
+        bars,
       }),
     })
-    if (response.ok) {
-      const response = await fetch("/api/add-party", {
+    if (partyResponse.ok) {
+      const { message, accessCode, inviteLink } = await partyResponse.json()
+      const response = await fetch("/api/add-songs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,15 +45,13 @@ export default function NewUntz() {
         body: JSON.stringify({
           savedSongs,
           savedSongsRed,
-          partyName: partyNameInput.value,
-          duration: parseInt(durationInput.value),
-          bars,
+          accessCode
         }),
       })
       if (response.ok) {
         setIsLoading(false)
-        const data = await response.json()
-        router.push(`/host/invite-link?access_code=${data.accessCode}&invite_link=${data.inviteLink}`)
+        // const data = await response.json()
+        router.push(`/host/invite-link?access_code=${accessCode}&invite_link=${inviteLink}`)
       } else {
         setIsLoading(false)
         console.log("Failed to share üntz")

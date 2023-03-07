@@ -10,49 +10,6 @@ type Data = {
   message: string;
 };
 
-const testSong1 = new Song({
-  name: 'Levels',
-  artist: 'Avicii',
-  duration: 4, // minutes (rounded)
-  request_count: 5,
-  play: 1,
-  spotify_id: 'asdf',
-  party_ac: 'tyui',
-});
-
-const testSong2 = new Song({
-  name: 'Animals',
-  artist: 'Martin Garrix',
-  duration: 3, // minutes (rounded)
-  request_count: 2,
-  play: 0,
-  spotify_id: 'fdsa',
-  party_ac: 'ghkj',
-});
-
-const testSong3 = new Song({
-  name: 'No Hands',
-  artist: 'Waka Flocka Flame',
-  duration: 5, // minutes (rounded)
-  request_count: 7,
-  play: -1,
-  spotify_id: 'qwer',
-  party_ac: 'rewq',
-});
-
-const testParty = new Party({ 
-  name: 'Charter Friday', 
-  duration: 180, 
-  energy_curve: [0.3, 0.5, 0.8, 0.6], 
-  chaos: 0, 
-  date: new Date(), 
-  invite_link: '', 
-  attendees: 0, 
-  host_id: '', 
-  access_code: '',
-});
-
-const testSongs = [testSong1, testSong2, testSong3]
 
 const allowedOrigins = [
   'www.untz.studio',
@@ -66,8 +23,9 @@ export default async function handler(
 ) {
   // console.log(req.body.savedSongs)
   // console.log(req.body.savedSongsRed)
-  const mustPlaySongs = spotifyToSongs(req.body.savedSongs, 1);
-  const doNotPlaySongs = spotifyToSongs(req.body.savedSongsRed, -1);
+  const accessCode = req.body.accessCode
+  const mustPlaySongs = spotifyToSongs(req.body.savedSongs, 1, accessCode);
+  const doNotPlaySongs = spotifyToSongs(req.body.savedSongsRed, -1, accessCode);
   console.log(mustPlaySongs);
   console.log(doNotPlaySongs);
   // Set up CORS

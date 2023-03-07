@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from './dbconnect';
 import Party from './models/party';
+import Song, { spotifyToSongs } from './models/song';
 
 const allowedOrigins = [
     'www.untz.studio',
@@ -35,12 +36,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // Extract the Spotify IDs from the list of songs
         const spotifyIds = savedSongs.map((song: any) => song.uri);
+        await party.save();
 
         // Append the Spotify IDs to the requests field of the party
         party.requests.push(spotifyIds);
-        await party.save();
+        // Add songs to the song table with the right access code
+        const allSongs = spotifyToSongs(savedSongs, 0, party.access_code)
+        await Song.insertMany(allSongs)
+        .then((result: any) => {
+            console.log(result)
+            // Send a success message
+            res.status(200).json({ message: 'Songs added successfully!' });
+        })
+        .catch((error: any) => {
+            console.log(error)
+            res.status(500).json({ message: 'Internal server error' });
+        });
 
-        res.status(200).json({ success: true });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
