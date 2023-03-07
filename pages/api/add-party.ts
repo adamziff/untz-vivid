@@ -66,7 +66,7 @@ export default async function handler(
           res.status(500).json({ message: 'Internal server error' });
         } else {
           console.log('Party saved successfully!');
-          res.status(200).json({ message: 'Songs added successfully!' });
+          res.status(200).json({ message: 'Party added successfully!' });
         }
       });
 

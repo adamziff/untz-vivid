@@ -5,6 +5,8 @@ import styles from '../../styles/Home.module.css'
 import Layout from '../../components/Layout'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import dbConnect from '../api/dbconnect'
+import Party from '../api/models/party'
 
 
 const Waiting: NextPage = () => {
@@ -37,21 +39,64 @@ const Waiting: NextPage = () => {
 
     const selectSongs = async (accessCode: string) => {
         try {
-            const fetchOptions: Partial<RequestInit> & { timeout: number } = {
+            const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
+            if (partyResponse.ok) {
+                const partyData = await partyResponse.json()
+                console.log('partyData')
+                console.log(partyData)
+                const party = partyData.data
+              
+                const users = party.requests;
+                const energyCurve = party.energy_curve;
+                const chaos = party.chaos
+                const numSongs = Math.round(party.duration/3) // assumes average 3 minutes / song
+
+                console.log('generating playlist')
+                const fetchOptions: Partial<RequestInit> & { timeout: number } = {
                 timeout: 300000,
-              };
-            const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, fetchOptions);
-            if (res.ok) {
-                const songs = await res.json()
-                //   console.log('selected songs')
-                //   console.log(songs)
-                //   console.log(songs.data.tracks.uri)
-                return (songs.data.tracks)
+                };
+                const playlistResponse = await fetch(
+                // `http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(
+                `https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(
+                    JSON.stringify(users)
+                )}&energy_curve=${encodeURIComponent(
+                    JSON.stringify(energyCurve)
+                )}&chaos=${chaos}&num_songs_to_select=${numSongs}`,
+                fetchOptions
+                );
+                // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(users))}&energy_curve=${encodeURIComponent(JSON.stringify(energyCurve))}&chaos=${chaos}&num_songs_to_select=${numSongs}`);
+                if (playlistResponse.ok) {
+                    const playlist = await playlistResponse.json()
+                    console.log('generated playlist successfully')
+                    console.log(playlist)
+                    console.log(playlist.tracks.length + ' songs')
+                    return playlist.tracks
                 } else {
-                const error = await res.json()
-                console.log("dashboard.tsx: Failed to select songs")
-                console.log(error)
+                    const playlistError = await playlistResponse.json()
+                    console.log(playlistError)
+                    return [];
                 }
+            } else {
+                console.log("Failed to get party")
+            }
+
+
+
+            // const fetchOptions: Partial<RequestInit> & { timeout: number } = {
+            //     timeout: 300000,
+            //   };
+            // const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, fetchOptions);
+            // if (res.ok) {
+            //     const songs = await res.json()
+            //     //   console.log('selected songs')
+            //     //   console.log(songs)
+            //     //   console.log(songs.data.tracks.uri)
+            //     return (songs.data.tracks)
+            //     } else {
+            //     const error = await res.json()
+            //     console.log("dashboard.tsx: Failed to select songs")
+            //     console.log(error)
+            //     }
         } catch (error) {
           console.log(error);
         }
