@@ -27,11 +27,16 @@ const InviteLink: NextPage = () => {
             </h1>
         
             <Link href={inviteLink}>
-              <p className="text-emerald-300 p-10 text-center">
+              <button className="text-emerald-300 p-3 text-center">
+                {/* ür next party starts here */}
+                Invite Link
+              </button>
+            </Link>
+
+            <p className="text-emerald-300 p-10 text-center">
                 {/* ür next party starts here */}
                 {inviteLink}
               </p>
-            </Link>
                     
             <Link href={`/host/dashboard?accessCode=${accessCode}`}>
               <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">

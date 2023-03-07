@@ -55,28 +55,6 @@ const Dashboard: NextPage = () => {
 //     fetchData();
 //   }, [accessCode]);
 
-  const handleGeneratePlaylistClick = async () => {
-    try {
-      const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, { timeout: 300000 } as any);
-      if (res.ok) {
-          const songs = await res.json()
-          console.log('selected songs')
-          console.log(songs.data.tracks.uri)
-          const createPlaylistRes = await fetch(`/api/playlist?songs=${encodeURIComponent(JSON.stringify(songs.data.tracks.uri))}`);
-          if (createPlaylistRes.ok) {
-            console.log('playlist created! now notify the user')
-          } else {
-          console.log("dashboard.tsx: Failed to create playlist on user account")
-          }
-        } else {
-          const error = await res.json()
-          console.log("dashboard.tsx: Failed to select songs")
-          console.log(error)
-        }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const handleCreateTestPlaylistClick = async () => {
     try {
@@ -145,10 +123,6 @@ const Dashboard: NextPage = () => {
 
       <button onClick={fetchData} className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
             refresh dashboard data
-        </button>
-
-        <button onClick={handleGeneratePlaylistClick} className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold">
-            generate test playlist
         </button>
 
         <button onClick={handleCreateTestPlaylistClick} className="bg-black text-blue-500 rounded-md px-3 py-1 font-bold">

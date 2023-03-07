@@ -45,11 +45,11 @@ const Home: NextPage = () => {
               </button>
             </Link>
             <div className='p-3'></div>
-            <Link href={`/guest/request-songs?accessCode=${accessCode}`}>
+            {/* <Link href={`/guest/request-songs?accessCode=${accessCode}`}>
               <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
                 request songs
               </button>
-            </Link>
+            </Link> */}
         </div>
 
       <footer className={styles.footer}>
