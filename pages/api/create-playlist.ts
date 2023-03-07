@@ -9,8 +9,8 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 const clientId = 'f5e1c0e33ba2435ca10ef8beb593984d';
 const clientSecret = process.env.CLIENT_SECRET;
-const redirectUri = 'http://localhost:3000/host/waiting'
-// const redirectUri = 'https://www.untz.studio/host/waiting', 
+// const redirectUri = 'http://localhost:3000/host/waiting'
+const redirectUri = 'https://www.untz.studio/host/waiting'
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 var spotifyApi = new SpotifyWebApi({
