@@ -36,7 +36,7 @@ export default async function handler(
 ) {
   console.log(req.body)
   const { savedSongs, savedSongsRed, partyName, duration, bars } = req.body
-  const accessCode = '0'
+  // const accessCode = '0'
   const chaos = 20
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
@@ -53,8 +53,9 @@ export default async function handler(
         duration: duration, 
         energy_curve: bars.map((value: number) => value / 100), 
         chaos: chaos, 
-        invite_link: 'https://untz.studio/guest/request-songs?accessCode=' + accessCode, 
-        access_code: accessCode,
+        attendees: 0,
+        // invite_link: 'https://untz.studio/guest/request-songs?accessCode=' + accessCode, 
+        // access_code: accessCode,
         requests: [getSpotifyIds(savedSongs)],
         mustPlays: getSpotifyIds(savedSongs),
         doNotPlays: getSpotifyIds(savedSongsRed)

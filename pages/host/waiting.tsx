@@ -13,29 +13,7 @@ const Waiting: NextPage = () => {
     const router = useRouter()
     const code = router.query.code as string;
     const state = router.query.state as string;
-    // console.log('code')
-    // console.log(code)
-    // console.log('state')
-    // console.log(state)
 
-    // const createPlaylist = async (songs: string[]) => {
-    // try {
-    //     console.log('waiting.tsx: generatePlaylistCalled')
-    //     // console.log('code')
-    //     // console.log(code)
-    //     // console.log('state')
-    //     // console.log(state)
-    //     console.log(songs)
-    //     const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}`);
-    //     if (createPlaylistRes.ok) {
-    //         console.log('playlist created! now notify the user')
-    //     } else {
-    //         console.log("dashboard.tsx: Failed to create playlist on user account")
-    //     }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
     const selectSongs = async (accessCode: string) => {
         try {
@@ -56,7 +34,7 @@ const Waiting: NextPage = () => {
                 timeout: 300000,
                 };
                 const playlistResponse = await fetch(
-                // `http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(
+
                 `https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(
                     JSON.stringify(users)
                 )}&energy_curve=${encodeURIComponent(
@@ -64,7 +42,6 @@ const Waiting: NextPage = () => {
                 )}&chaos=${chaos}&num_songs_to_select=${numSongs}`,
                 fetchOptions
                 );
-                // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(users))}&energy_curve=${encodeURIComponent(JSON.stringify(energyCurve))}&chaos=${chaos}&num_songs_to_select=${numSongs}`);
                 if (playlistResponse.ok) {
                     const playlist = await playlistResponse.json()
                     console.log('generated playlist successfully')
@@ -80,23 +57,6 @@ const Waiting: NextPage = () => {
                 console.log("Failed to get party")
             }
 
-
-
-            // const fetchOptions: Partial<RequestInit> & { timeout: number } = {
-            //     timeout: 300000,
-            //   };
-            // const res = await fetch(`/api/select-songs?accessCode=${encodeURIComponent(JSON.stringify(accessCode))}`, fetchOptions);
-            // if (res.ok) {
-            //     const songs = await res.json()
-            //     //   console.log('selected songs')
-            //     //   console.log(songs)
-            //     //   console.log(songs.data.tracks.uri)
-            //     return (songs.data.tracks)
-            //     } else {
-            //     const error = await res.json()
-            //     console.log("dashboard.tsx: Failed to select songs")
-            //     console.log(error)
-            //     }
         } catch (error) {
           console.log(error);
         }
@@ -107,18 +67,12 @@ const Waiting: NextPage = () => {
             try {
                 const accessCode = state;
                 const songs = await selectSongs(accessCode);
-                // console.log('waiting.tsx: songs returned from selectSongs in waiting.tsx')
-                // console.log(songs)
+
                 
                 // Move createPlaylist inside the useEffect hook
                 const createPlaylist = async (songs: string[]) => {
                     try {
-                        // console.log('waiting.tsx: generatePlaylistCalled')
-                        // console.log('code')
-                        // console.log(code)
-                        // console.log('state')
-                        // console.log(state)
-                        // console.log('waiting.tsx: songs inside createPlaylist')
+
                         console.log(songs)
                         const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}`);
                         if (createPlaylistRes.ok) {
@@ -141,28 +95,6 @@ const Waiting: NextPage = () => {
             fetchData();
         }
     }, [code, state]);
-    
-
-    // useEffect(() => {
-    //     async function fetchData() {
-    //       try {
-    //             const accessCode = state // using the unique party id as the state
-    //             const songs = await selectSongs(accessCode);
-    //             console.log('songs returned from selectSongs in waiting.tsx')
-    //             console.log(songs)
-    //             // do something with the playlist data
-    //             const playlistResponse = await createPlaylist(songs)
-    //             console.log(playlistResponse)
-    //       } catch (error) {
-    //         // handle errors
-    //         console.log(error)
-    //       }
-    //     }
-    //     // Only run the effect when both code and state exist
-    //     if (code && state) {
-    //       fetchData();
-    //     }
-    //   }, [code && state]);
       
 
     return (
