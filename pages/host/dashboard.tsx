@@ -30,23 +30,26 @@ const Dashboard: NextPage = () => {
 //   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/dashboard", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(accessCode),
-          })
+        // const res = await fetch("/api/dashboard", {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(accessCode),
+        //   })
         // const res = await axios.get(`/api/dashboard?accessCode=${accessCode}`);
+        const res = await fetch(`/api/get-party?accessCode=${accessCode}`)
         if (res.ok) {
-            const songs = await res.json()
+            const party = await res.json()
+            const songs = party.data.requests.flat().concat(party.data.must_plays, party.data.do_not_plays)
             console.log('client songs')
-            console.log(songs.data)
-            setSongs(songs.data)
-          } else {
+            console.log(songs)
+            setSongs(songs)
+        } else {
             setSongs([]);
             console.log("Failed to get requested songs from db")
-          }
+        }
+
       } catch (error) {
         console.log(error);
       }

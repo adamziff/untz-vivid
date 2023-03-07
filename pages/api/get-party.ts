@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import Song, { songSchema } from './models/song';
 import Party from './models/party';
 import dbConnect from './dbconnect';
-import mongoose from 'mongoose';
-import { getSpotifyIds } from './models/song';
 
 // change this datatype to an interface that matches the response from mongo
 type Data = {
@@ -34,7 +31,7 @@ export default async function handler(
     console.log('Connected to MongoDB Atlas');
 
     // Find the party with the given access code
-    const party = await Party.findOne({ party_ac: accessCode });
+    const party = await Party.findOne({ access_code: accessCode });
     if (!party) {
         console.log('get-party.tsx: party not found')
         res.status(500).json({ message: 'Internal server error', data: {} });
