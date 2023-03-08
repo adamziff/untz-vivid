@@ -14,8 +14,8 @@ const Waiting: NextPage = () => {
     const code = router.query.code as string;
     const state = router.query.state as string;
 
-
-    const selectSongs = async (accessCode: string) => {
+    const selectSongs = async (accessCode: string): Promise<{ songs: string[]; partyName: string }> => {
+    // const selectSongs = async (accessCode: string) => {
         try {
             const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
             if (partyResponse.ok) {
@@ -47,18 +47,20 @@ const Waiting: NextPage = () => {
                     console.log('generated playlist successfully')
                     console.log(playlist)
                     console.log(playlist.tracks.length + ' songs')
-                    return playlist.tracks
+                    return {songs: playlist.tracks, partyName: party.name};
                 } else {
                     const playlistError = await playlistResponse.json()
                     console.log(playlistError)
-                    return [];
+                    return {songs: [], partyName: 'error'};
                 }
             } else {
                 console.log("Failed to get party")
+                return {songs: [], partyName: 'error'};
             }
 
         } catch (error) {
           console.log(error);
+          return {songs: [], partyName: 'error'};
         }
       }
 
@@ -66,15 +68,19 @@ const Waiting: NextPage = () => {
         async function fetchData() {
             try {
                 const accessCode = state;
-                const songs = await selectSongs(accessCode);
+                const {songs, partyName} = await selectSongs(accessCode);
+
+                // error handling
 
                 
                 // Move createPlaylist inside the useEffect hook
-                const createPlaylist = async (songs: string[]) => {
+                const createPlaylist = async (songs: string[], partyName: string) => {
                     try {
 
-                        console.log(songs)
-                        const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}`);
+                        // console.log(songs)
+                        console.log('waiting.tsx: partyName')
+                        console.log(partyName)
+                        const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
                         if (createPlaylistRes.ok) {
                             console.log('playlist created! now notify the user')
                         } else {
@@ -85,7 +91,7 @@ const Waiting: NextPage = () => {
                     }
                 }
                 // Call createPlaylist after selectSongs
-                await createPlaylist(songs)
+                await createPlaylist(songs, partyName)
             } catch (error) {
                 console.log(error)
             }
