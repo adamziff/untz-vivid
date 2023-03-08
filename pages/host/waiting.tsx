@@ -20,8 +20,6 @@ const Waiting: NextPage = () => {
             const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
             if (partyResponse.ok) {
                 const partyData = await partyResponse.json()
-                console.log('partyData')
-                console.log(partyData)
                 const party = partyData.data
               
                 const users = party.requests;
@@ -49,6 +47,8 @@ const Waiting: NextPage = () => {
                     console.log(playlist.tracks.length + ' songs')
                     return {songs: playlist.tracks, partyName: party.name};
                 } else {
+                    console.log("Playlist returned, response bad")
+                    console.log(partyResponse)
                     const playlistError = await playlistResponse.json()
                     console.log(playlistError)
                     return {songs: [], partyName: 'error'};
@@ -59,8 +59,9 @@ const Waiting: NextPage = () => {
             }
 
         } catch (error) {
-          console.log(error);
-          return {songs: [], partyName: 'error'};
+            console.log("Failed to generate playlist")
+            console.log(error);
+            return {songs: [], partyName: 'error'};
         }
       }
 
@@ -71,27 +72,26 @@ const Waiting: NextPage = () => {
                 const {songs, partyName} = await selectSongs(accessCode);
 
                 // error handling
-
-                
-                // Move createPlaylist inside the useEffect hook
-                const createPlaylist = async (songs: string[], partyName: string) => {
-                    try {
-
-                        // console.log(songs)
-                        console.log('waiting.tsx: partyName')
-                        console.log(partyName)
-                        const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
-                        if (createPlaylistRes.ok) {
-                            console.log('playlist created! now notify the user')
-                        } else {
-                            console.log("dashboard.tsx: Failed to create playlist on user account")
-                        }
-                    } catch (error) {
-                        console.log(error);
-                    }
+                if (songs.length === 0) {
+                    console.log("Failed to generate playlist")
                 }
-                // Call createPlaylist after selectSongs
-                await createPlaylist(songs, partyName)
+                else {
+                    // Move createPlaylist inside the useEffect hook
+                    const createPlaylist = async (songs: string[], partyName: string) => {
+                        try {
+                            const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
+                            if (createPlaylistRes.ok) {
+                                console.log('playlist created!')
+                            } else {
+                                console.log("waiting.tsx: Failed to create playlist on user account")
+                            }
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    // Call createPlaylist after selectSongs
+                    await createPlaylist(songs, partyName)
+                }
             } catch (error) {
                 console.log(error)
             }
