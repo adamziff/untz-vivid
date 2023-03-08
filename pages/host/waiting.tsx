@@ -69,8 +69,6 @@ const Waiting: NextPage = () => {
         async function fetchData() {
             try {
                 const accessCode = state;
-                console.log('waiting.tsx: auth code')
-                console.log(code)
                 const {songs, partyName} = await selectSongs(accessCode);
 
                 // error handling
