@@ -41,6 +41,8 @@ export default async function handler(
 
     const songs = req.query.songs ? JSON.parse(req.query.songs as string) as string[] : [];
     const authCode = req.query.code
+    console.log('create-playlist.ts: authCode')
+    console.log(authCode)
     const accessCode = req.query.accessCode
     const partyName = req.query.partyName
 
