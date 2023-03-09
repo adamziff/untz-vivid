@@ -49,11 +49,13 @@ export default function handler(
           },
           (err: any) => {
             console.error(err);
+            res.status(500).json(err);
           }
         );
     },
     (err: any) => {
       console.log('Something went wrong when retrieving an access token', err);
+      res.status(500).json(err);
     }
   );
 }
