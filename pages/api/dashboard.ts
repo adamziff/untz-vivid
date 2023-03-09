@@ -30,9 +30,13 @@ export default async function handler(
     const { accessCode } = req.query;
 
     const songs: SongType[] = await Song.find({ party_ac: accessCode });
+    const playOneSongs = songs.filter((song) => song.play === 1).sort((a, b) => b.request_count - a.request_count);
+    const playMinusOneSongs = songs.filter((song) => song.play === -1).sort((a, b) => b.request_count - a.request_count);
+    const playZeroSongs = songs.filter((song) => song.play === 0).sort((a, b) => b.request_count - a.request_count);
+    const sortedSongs = [...playOneSongs, ...playMinusOneSongs, ...playZeroSongs];
     console.log('server songs')
     console.log(songs)
-    res.status(200).json({data: songs});
+    res.status(200).json({data: sortedSongs});
 
   } catch (error) {
     console.log(error);

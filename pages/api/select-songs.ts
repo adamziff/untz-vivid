@@ -59,7 +59,6 @@ export default async function handler(
       )}&chaos=${chaos}&num_songs_to_select=${numSongs}`,
       fetchOptions
     );
-    // const playlistResponse = await fetch(`http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(JSON.stringify(users))}&energy_curve=${encodeURIComponent(JSON.stringify(energyCurve))}&chaos=${chaos}&num_songs_to_select=${numSongs}`);
     if (playlistResponse.ok) {
         const playlist = await playlistResponse.json()
         console.log('generated playlist successfully')

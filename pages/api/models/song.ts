@@ -17,7 +17,7 @@ export const spotifyToSongs = (spotifyData: Array<object>, play: number, party_a
       name: obj.name,
       artist: obj.artists[0].name,
       duration: durationInMinutes,
-      request_count: 0,
+      request_count: 1,
       play: play,
       spotify_id: obj.uri,
       party_ac: party_ac,
