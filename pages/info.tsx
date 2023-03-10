@@ -46,7 +46,7 @@ const Info: NextPage = () => {
 
             <div className='text-white p-5 text-center'>
                 pick your <p className="font-bold text-emerald-300 inline">must plays</p>, the songs you absolutely have to hear, 
-                and your <p className="font-bold text-red-500 inline">do not plays</p>, the songs you wouldn't be caught dead listening to.
+                and your <p className="font-bold text-red-500 inline">do not plays</p>, the songs you wouldn&apos;t be caught dead listening to.
             </div>
 
             <div className='text-white pb-5 text-center'>
@@ -72,8 +72,8 @@ const Info: NextPage = () => {
             </h2>
 
             <div className='text-white p-5 text-center'>
-                when you're ready, click <p className="font-bold text-emerald-300 inline">generate playlist</p>.
-                leave the tab open while the song selection algorithm runs- we'll let you know when your playlist is ready.
+                when you&apos;re ready, click <p className="font-bold text-emerald-300 inline">generate playlist</p>.
+                leave the tab open while the song selection algorithm runs- we&apos;ll let you know when your playlist is ready.
             </div>
         
             <div className='pb-10'>
@@ -96,8 +96,8 @@ const Info: NextPage = () => {
                   </h2>
                   <Image src='/Headshot_No_Tie.jpg' alt="DJ Ziff" width={300} height={280}/>
                   <p className='py-2'>
-                    Hey y'all! I'm a senior Computer Science major at Princeton, and I'm building üntz for my senior thesis.
-                    I'm also an avid musician and songwriter, and I hope to work in the music tech industry after I graduate this spring.
+                    Hey y&apos;all! I&apos;m a senior Computer Science major at Princeton, and I&apos;m building üntz for my senior thesis.
+                    I&apos;m also an avid musician and songwriter, and I hope to work in the music tech industry after I graduate this spring.
                   </p>
                   <Link href='https://www.linkedin.com/in/adamziff/'>
                     <p className='text-gray-400 underline hover:text-gray-600'>LinkedIn</p>
@@ -109,8 +109,8 @@ const Info: NextPage = () => {
                   </h2>
                   <Image src='/Hotel_Chantelle.JPG' alt="DJ Ziff" width={300} height={280} objectFit="cover" objectPosition="center"/>
                   <div className='py-2'>
-                    DJ ZIFF is an <Link href='https://www.papermag.com/fresh-pressed-sundays-finest-maneros-2659362969.html'><p className='text-gray-400 underline inline hover:text-gray-600'>"up-and-comer"</p></Link> DJ in the NYC nightlife scene. 
-                    With a focus on house, disco, and hyperpop, his electric sets are taking the city by storm, and he's only just getting started.
+                    DJ ZIFF is an <Link href='https://www.papermag.com/fresh-pressed-sundays-finest-maneros-2659362969.html'><p className='text-gray-400 underline inline hover:text-gray-600'>&quot;up-and-comer&quot;</p></Link> DJ in the NYC nightlife scene. 
+                    With a focus on house, disco, and hyperpop, his electric sets are taking the city by storm, and he&apos;s only just getting started.
                   </div>
                   <Link href='https://www.instagram.com/dj.ziff/'>
                     <p className='text-gray-400 underline hover:text-gray-600'>Instagram</p>
