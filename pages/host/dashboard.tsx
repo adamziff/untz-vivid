@@ -132,7 +132,7 @@ const Dashboard: NextPage = () => {
         </button>
 
         <button onClick={handleCreateTestPlaylistClick} className="bg-black text-blue-500 rounded-md px-3 py-1 font-bold">
-            create test playlist
+            generate playlist!
         </button>
 
       {!songs || songs.length === 0 ? (
