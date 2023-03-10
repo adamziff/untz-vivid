@@ -63,7 +63,7 @@ const InviteLink: NextPage = () => {
               2. copy and save your party access code somewhere so you can access your dashboard
             </p>
             <p className="pb-10 pt-2 text-gray-400">
-              you can enter this code on the home page to get to your party's dashboard that tracks all your friends&apos; requests
+              you can enter this code on the home page to get to your party&apos;s dashboard that tracks all your friends&apos; requests
             </p>
 
             <button
