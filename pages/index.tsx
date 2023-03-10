@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               ür next party starts here
             </p>
         
-            {data ? <p>{data}</p> : <p>Loading...</p>}
+            {data ? <p>Song Selection Server is live!</p> : <p>Checking on Song Selection server...</p>}
             <div className='p-3'></div>
         
             <Link href="/host/new-untz">
@@ -45,9 +45,10 @@ const Home: NextPage = () => {
               </button>
             </Link>
 
+            <div className='p-10'></div>
             <Link href="/info">
-              <button className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold">
-                info
+              <button className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold border border-emerald-300 rounded:md">
+                what is this?
               </button>
             </Link>
 

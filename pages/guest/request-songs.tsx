@@ -14,6 +14,10 @@ export default function RequestSongs() {
   const guestCode = router.query.guestCode as string;
 
   async function handleSubmitSongs() {
+    if (savedSongs.length > 5) {
+      alert('you can only request up to five songs! click on some of them to unselect them')
+      return;
+    }
     setIsLoading(true)
     const response = await fetch("/api/save-songs", {
       method: "POST",
@@ -44,11 +48,11 @@ export default function RequestSongs() {
           <div className={styles.newuntz}>
               {/* <div className="flex flex-col justify-center items-center"> */}
                 <h1 className="basis-full text-6xl md:text-7xl font-bold text-center text-emerald-300">
-                  party name here
+                  request songs
                 </h1>
               
                 <div className="py-5">
-                  <p className='text-blue-300 text-xl'> some important text describing the situation </p>
+                  <p className='text-blue-300 text-xl'> pick up to five songs that you want to request for the party </p>
                 </div>
               
                 <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
