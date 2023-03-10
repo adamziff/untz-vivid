@@ -11,6 +11,9 @@ const clientId = 'f5e1c0e33ba2435ca10ef8beb593984d';
 const clientSecret = process.env.CLIENT_SECRET;
 // const redirectUri = 'http://localhost:3000/host/waiting'
 const redirectUri = 'https://www.untz.studio/host/waiting'
+// const authCode = process.env.UNTZ_SPOTIFY_AUTH_CODE;
+// console.log('create-playlist.ts: authCode')
+// console.log(authCode)
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 var spotifyApi = new SpotifyWebApi({
@@ -41,7 +44,7 @@ export default async function handler(
 
     const songs = req.query.songs ? JSON.parse(req.query.songs as string) as string[] : [];
     const authCode = req.query.code
-    const accessCode = req.query.accessCode
+    // const accessCode = req.query.accessCode
     const partyName = req.query.partyName
 
     try {

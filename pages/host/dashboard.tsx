@@ -11,6 +11,7 @@ const Dashboard: NextPage = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const router = useRouter()
   const accessCode = router.query.accessCode as string;
+  // const authCode = process.env.UNTZ_SPOTIFY_AUTH_CODE
   console.log(accessCode)
 
   // const [data, setData] = useState(null);
@@ -62,6 +63,7 @@ const Dashboard: NextPage = () => {
 
   const handleCreateTestPlaylistClick = async () => {
     try {
+      // router.push(`/host/waiting?state=${accessCode}`)
       const res = await fetch(`/api/spotify-auth-code-url?accessCode=${accessCode}`);
       if (res.ok) {
           const data = await res.json()

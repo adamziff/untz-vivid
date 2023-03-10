@@ -80,6 +80,7 @@ const Waiting: NextPage = () => {
                     const createPlaylist = async (songs: string[], partyName: string) => {
                         try {
                             const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
+                            // const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&accessCode=${accessCode}&partyName=${partyName}`);
                             if (createPlaylistRes.ok) {
                                 console.log('playlist created!')
                             } else {
@@ -97,9 +98,11 @@ const Waiting: NextPage = () => {
             }
         }
         // Only run the effect when both code and state exist
+        // if (state) {
         if (code && state) {
             fetchData();
         }
+    // }, [state]);
     }, [code, state]);
       
 
