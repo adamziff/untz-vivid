@@ -5,14 +5,14 @@ import styles from '../../styles/Home.module.css'
 import Layout from '../../components/Layout'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import dbConnect from '../api/dbconnect'
-import Party from '../api/models/party'
+import { useState } from 'react'
 
 
 const Waiting: NextPage = () => {
     const router = useRouter()
     const code = router.query.code as string;
     const state = router.query.state as string;
+    const [playlistLink, setPlaylistLink] = useState<string | null>(null);
 
     const selectSongs = async (accessCode: string): Promise<{ songs: string[]; partyName: string }> => {
     // const selectSongs = async (accessCode: string) => {
@@ -82,7 +82,11 @@ const Waiting: NextPage = () => {
                             const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
                             // const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&accessCode=${accessCode}&partyName=${partyName}`);
                             if (createPlaylistRes.ok) {
-                                console.log('playlist created!')
+                                const { data, link } = await createPlaylistRes.json()
+                                console.log(data)
+                                console.log(link)
+                                setPlaylistLink(link)
+                                router.push(link)
                             } else {
                                 console.log("waiting.tsx: Failed to create playlist on user account")
                             }
@@ -98,12 +102,12 @@ const Waiting: NextPage = () => {
             }
         }
         // Only run the effect when both code and state exist
-        // if (state) {
-        if (code && state) {
+        if (state) {
+        // if (code && state) {
             fetchData();
         }
-    // }, [state]);
-    }, [code, state]);
+    }, [state]);
+    // }, [code, state]);
       
 
     return (
@@ -114,7 +118,18 @@ const Waiting: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            {/* <main className='bg-black'> */}
+            {playlistLink ? 
+                <div className={styles.main}>
+                    <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
+                        ready!
+                    </h1>
+                
+                    <p className="text-emerald-300 p-10 text-center">
+                        ür party playlist is here:
+                    </p>
+                    <p>{playlistLink}</p> 
+                </div>
+                :
                 <div className={styles.main}>
                     <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
                     generating...
@@ -125,6 +140,7 @@ const Waiting: NextPage = () => {
                     </p>
                         
                 </div>
+            }
 
             <footer className={styles.footer}>
                 <a

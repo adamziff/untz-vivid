@@ -51,6 +51,7 @@ export default function handler(
             //     redirectUri: redirectUri
             // });
             var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
+            console.log('authorizeURL')
             console.log(authorizeURL)
             res.status(200).json({ message: 'spotify authorization code url created', data: authorizeURL });
         // } else {

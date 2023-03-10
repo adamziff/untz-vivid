@@ -90,20 +90,22 @@ const Info: NextPage = () => {
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="py-5 md:px-24">
+                <div className="pt-5 md:px-2">
                   <h2 className="font-bold text-center text-emerald-300 text-xl md:text-4xl pb-4">
                     Adam Ziff
                   </h2>
-                  <Image src='/Headshot_No_Tie.jpg' alt="DJ Ziff" width={300} height={280}/>
-                  <p className='py-2'>
-                    Hey y&apos;all! I&apos;m a senior Computer Science major at Princeton, and I&apos;m building üntz for my senior thesis.
-                    I&apos;m also an avid musician and songwriter, and I hope to work in the music tech industry after I graduate this spring.
+                  <Image src="/Headshot_No_Tie.jpg" alt="DJ Ziff" width={300} height={280} />
+                  <p className="py-2">
+                    Hey y&apos;all! I&apos;m a senior Computer Science major at Princeton, and
+                    I&apos;m building üntz for my senior thesis. I&apos;m also an avid
+                    musician and songwriter, and I hope to work in the music tech industry
+                    after I graduate this spring.
                   </p>
-                  <Link href='https://www.linkedin.com/in/adamziff/'>
-                    <p className='text-gray-400 underline hover:text-gray-600'>LinkedIn</p>
+                  <Link href="https://www.linkedin.com/in/adamziff/">
+                    <p className="text-gray-400 underline hover:text-gray-600">LinkedIn</p>
                   </Link>
                 </div>
-                <div className="md:px-24">
+                <div className="pt-5 md:px-2">
                   <h2 className="font-bold text-center text-emerald-300 text-xl md:text-4xl pb-4">
                     DJ ZIFF
                   </h2>

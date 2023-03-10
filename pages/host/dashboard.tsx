@@ -63,24 +63,24 @@ const Dashboard: NextPage = () => {
 
   const handleCreateTestPlaylistClick = async () => {
     try {
-      // router.push(`/host/waiting?state=${accessCode}`)
-      const res = await fetch(`/api/spotify-auth-code-url?accessCode=${accessCode}`);
-      if (res.ok) {
-          const data = await res.json()
-          console.log('url')
-          console.log(data.data)
-          router.push(data.data)
-          // const createPlaylistRes = await fetch(`/api/playlist?songs=${encodeURIComponent(JSON.stringify(songs.data.tracks.uri))}`);
-          // if (createPlaylistRes.ok) {
-          //   console.log('playlist created! now notify the user')
-          // } else {
-          // console.log("dashboard.tsx: Failed to create playlist on user account")
-          // }
-        } else {
-          const error = await res.json()
-          console.log("dashboard.tsx: Failed to create test playlist")
-          console.log(error)
-        }
+      router.push(`/host/waiting?state=${accessCode}`)
+      // const res = await fetch(`/api/spotify-auth-code-url?accessCode=${accessCode}`);
+      // if (res.ok) {
+      //     const data = await res.json()
+      //     console.log('url')
+      //     console.log(data.data)
+      //     router.push(data.data)
+      //     // const createPlaylistRes = await fetch(`/api/playlist?songs=${encodeURIComponent(JSON.stringify(songs.data.tracks.uri))}`);
+      //     // if (createPlaylistRes.ok) {
+      //     //   console.log('playlist created! now notify the user')
+      //     // } else {
+      //     // console.log("dashboard.tsx: Failed to create playlist on user account")
+      //     // }
+      //   } else {
+      //     const error = await res.json()
+      //     console.log("dashboard.tsx: Failed to create test playlist")
+      //     console.log(error)
+      //   }
     } catch (error) {
       console.log(error);
     }

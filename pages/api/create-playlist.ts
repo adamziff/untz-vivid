@@ -14,6 +14,8 @@ const redirectUri = 'https://www.untz.studio/host/waiting'
 // const authCode = process.env.UNTZ_SPOTIFY_AUTH_CODE;
 // console.log('create-playlist.ts: authCode')
 // console.log(authCode)
+const access_token = process.env.SPOTIFY_ACCESS_TOKEN
+const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN
 
 // Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
 var spotifyApi = new SpotifyWebApi({
@@ -24,6 +26,7 @@ var spotifyApi = new SpotifyWebApi({
 
 type Data = {
   data: string;
+  link: string;
 };
 
 const allowedOrigins = [
@@ -54,21 +57,29 @@ export default async function handler(
         // Retrieve an access token and a refresh token
         console.log('create-playlist.ts: starting authcodegrant')
 
-        const { body: { access_token, refresh_token } } = await spotifyApi.authorizationCodeGrant(authCode);
+        // const { body: { access_token, refresh_token } } = await spotifyApi.authorizationCodeGrant(authCode);
         spotifyApi.setAccessToken(access_token);
         spotifyApi.setRefreshToken(refresh_token);
+        // console.log('access_token')
+        // console.log(access_token)
+        // console.log('refresh_token')
+        // console.log(refresh_token)
 
-        const { body: { id: playlistId } } = await spotifyApi.createPlaylist(partyName, { 'description': 'created with üntz.studio', 'public': true });
-        console.log('Created playlist!', playlistId);
+        // const { body: { id: playlistId, uri: playlistUri } } = await spotifyApi.createPlaylist(partyName, { 'description': 'created with üntz.studio', 'public': true });
+        const { body: playlist } = await spotifyApi.createPlaylist(partyName, { 'description': 'created with üntz.studio', 'public': true });
+        console.log('Created playlist!', playlist);
+        // console.log('Created playlist!', playlistId);
+        // console.log('Playlist URI:', playlistUri);
 
 
-        const { body: snapshot_id } = await spotifyApi.addTracksToPlaylist(playlistId, songs);
+        // const { body: snapshot_id } = await spotifyApi.addTracksToPlaylist(playlistId, songs);
+        const { body: snapshot_id } = await spotifyApi.addTracksToPlaylist(playlist.id, songs);
         console.log('Added tracks to playlist! ', snapshot_id)
-        res.status(200).json({ data: 'Songs added successfully!' });
+        res.status(200).json({ data: 'Songs added successfully!', link: playlist.external_urls.spotify });
 
       } catch (error) {
         console.log(error);
-        res.status(500).json({ data: 'Internal server error' });
+        res.status(500).json({ data: 'Internal server error', link: '' });
         return;
       } 
 }
