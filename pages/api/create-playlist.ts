@@ -58,12 +58,12 @@ export default async function handler(
         console.log('create-playlist.ts: starting authcodegrant')
 
         // const { body: { access_token, refresh_token } } = await spotifyApi.authorizationCodeGrant(authCode);
+        console.log('access_token')
+        console.log(access_token)
+        console.log('refresh_token')
+        console.log(refresh_token)
         spotifyApi.setAccessToken(access_token);
         spotifyApi.setRefreshToken(refresh_token);
-        // console.log('access_token')
-        // console.log(access_token)
-        // console.log('refresh_token')
-        // console.log(refresh_token)
 
         // const { body: { id: playlistId, uri: playlistUri } } = await spotifyApi.createPlaylist(partyName, { 'description': 'created with üntz.studio', 'public': true });
         const { body: playlist } = await spotifyApi.createPlaylist(partyName, { 'description': 'created with üntz.studio', 'public': true });
