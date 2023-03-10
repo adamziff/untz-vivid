@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 const Waiting: NextPage = () => {
     const router = useRouter()
-    const code = router.query.code as string;
+    // const code = router.query.code as string;
     const state = router.query.state as string;
     const [playlistLink, setPlaylistLink] = useState<string | null>(null);
 
@@ -79,8 +79,8 @@ const Waiting: NextPage = () => {
                     // Move createPlaylist inside the useEffect hook
                     const createPlaylist = async (songs: string[], partyName: string) => {
                         try {
-                            const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
-                            // const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&accessCode=${accessCode}&partyName=${partyName}`);
+                            // const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&code=${code}&accessCode=${accessCode}&partyName=${partyName}`);
+                            const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&accessCode=${accessCode}&partyName=${partyName}`);
                             if (createPlaylistRes.ok) {
                                 const { data, link } = await createPlaylistRes.json()
                                 console.log(data)

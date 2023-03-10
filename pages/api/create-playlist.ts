@@ -46,7 +46,7 @@ export default async function handler(
     }
 
     const songs = req.query.songs ? JSON.parse(req.query.songs as string) as string[] : [];
-    const authCode = req.query.code
+    // const authCode = req.query.code
     // const accessCode = req.query.accessCode
     const partyName = req.query.partyName
 
