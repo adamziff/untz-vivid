@@ -21,9 +21,9 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   console.log(req.body)
-  const { savedSongs, savedSongsRed, partyName, duration, bars } = req.body
+  const { savedSongs, savedSongsRed, partyName, duration, bars, chaos } = req.body
   // const accessCode = '0'
-  const chaos = 20
+  // const chaos = 20
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
   if (allowedOrigins.includes(origin)) {

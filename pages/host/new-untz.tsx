@@ -1,4 +1,3 @@
-import Link from "next/link"
 import styles from '../../styles/Home.module.css'
 import Head from "next/head"
 import BarChart from "../../components/BarChart"
@@ -7,15 +6,33 @@ import SearchBarRed from "../../components/SearchBarRed"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Layout from "../../components/Layout"
-import { Song } from "../api/models/song"
+import Slider from "rc-slider"
+import 'rc-slider/assets/index.css';
+import Handle from 'rc-slider/lib/Handles/Handle'
+import { SliderProps } from 'rc-slider'
 
-export default function NewUntz() {
+interface Props extends SliderProps<number> {
+  className?: string;
+}
+
+const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [savedSongsRed, setSavedSongsRed] = useState<any[]>([]);
-  // const [bars, setBars] = useState<number[]>([]);
   const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
+  const [chaos, setChaos] = useState<number>(50);
+
+  const handle = (props: any) => {
+    const { value, dragging, index, ...restProps } = props;
+    return (
+      <Handle value={value} {...restProps}>
+        <div className="bg-emerald-300 w-8 h-8 rounded-full flex items-center justify-center text-white">
+          {value}
+        </div>
+      </Handle>
+    );
+  };
 
   async function handleShareUntz() {
     setIsLoading(true)
@@ -33,6 +50,7 @@ export default function NewUntz() {
         partyName: partyNameInput.value,
         duration: parseInt(durationInput.value),
         bars,
+        chaos,
       }),
     })
     if (partyResponse.ok) {
@@ -99,6 +117,36 @@ export default function NewUntz() {
               
                 <h2 className="text-red-400 text-3xl font-bold pt-4">do not play</h2>
                 <SearchBarRed savedSongsRed={savedSongsRed} setSavedSongsRed={setSavedSongsRed}></SearchBarRed>
+
+                {/* <Slider defaultValue={chaos} onChange={(value) => setChaos(typeof value === 'number' ? value : value[0])} /> */}
+
+                {/* <label htmlFor="chaosSlider" className="mb-2">
+                  Chaos: {chaos}
+                </label> */}
+                {/* <Slider
+                  defaultValue={chaos}
+                  onChange={(value) => setChaos(typeof value === "number" ? value : value[0])}
+                  railStyle={{ backgroundColor: "#d1d5db" }}
+                  trackStyle={{ backgroundColor: "#10b981" }}
+                  handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
+                  style={{ width: '50%' }}
+                /> */}
+
+                
+                <h2 className="text-blue-300 text-3xl font-bold">chaos</h2>
+                <Slider
+                  defaultValue={chaos}
+                  onChange={(value) => setChaos(typeof value === 'number' ? value : value[0])}
+                  railStyle={{ backgroundColor: '#d1d5db' }}
+                  trackStyle={{ backgroundColor: '#10b981' }}
+                  handleStyle={{ backgroundColor: '#10b981', borderColor: '#10b981' }}
+                  style={{ width: 'full', maxWidth: '500px' }}
+                />
+                <div className="flex justify-between">
+                  <span>{chaos}</span>
+                </div>
+
+
               
                 <BarChart bars={bars} setBars={setBars}></BarChart>
               
@@ -113,3 +161,5 @@ export default function NewUntz() {
       </Layout>
   )
 }
+
+export default NewUntz;

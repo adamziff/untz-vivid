@@ -55,6 +55,7 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
     if (!savedSongsRed.find(savedSong => savedSong.id === song.id)) {
       setSavedSongsRed([...savedSongsRed, song]);
     }
+    setResults(results.filter((result: any) => result.id !== song.id));
   };
 
   const handleSelectedSongClick = (song: any) => {

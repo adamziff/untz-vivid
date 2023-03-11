@@ -53,6 +53,7 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
     if (!savedSongs.find(savedSong => savedSong.id === song.id)) {
       setSavedSongs([...savedSongs, song]);
     }
+    setResults(results.filter((result: any) => result.id !== song.id));
   };
 
   // useEffect(() => {
@@ -74,7 +75,7 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
         onChange={handleInputChange}
       />
       {results.length > 0 && (
-        <ul className="list-none bg-black border-l-emerald-300 border-r-emerald-300 border">
+        <ul className="list-none bg-black">
          {results.map((song: any) => (
            <li
              key={song.id}
