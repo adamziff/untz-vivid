@@ -124,7 +124,7 @@ const Dashboard: NextPage = () => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
     <div className="p-8">
-      <h1 className="text-4xl font-bold mb-8">Party Dashboard</h1>
+      <h1 className="text-4xl font-bold mb-8 text-white">Party Dashboard</h1>
       {/* {data ? <p>{data}</p> : <p>Loading...</p>} */}
 
       <button onClick={fetchData} className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
@@ -141,7 +141,7 @@ const Dashboard: NextPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {songs.map(song => (
             <div key={song.spotify_id} className="border border-emerald-300 p-6 rounded-lg shadow-md">
-              <div className="text-xl font-bold mb-4">{song.name}</div>
+              <div className="text-xl text-white font-bold mb-4">{song.name}</div>
               <div className="text-gray-600 mb-4">{song.artist}</div>
               <div className="flex items-center mb-4">
                 <div className="rounded-full bg-green-400 text-white px-2 py-1 text-sm mr-2">
@@ -152,7 +152,7 @@ const Dashboard: NextPage = () => {
                 <div className="flex justify-between">
                     <p className="text-sm text-gray-500">{song.request_count} Requests</p>
                     {song.play === 1 ? (
-                    <div className="bg-emerald-300 text-white px-4 py-2 rounded-lg">
+                    <div className="bg-emerald-300 text-black px-4 py-2 rounded-lg">
                         Must Play
                     </div>
                     ) : (

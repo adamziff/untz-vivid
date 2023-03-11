@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               ür next party starts here
             </p>
         
-            {data ? <p>Song Selection Server is live!</p> : <p>Checking on Song Selection server...</p>}
+            {data ? <p className='text-white'>Song Selection Server is live!</p> : <p className='text-white'>Checking on Song Selection server...</p>}
             <div className='p-3'></div>
         
             <Link href="/host/new-untz">
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             <div className='p-10'></div>
             <Link href="/info">
               <button className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold border border-emerald-300 rounded:md">
-                what is this?
+                not sure what to do? click here
               </button>
             </Link>
 
@@ -59,19 +59,6 @@ const Home: NextPage = () => {
               </button>
             </Link> */}
         </div>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </Layout>
   )
 }

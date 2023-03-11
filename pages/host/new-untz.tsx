@@ -81,7 +81,7 @@ export default function NewUntz() {
                   <input
                     id="party-name"
                     placeholder="Charter Friday: Prism"
-                    className="form-control md:px-10 p-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl outline-blue-300"
+                    className="form-control md:px-10 p-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
                   ></input>
                 </div>
               
@@ -90,7 +90,7 @@ export default function NewUntz() {
                   <input
                     id="duration"
                     placeholder="180"
-                    className="form-control md:px-10 py-2 px-2 bg-black text-emerald-300 placeholder-blue-300::placeholder block text-3xl outline-blue-300"
+                    className="form-control md:px-10 py-2 px-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
                   ></input>
                 </div>
               

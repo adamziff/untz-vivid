@@ -127,7 +127,7 @@ const Waiting: NextPage = () => {
                     <p className="text-emerald-300 p-10 text-center">
                         ür party playlist is here:
                     </p>
-                    <p>{playlistLink}</p> 
+                    <p className='text-white'>{playlistLink}</p> 
                 </div>
                 :
                 <div className={styles.main}>

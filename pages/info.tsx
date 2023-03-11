@@ -95,7 +95,7 @@ const Info: NextPage = () => {
                     Adam Ziff
                   </h2>
                   <Image src="/Headshot_No_Tie.jpg" alt="DJ Ziff" width={300} height={280} />
-                  <p className="py-2">
+                  <p className="py-2 text-white">
                     Hey y&apos;all! I&apos;m a senior Computer Science major at Princeton, and
                     I&apos;m building üntz for my senior thesis. I&apos;m also an avid
                     musician and songwriter, and I hope to work in the music tech industry
@@ -110,7 +110,7 @@ const Info: NextPage = () => {
                     DJ ZIFF
                   </h2>
                   <Image src='/Hotel_Chantelle.JPG' alt="DJ Ziff" width={300} height={280} objectFit="cover" objectPosition="center"/>
-                  <div className='py-2'>
+                  <div className='py-2 text-white'>
                     DJ ZIFF is an <Link href='https://www.papermag.com/fresh-pressed-sundays-finest-maneros-2659362969.html'><p className='text-gray-400 underline inline hover:text-gray-600'>&quot;up-and-comer&quot;</p></Link> DJ in the NYC nightlife scene. 
                     With a focus on house, disco, and hyperpop, his electric sets are taking the city by storm, and he&apos;s only just getting started.
                   </div>

@@ -69,7 +69,7 @@ const BarChart: React.FC<Props> = ({ bars, setBars }) => {
       <div className="-mx-1 flex flex-row">
           <div
             className="w-full mx-1 p-2 bg-black align-bottom"
-            style={{ height: 100}}  // subtract the bar height from 100
+            style={{ height: 100}}  // maintain the height of the element
           />
         {bars.map((bar, index) => (
           <div
@@ -82,14 +82,14 @@ const BarChart: React.FC<Props> = ({ bars, setBars }) => {
         ))}
         <div
             className="w-full mx-1 p-2 bg-black align-bottom"
-            style={{ height: 100}}  // subtract the bar height from 100
+            style={{ height: 100}}  // maintain the height of the element
           />
       </div>
       <div className="flex flex-row justify-between mt-2">
-        <button className="btn btn-blue" onClick={handleAddBar}>
+        <button className="btn btn-blue text-white" onClick={handleAddBar}>
           +
         </button>
-        <button className="btn btn-red" onClick={handleRemoveBar}>
+        <button className="btn btn-red text-white" onClick={handleRemoveBar}>
           -
         </button>
       </div>

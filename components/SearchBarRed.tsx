@@ -66,7 +66,7 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
       <input
         type="text"
         placeholder="Search Spotify"
-        className="p-2 w-full outline outline-red-400 rounded-md"
+        className="p-2 w-full border border-red-400 rounded-t-md bg-gray-700 text-white"
         value={query}
         onChange={handleInputChange}
       />
@@ -85,7 +85,7 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
       )}
       {/* <h2 className="p-2 text-blue-300">Selected Songs</h2> */}
       {savedSongsRed.length > 0 && (
-        <ul className="list-none bg-red-400 rounded-md">
+        <ul className="list-none bg-red-400 border border-red-400 rounded-b-md">
           {savedSongsRed.map((song: any) => (
             <li key={song.id} 
                 className="p-2 text-black"
