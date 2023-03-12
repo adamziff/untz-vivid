@@ -26,6 +26,8 @@ const Waiting: NextPage = () => {
                 const energyCurve = party.energy_curve;
                 const chaos = party.chaos
                 const numSongs = Math.round(party.duration/3) // assumes average 3 minutes / song
+                const mustPlays = party.mustPlays;
+                const doNotPlays = party.doNotPlays;
 
                 console.log('generating playlist')
                 const fetchOptions: Partial<RequestInit> & { timeout: number } = {
@@ -37,7 +39,9 @@ const Waiting: NextPage = () => {
                     JSON.stringify(users)
                 )}&energy_curve=${encodeURIComponent(
                     JSON.stringify(energyCurve)
-                )}&chaos=${chaos}&num_songs_to_select=${numSongs}`,
+                )}&chaos=${chaos}&num_songs_to_select=${numSongs}
+                &must_plays=${encodeURIComponent(JSON.stringify(mustPlays))}
+                &do_not_plays=${encodeURIComponent(JSON.stringify(doNotPlays))}`,
                 fetchOptions
                 );
                 if (playlistResponse.ok) {
