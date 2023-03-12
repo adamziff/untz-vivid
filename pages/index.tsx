@@ -6,11 +6,25 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Layout from '../components/Layout'
+import { useRouter } from 'next/router'
 
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const [data, setData] = useState<any>(null);
-  const accessCode = 0;
+  // const accessCode = 0;
+  const [accessCode, setAccessCode] = useState<string>('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAccessCode(event.target.value);
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && accessCode) {
+      router.push(`/host/dashboard?accessCode=${accessCode}`);
+    }
+  }
+
   useEffect(() => {
     axios.get('https://untz-backend.azurewebsites.net/api/data').then(response => {
     // axios.get('http://127.0.0.1:8000/api/data').then(response => {
@@ -18,6 +32,7 @@ const Home: NextPage = () => {
     });
     // getDataFromAzure(setData);
   }, []);
+
   return (
     <Layout>
       <Head>
@@ -40,7 +55,7 @@ const Home: NextPage = () => {
             <div className='p-3'></div>
         
             <Link href="/host/new-untz">
-              <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
+              <button className="bg-emerald-300 text-black rounded-md px-20 py-1 font-bold">
                 get started
               </button>
             </Link>
@@ -51,6 +66,18 @@ const Home: NextPage = () => {
                 not sure what to do? click here
               </button>
             </Link>
+
+            <div className="p-10">
+              <p className="text-white p-3">already have an access code? enter it here:</p>
+              <input
+                type="text"
+                placeholder="Access Code"
+                className="p-2 w-full border border-emerald-300 bg-gray-700 text-white rounded-lg"
+                value={accessCode}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+              />
+            </div>
 
             <div className='p-3'></div>
             {/* <Link href={`/guest/request-songs?accessCode=${accessCode}`}>
