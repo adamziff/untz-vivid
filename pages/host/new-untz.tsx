@@ -39,6 +39,18 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
     const partyNameInput = document.getElementById('party-name') as HTMLInputElement
     const durationInput = document.getElementById('duration') as HTMLInputElement
 
+    if (partyNameInput.value.length < 1) {
+      setIsLoading(false)
+      alert('enter a party name!')
+      return;
+    }
+
+    if (durationInput.value.length < 1) {
+      setIsLoading(false)
+      alert('enter a duration!')
+      return;
+    }
+
     const partyResponse = await fetch("/api/add-party", {
       method: "POST",
       headers: {
@@ -89,75 +101,83 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <div className={styles.newuntz}>
-              {/* <div className="flex flex-col justify-center items-center"> */}
-                <h1 className="basis-full text-6xl md:text-7xl font-bold text-center text-emerald-300">
-                  new üntz
-                </h1>
-              
-                <div className="py-5">
-                  <label className="text-blue-300 text-3xl">party name:</label>
-                  <input
-                    id="party-name"
-                    placeholder="Charter Friday: Prism"
-                    className="form-control md:px-10 p-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
-                  ></input>
-                </div>
-              
-                <div className="py-5">
-                  <label className="text-blue-300 text-3xl">duration (min):</label>
-                  <input
-                    id="duration"
-                    placeholder="180"
-                    className="form-control md:px-10 py-2 px-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
-                  ></input>
-                </div>
-              
-                <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
-                <SearchBar savedSongs={savedSongs} setSavedSongs={setSavedSongs}></SearchBar>
-              
-                <h2 className="text-red-400 text-3xl font-bold pt-4">do not play</h2>
-                <SearchBarRed savedSongsRed={savedSongsRed} setSavedSongsRed={setSavedSongsRed}></SearchBarRed>
-
-                {/* <Slider defaultValue={chaos} onChange={(value) => setChaos(typeof value === 'number' ? value : value[0])} /> */}
-
-                {/* <label htmlFor="chaosSlider" className="mb-2">
-                  Chaos: {chaos}
-                </label> */}
-                {/* <Slider
-                  defaultValue={chaos}
-                  onChange={(value) => setChaos(typeof value === "number" ? value : value[0])}
-                  railStyle={{ backgroundColor: "#d1d5db" }}
-                  trackStyle={{ backgroundColor: "#10b981" }}
-                  handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
-                  style={{ width: '50%' }}
-                /> */}
-
-                
-                <h2 className="text-blue-300 text-3xl font-bold">chaos</h2>
-                <Slider
-                  defaultValue={chaos}
-                  onChange={(value) => setChaos(typeof value === 'number' ? value : value[0])}
-                  railStyle={{ backgroundColor: '#d1d5db' }}
-                  trackStyle={{ backgroundColor: '#10b981' }}
-                  handleStyle={{ backgroundColor: '#10b981', borderColor: '#10b981' }}
-                  style={{ width: 'full', maxWidth: '500px' }}
-                />
-                <div className="flex justify-between">
-                  <span>{chaos}</span>
-                </div>
-
-
-              
-                <BarChart bars={bars} setBars={setBars}></BarChart>
-              
-                <button 
-                  className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold"
-                  onClick={handleShareUntz}
-                  disabled={isLoading}>
-                  share üntz
-                </button>
-              {/* </div> */}
-              </div>
+            {/* <div className="flex flex-col justify-center items-center"> */}
+            <h1 className="basis-full text-6xl md:text-7xl font-bold text-center text-emerald-300">
+              new üntz
+            </h1>
+          
+            <div className="py-5">
+              <label className="text-blue-300 text-3xl">party name:</label>
+              <input
+                id="party-name"
+                placeholder="Charter Friday: Prism"
+                className="form-control md:px-10 p-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
+              ></input>
+            </div>
+          
+            <div className="py-5">
+              <label className="text-blue-300 text-3xl">duration (min):</label>
+              <input
+                id="duration"
+                placeholder="180"
+                className="form-control md:px-10 py-2 px-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
+              ></input>
+            </div>
+          
+            <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
+            <SearchBar
+              savedSongs={savedSongs}
+              setSavedSongs={setSavedSongs}
+            ></SearchBar>
+          
+            <h2 className="text-red-400 text-3xl font-bold pt-4">do not play</h2>
+            <SearchBarRed
+              savedSongsRed={savedSongsRed}
+              setSavedSongsRed={setSavedSongsRed}
+            ></SearchBarRed>
+          
+            {/* <Slider defaultValue={chaos} onChange={(value) => setChaos(typeof value === 'number' ? value : value[0])} /> */}
+          
+            {/* <label htmlFor="chaosSlider" className="mb-2">
+              Chaos: {chaos}
+            </label> */}
+            {/* <Slider
+              defaultValue={chaos}
+              onChange={(value) => setChaos(typeof value === "number" ? value : value[0])}
+              railStyle={{ backgroundColor: "#d1d5db" }}
+              trackStyle={{ backgroundColor: "#10b981" }}
+              handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
+              style={{ width: '50%' }}
+            /> */}
+          
+            <h2 className="text-blue-300 text-3xl font-bold py-2">chaos</h2>
+            <Slider
+              defaultValue={chaos}
+              onChange={(value) =>
+                setChaos(typeof value === "number" ? value : value[0])
+              }
+              railStyle={{ backgroundColor: "#d1d5db" }}
+              trackStyle={{ backgroundColor: "#10b981" }}
+              handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
+              style={{ width: "full", maxWidth: "500px" }}
+            />
+            <div className="flex justify-between">
+              <span>{chaos}</span>
+            </div>
+          
+            <BarChart bars={bars} setBars={setBars}></BarChart>
+          
+            <div className="p-10"></div>
+          
+            <button
+              className="bg-emerald-300 text-black rounded-md px-10 py-1 font-bold"
+              onClick={handleShareUntz}
+              disabled={isLoading}
+            >
+              share üntz
+            </button>
+            {/* </div> */}
+          </div>
       </Layout>
   )
 }

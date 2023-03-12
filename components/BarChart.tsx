@@ -86,13 +86,20 @@ const BarChart: React.FC<Props> = ({ bars, setBars }) => {
           />
       </div>
       <div className="flex flex-row justify-between mt-2">
-        <button className="btn btn-blue text-white" onClick={handleAddBar}>
+        <button
+          className="btn btn-blue text-emerald-300 w-10 h-10 font-bold text-4xl"
+          onClick={handleAddBar}
+        >
           +
         </button>
-        <button className="btn btn-red text-white" onClick={handleRemoveBar}>
+        <button
+          className="btn btn-red text-red-400 w-10 h-10 text-4xl font-mono"
+          onClick={handleRemoveBar}
+        >
           -
         </button>
       </div>
+
     </div>
   );
 };
