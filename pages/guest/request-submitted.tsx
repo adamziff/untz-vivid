@@ -6,10 +6,9 @@ import Link from 'next/link'
 import Layout from '../../components/Layout'
 import { useRouter } from 'next/router'
 
-const InviteLink: NextPage = () => {
+const RequestSubmitted: NextPage = () => {
   const router = useRouter()
   // console.log(router.query)
-  const accessCode = router.query.access_code as string;
   const inviteLink = router.query.invite_link ? router.query.invite_link as string: '/';
 
   const copyToClipboard = async () => {
@@ -18,15 +17,6 @@ const InviteLink: NextPage = () => {
       alert('Invite link copied to clipboard!');
     } catch (err) {
       console.error('Failed to copy invite link: ', err);
-    }
-  };
-
-  const copyAccessCodeToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(accessCode);
-      alert('Access code copied to clipboard!');
-    } catch (err) {
-      console.error('Failed to copy access code: ', err);
     }
   };
 
@@ -41,15 +31,15 @@ const InviteLink: NextPage = () => {
       {/* <main className='bg-black'> */}
         <div className={styles.main}>
             <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
-              invite link
+              requests submitted!
             </h1>
 
             <p className="pt-10 text-white">
-              congrats on creating your üntz party! here&apos;s what you do next.
+              congrats on submitting requests for your üntz party!
             </p>
 
             <p className="p-10 text-emerald-300">
-              1. share the invite link with your friends so they can request songs
+              share the invite link with your friends so they can request songs too!
             </p>
 
             <button
@@ -59,29 +49,25 @@ const InviteLink: NextPage = () => {
               Copy Invite Link
             </button>
 
-            <p className="pt-10 text-emerald-300">
-              2. copy and save your party access code somewhere so you can access your dashboard
-            </p>
-            <p className="pb-10 pt-2 text-gray-400">
-              you can enter this code on the home page to get to your party&apos;s dashboard that tracks all your friends&apos; requests
-            </p>
-
-            <button
-              className="text-emerald-300 p-3 text-center border border-emerald-300 rounded-md"
-              onClick={copyAccessCodeToClipboard}
-            >
-              Copy Access Code
-            </button>
+            <p className="text-emerald-300 p-10 text-center">
+                ready to create your own üntz party? click here:
+              </p>
+                    
+            <Link href={'/host/new-untz'}>
+              <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
+                get started
+              </button>
+            </Link>
 
             <p className="text-emerald-300 p-10 text-center">
                 {/* ür next party starts here */}
                 {/* {inviteLink} */}
-                3. go to the dashboard to track your friends&apos; requests, and generate your playlist when you&apos;re ready
+                want more info? click here:
               </p>
                     
-            <Link href={`/host/dashboard?accessCode=${accessCode}&inviteLink=${inviteLink}`}>
+            <Link href={'/info'}>
               <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
-                dashboard
+                info & FAQs
               </button>
             </Link>
 
@@ -104,4 +90,4 @@ const InviteLink: NextPage = () => {
   )
 }
 
-export default InviteLink
+export default RequestSubmitted

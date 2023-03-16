@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from './dbconnect';
 import Song, { Song as SongType } from './models/song';
+import Party, { PartyType } from './models/party';
 
 type Data = {
-  data: string | SongType[];
+  songs: string | SongType[];
 };
 
 const allowedOrigins = [
@@ -36,11 +37,12 @@ export default async function handler(
     const sortedSongs = [...playOneSongs, ...playMinusOneSongs, ...playZeroSongs];
     console.log('server songs')
     console.log(songs)
-    res.status(200).json({data: sortedSongs});
+
+    res.status(200).json({songs: sortedSongs });
 
   } catch (error) {
     console.log(error);
-    res.status(500).json({ data: 'Unable to fetch songs.' });
+    res.status(500).json({ songs: 'Unable to fetch songs.' });
   } 
   finally {
     console.log('Disconnected from MongoDB Atlas');

@@ -12,6 +12,7 @@ export default function RequestSongs() {
   // const [bars, setBars] = useState<number[]>([]);
 //   const accessCode = '0';
   const guestCode = router.query.guestCode as string;
+  const inviteLink = 'https://www.untz.studio/guest/request-songs?guestCode=' + guestCode;
 
   async function handleSubmitSongs() {
     if (savedSongs.length > 5) {
@@ -30,7 +31,7 @@ export default function RequestSongs() {
       }),
     })
     if (response.ok) {
-        router.push('/')
+        router.push(`/guest/request-submitted?invite_link=${inviteLink}`)
     } else {
       setIsLoading(false)
       console.log("Failed to share üntz")

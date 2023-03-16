@@ -10,9 +10,20 @@ import Link from 'next/link';
 const Dashboard: NextPage = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const router = useRouter()
+  console.log(router.query);
   const accessCode = router.query.accessCode as string;
+  const inviteLink = router.query.inviteLink as string;
   // const authCode = process.env.UNTZ_SPOTIFY_AUTH_CODE
   console.log(accessCode)
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(inviteLink);
+      alert('Invite link copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy invite link: ', err);
+    }
+  };
 
   // const [data, setData] = useState(null);
 
@@ -42,8 +53,8 @@ const Dashboard: NextPage = () => {
         // const res = await axios.get(`/api/dashboard?accessCode=${accessCode}`);
         // const res = await fetch(`/api/get-party?accessCode=${accessCode}`)
         if (res.ok) {
-            const party = await res.json()
-            const songs = party.data
+            const { songs } = await res.json()
+            // const songs = party.data
             console.log('client songs')
             console.log(songs)
             setSongs(songs)
@@ -88,13 +99,13 @@ const Dashboard: NextPage = () => {
 
 
 
-  const handleMustPlayClick = async (songId: string) => {
+  const handleMustPlayClick = async (spotifyId: string) => {
     try {
-      await axios.post(`/api/make-must-play/?songId=${songId}`);
+      await axios.post(`/api/make-must-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
       // update the song list to reflect the change
       setSongs(prevSongs =>
         prevSongs.map(song =>
-          song.spotify_id === songId ? { ...song, must_play: true } : song
+          song.spotify_id === spotifyId ? { ...song, must_play: true } : song
         )
       );
     } catch (error) {
@@ -102,13 +113,19 @@ const Dashboard: NextPage = () => {
     }
   };
 
-  const handleDoNotPlayClick = async (songId: string) => {
+  // const handleDoNotPlayClick = async (song: Song) => {
+    // console.log('song')
+    // console.log(song)
+    // const songId = song.spotify_id
+  const handleDoNotPlayClick = async (spotifyId: string) => {
+    // console.log('songId')
+    // console.log(songId)
     try {
-      await axios.post(`/api/make-do-not-play/?songId=${songId}`);
+      await axios.post(`/api/make-do-not-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
       // update the song list to reflect the change
       setSongs(prevSongs =>
         prevSongs.map(song =>
-          song.spotify_id === songId ? { ...song, do_not_play: true } : song
+          song.spotify_id === spotifyId ? { ...song, do_not_play: true } : song
         )
       );
     } catch (error) {
@@ -133,6 +150,13 @@ const Dashboard: NextPage = () => {
 
         <button onClick={handleCreateTestPlaylistClick} className="bg-black text-blue-500 rounded-md px-3 py-1 font-bold">
             generate playlist!
+        </button>
+
+        <button
+          className="text-emerald-300 p-3 text-center border border-emerald-300 rounded-md"
+          onClick={copyToClipboard}
+        >
+          Copy Invite Link
         </button>
 
       {!songs || songs.length === 0 ? (
@@ -169,6 +193,7 @@ const Dashboard: NextPage = () => {
                     </div>
                     ) : (
                     <button
+                        // onClick={() => handleDoNotPlayClick(song)}
                         onClick={() => handleDoNotPlayClick(song.spotify_id)}
                         className="border border-red-500 text-red-500 px-4 py-2 rounded-lg"
                         >

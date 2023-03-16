@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -19,9 +18,18 @@ const Home: NextPage = () => {
     setAccessCode(event.target.value);
   }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown =  async (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter' && accessCode) {
-      router.push(`/host/dashboard?accessCode=${accessCode}`);
+      const res = await fetch(`/api/check-access-code?accessCode=${accessCode}`)
+      if (res.ok) {
+        console.log(res)
+        const inviteLink = await res.json()
+        console.log(inviteLink)
+        router.push(`/host/dashboard?accessCode=${accessCode}&inviteLink=${inviteLink.inviteLink}`);
+      }
+      else {
+        alert('invalid access code')
+      }
     }
   }
 
