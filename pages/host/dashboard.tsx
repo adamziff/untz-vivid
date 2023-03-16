@@ -49,11 +49,15 @@ const Dashboard: NextPage = () => {
   const handleMustPlayClick = async (spotifyId: string) => {
     try {
       await axios.post(`/api/make-must-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
-      setSongs(prevSongs =>
-        prevSongs.map(song =>
-          song.spotify_id === spotifyId ? { ...song, must_play: true } : song
-        )
-      );
+      setIsChanged(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveMustPlayClick = async (spotifyId: string) => {
+    try {
+      await axios.post(`/api/remove-must-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
       setIsChanged(true);
     } catch (error) {
       console.log(error);
@@ -63,11 +67,14 @@ const Dashboard: NextPage = () => {
   const handleDoNotPlayClick = async (spotifyId: string) => {
     try {
       await axios.post(`/api/make-do-not-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
-      setSongs(prevSongs =>
-        prevSongs.map(song =>
-          song.spotify_id === spotifyId ? { ...song, do_not_play: true } : song
-        )
-      );
+      setIsChanged(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleRemoveDoNotPlayClick = async (spotifyId: string) => {
+    try {
+      await axios.post(`/api/remove-do-not-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
       setIsChanged(true);
     } catch (error) {
       console.log(error);
@@ -113,9 +120,9 @@ const Dashboard: NextPage = () => {
                 <div className="flex justify-between">
                     <p className="text-sm text-gray-500">{song.request_count} Requests</p>
                     {song.play === 1 ? (
-                    <div className="bg-emerald-300 text-black px-4 py-2 rounded-lg">
+                    <button onClick={() => handleRemoveMustPlayClick(song.spotify_id)} className="bg-emerald-300 text-black px-4 py-2 rounded-lg">
                         Must Play
-                    </div>
+                    </button>
                     ) : (
                     <button
                         onClick={() => handleMustPlayClick(song.spotify_id)}
@@ -125,9 +132,9 @@ const Dashboard: NextPage = () => {
                     </button>
                     )}
                     {song.play === -1 ? (
-                    <div className="bg-red-500 text-white px-4 py-2 rounded-lg">
+                    <button onClick={() => handleRemoveDoNotPlayClick(song.spotify_id)} className="bg-red-500 text-white px-4 py-2 rounded-lg">
                         Do Not Play
-                    </div>
+                    </button>
                     ) : (
                     <button
                         onClick={() => handleDoNotPlayClick(song.spotify_id)}
