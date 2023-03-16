@@ -9,14 +9,14 @@ type RequestData = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//   if (req.method === 'POST') {
+  if (req.method === 'POST') {
     const { accessCode, spotifyId } = req.query as RequestData;
 
     try {
       await dbConnect();
 
       // Find the Party in the database with a matching access code
-      const party = await Party.findOne({ access_code: accessCode }).exec();
+      const party = await Party.findOne({ access_code: accessCode });
 
       if (!party) {
         res.status(404).json({ message: 'Party not found' });
@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       await party.save();
 
       // Find the Song in the database with both a matching spotify_id and party_ac
-      const song = await Song.findOne({ spotify_id: spotifyId, party_ac: accessCode }).exec();
+      const song = await Song.findOne({ spotify_id: spotifyId, party_ac: accessCode });
 
       if (!song) {
         res.status(404).json({ message: 'Song not found' });
@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
-//   } else {
-//     res.status(405).json({ message: 'Method not allowed' });
-//   }
+  } else {
+    res.status(405).json({ message: 'Method not allowed' });
+  }
 }

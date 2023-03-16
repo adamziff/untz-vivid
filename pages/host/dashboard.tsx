@@ -10,11 +10,9 @@ import Link from 'next/link';
 const Dashboard: NextPage = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const router = useRouter()
-  console.log(router.query);
   const accessCode = router.query.accessCode as string;
   const inviteLink = router.query.inviteLink as string;
-  // const authCode = process.env.UNTZ_SPOTIFY_AUTH_CODE
-  console.log(accessCode)
+  const [isChanged, setIsChanged] = useState(false);
 
   const copyToClipboard = async () => {
     try {
@@ -25,36 +23,14 @@ const Dashboard: NextPage = () => {
     }
   };
 
-  // const [data, setData] = useState(null);
-
-  // useEffect(() => {
-  //   // fetch('https://untz.azurewebsites.net/api/data')
-  //   fetch('/api/hello')
-  //     .then(response => response.json())
-  //     .then(response => {
-  //       console.log(response)
-  //       setData(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, []);
-
-//   useEffect(() => {
+  useEffect(() => {
+    if (!accessCode) return; // do not fetch if accessCode is not loaded
     const fetchData = async () => {
+      setIsChanged(false);
       try {
         const res = await fetch(`/api/dashboard?accessCode=${accessCode}`)//, {
-          //   method: "GET",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // body: JSON.stringify(accessCode),
-          // })
-        // const res = await axios.get(`/api/dashboard?accessCode=${accessCode}`);
-        // const res = await fetch(`/api/get-party?accessCode=${accessCode}`)
         if (res.ok) {
             const { songs } = await res.json()
-            // const songs = party.data
             console.log('client songs')
             console.log(songs)
             setSongs(songs)
@@ -67,67 +43,32 @@ const Dashboard: NextPage = () => {
         console.log(error);
       }
     };
-
-//     fetchData();
-//   }, [accessCode]);
-
-
-  const handleCreateTestPlaylistClick = async () => {
-    try {
-      router.push(`/host/waiting?state=${accessCode}`)
-      // const res = await fetch(`/api/spotify-auth-code-url?accessCode=${accessCode}`);
-      // if (res.ok) {
-      //     const data = await res.json()
-      //     console.log('url')
-      //     console.log(data.data)
-      //     router.push(data.data)
-      //     // const createPlaylistRes = await fetch(`/api/playlist?songs=${encodeURIComponent(JSON.stringify(songs.data.tracks.uri))}`);
-      //     // if (createPlaylistRes.ok) {
-      //     //   console.log('playlist created! now notify the user')
-      //     // } else {
-      //     // console.log("dashboard.tsx: Failed to create playlist on user account")
-      //     // }
-      //   } else {
-      //     const error = await res.json()
-      //     console.log("dashboard.tsx: Failed to create test playlist")
-      //     console.log(error)
-      //   }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
+    fetchData();
+  }, [accessCode, isChanged]);
 
   const handleMustPlayClick = async (spotifyId: string) => {
     try {
       await axios.post(`/api/make-must-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
-      // update the song list to reflect the change
       setSongs(prevSongs =>
         prevSongs.map(song =>
           song.spotify_id === spotifyId ? { ...song, must_play: true } : song
         )
       );
+      setIsChanged(true);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const handleDoNotPlayClick = async (song: Song) => {
-    // console.log('song')
-    // console.log(song)
-    // const songId = song.spotify_id
   const handleDoNotPlayClick = async (spotifyId: string) => {
-    // console.log('songId')
-    // console.log(songId)
     try {
       await axios.post(`/api/make-do-not-play/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
-      // update the song list to reflect the change
       setSongs(prevSongs =>
         prevSongs.map(song =>
           song.spotify_id === spotifyId ? { ...song, do_not_play: true } : song
         )
       );
+      setIsChanged(true);
     } catch (error) {
       console.log(error);
     }
@@ -142,16 +83,12 @@ const Dashboard: NextPage = () => {
           </Head>
     <div className="p-8">
       <h1 className="text-4xl font-bold mb-8 text-white">Party Dashboard</h1>
-      {/* {data ? <p>{data}</p> : <p>Loading...</p>} */}
 
-      <button onClick={fetchData} className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
-            refresh dashboard data
-        </button>
-
-        <button onClick={handleCreateTestPlaylistClick} className="bg-black text-blue-500 rounded-md px-3 py-1 font-bold">
-            generate playlist!
-        </button>
-
+        <Link href={`/host/waiting?state=${accessCode}`}>
+          <button className="bg-black text-blue-500 rounded-md px-3 py-1 font-bold">
+              generate playlist!
+          </button>
+        </Link>
         <button
           className="text-emerald-300 p-3 text-center border border-emerald-300 rounded-md"
           onClick={copyToClipboard}
@@ -193,7 +130,6 @@ const Dashboard: NextPage = () => {
                     </div>
                     ) : (
                     <button
-                        // onClick={() => handleDoNotPlayClick(song)}
                         onClick={() => handleDoNotPlayClick(song.spotify_id)}
                         className="border border-red-500 text-red-500 px-4 py-2 rounded-lg"
                         >

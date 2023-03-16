@@ -11,10 +11,6 @@ type RequestData = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { spotifyId, accessCode } = req.query as RequestData;
-    console.log('spotifyId')
-    console.log(spotifyId)
-    console.log('accessCode')
-    console.log(accessCode)
 
     try {
       await dbConnect();
