@@ -136,20 +136,6 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               setSavedSongsRed={setSavedSongsRed}
             ></SearchBarRed>
           
-            {/* <Slider defaultValue={chaos} onChange={(value) => setChaos(typeof value === 'number' ? value : value[0])} /> */}
-          
-            {/* <label htmlFor="chaosSlider" className="mb-2">
-              Chaos: {chaos}
-            </label> */}
-            {/* <Slider
-              defaultValue={chaos}
-              onChange={(value) => setChaos(typeof value === "number" ? value : value[0])}
-              railStyle={{ backgroundColor: "#d1d5db" }}
-              trackStyle={{ backgroundColor: "#10b981" }}
-              handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
-              style={{ width: '50%' }}
-            /> */}
-          
             <h2 className="text-blue-300 text-3xl font-bold py-2">chaos</h2>
             <Slider
               defaultValue={chaos}

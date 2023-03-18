@@ -3,10 +3,6 @@ import dbConnect from './dbconnect';
 import Song, { Song as SongType } from './models/song';
 import Party, { PartyType } from './models/party';
 
-type Data = {
-  songs: string | SongType[];
-};
-
 const allowedOrigins = [
   'www.untz.studio',
   'untz-vivid.vercel.app',
@@ -15,7 +11,7 @@ const allowedOrigins = [
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
   // Set up CORS
   const origin = req.headers.origin ? req.headers.origin : '';
@@ -31,14 +27,11 @@ export default async function handler(
     const { accessCode } = req.query;
 
     const songs: SongType[] = await Song.find({ party_ac: accessCode });
-    const playOneSongs = songs.filter((song) => song.play === 1).sort((a, b) => b.request_count - a.request_count);
-    const playMinusOneSongs = songs.filter((song) => song.play === -1).sort((a, b) => b.request_count - a.request_count);
-    const playZeroSongs = songs.filter((song) => song.play === 0).sort((a, b) => b.request_count - a.request_count);
-    const sortedSongs = [...playOneSongs, ...playMinusOneSongs, ...playZeroSongs];
-    console.log('server songs')
-    console.log(songs)
+    const mustPlays = songs.filter((song) => song.play === 1).sort((a, b) => b.request_count - a.request_count);
+    const doNotPlays = songs.filter((song) => song.play === -1).sort((a, b) => b.request_count - a.request_count);
+    const requests = songs.filter((song) => song.play === 0).sort((a, b) => b.request_count - a.request_count);
 
-    res.status(200).json({songs: sortedSongs });
+    res.status(200).json({mustPlays: mustPlays, requests: requests, doNotPlays: doNotPlays });
 
   } catch (error) {
     console.log(error);
