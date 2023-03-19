@@ -13,13 +13,16 @@ const Waiting: NextPage = () => {
     // const code = router.query.code as string;
     const state = router.query.state as string;
     const [playlistLink, setPlaylistLink] = useState<string | null>(null);
+    const [requestInfo, setRequestInfo] = useState<string>('');
 
     const selectSongs = async (accessCode: string): Promise<{ songs: string[]; partyName: string }> => {
     // const selectSongs = async (accessCode: string) => {
         try {
+            setRequestInfo('getting party info')
             const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
             if (partyResponse.ok) {
                 const partyData = await partyResponse.json()
+                setRequestInfo('party info accessed, running song selection algorithm')
                 const party = partyData.data
               
                 const users = party.requests;
@@ -34,7 +37,6 @@ const Waiting: NextPage = () => {
                 timeout: 300000,
                 };
                 const playlistResponse = await fetch(
-
                 `https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(
                     JSON.stringify(users)
                 )}&energy_curve=${encodeURIComponent(
@@ -46,11 +48,13 @@ const Waiting: NextPage = () => {
                 );
                 if (playlistResponse.ok) {
                     const playlist = await playlistResponse.json()
+                    setRequestInfo('songs selected! creating spotify playlist')
                     console.log('generated playlist successfully')
                     console.log(playlist)
                     console.log(playlist.tracks.length + ' songs')
                     return {songs: playlist.tracks, partyName: party.name};
                 } else {
+                    setRequestInfo('song selection algorithm failed')
                     console.log("Playlist returned, response bad")
                     console.log(partyResponse)
                     const playlistError = await playlistResponse.json()
@@ -58,11 +62,13 @@ const Waiting: NextPage = () => {
                     return {songs: [], partyName: 'error'};
                 }
             } else {
+                setRequestInfo('failed to get party info')
                 console.log("Failed to get party")
                 return {songs: [], partyName: 'error'};
             }
 
         } catch (error) {
+            setRequestInfo('playlist generation failed')
             console.log("Failed to generate playlist")
             console.log(error);
             return {songs: [], partyName: 'error'};
@@ -87,11 +93,13 @@ const Waiting: NextPage = () => {
                             const createPlaylistRes = await fetch(`/api/create-playlist?songs=${encodeURIComponent(JSON.stringify(songs))}&accessCode=${accessCode}&partyName=${partyName}`);
                             if (createPlaylistRes.ok) {
                                 const { data, link } = await createPlaylistRes.json()
+                                setRequestInfo('spotify playlist created! opening playlist now')
                                 console.log(data)
                                 console.log(link)
                                 setPlaylistLink(link)
                                 router.push(link)
                             } else {
+                                setRequestInfo('failed to create spotify playlist')
                                 console.log("waiting.tsx: Failed to create playlist on user account")
                             }
                         } catch (error) {
@@ -145,6 +153,10 @@ const Waiting: NextPage = () => {
                         
                 </div>
             }
+
+            <p className="text-red-400 p-10 text-center">
+                {requestInfo}
+            </p>
 
             <footer className={styles.footer}>
                 <a

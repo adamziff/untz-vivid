@@ -75,7 +75,7 @@ const Home: NextPage = () => {
               </button>
             </Link>
 
-            <div className="p-10">
+            <div className="py-4 md:p-10">
               <p className="text-white p-3">already have an access code? enter it here:</p>
               <input
                 type="text"
