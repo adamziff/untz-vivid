@@ -1,6 +1,6 @@
 import styles from '../../styles/Home.module.css'
 import Head from "next/head"
-import SearchBar from "../../components/SearchBar"
+import SearchBar from '../../components/SearchBar'
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Layout from "../../components/Layout"
@@ -56,7 +56,7 @@ export default function RequestSongs() {
                   <p className='text-blue-300 text-xl'> pick up to five songs that you want to request for the party </p>
                 </div>
               
-                <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
+                <h2 className="text-emerald-300 text-3xl font-bold">requests</h2>
                 <SearchBar savedSongs={savedSongs} setSavedSongs={setSavedSongs}></SearchBar>
                             
                 <button 
