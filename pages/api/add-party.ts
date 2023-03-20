@@ -22,6 +22,15 @@ export default async function handler(
 ) {
   console.log(req.body)
   const { savedSongs, savedSongsRed, partyName, duration, bars, chaos } = req.body
+  let mustPlays = getSpotifyIds(savedSongs)
+
+  const requests: string[][] = [];
+  const sublistSize: number = 5;
+
+  for (let i = 0; i < mustPlays.length; i += sublistSize) {
+    requests.push(mustPlays.slice(i, i + sublistSize));
+  }
+
   // const accessCode = '0'
   // const chaos = 20
   // Set up CORS
@@ -40,8 +49,8 @@ export default async function handler(
         energy_curve: bars.map((value: number) => value / 100), 
         chaos: chaos, 
         attendees: 0,
-        requests: [getSpotifyIds(savedSongs)],
-        mustPlays: getSpotifyIds(savedSongs),
+        requests: requests,
+        mustPlays: mustPlays,
         doNotPlays: getSpotifyIds(savedSongsRed)
     });
 
