@@ -20,7 +20,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log(req.body)
   const { savedSongs, savedSongsRed, partyName, duration, bars, chaos } = req.body
   let mustPlays = getSpotifyIds(savedSongs)
 

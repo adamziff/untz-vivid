@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Section from './Section';
 
 interface Props {
   bars: number[]
@@ -17,11 +18,15 @@ const BarChart: React.FC<Props> = ({ bars, setBars }) => {
   };
 
   const handleAddBar = () => {
-    setBars((prevBars: number[]) => [...prevBars, 0]);
+    if (bars.length < 11) {
+      setBars((prevBars: number[]) => [...prevBars, 0]);
+    }
   };
 
   const handleRemoveBar = () => {
-    setBars((prevBars: number[]) => prevBars.slice(0, prevBars.length - 1));
+    if (bars.length > 1) {
+      setBars((prevBars: number[]) => prevBars.slice(0, prevBars.length - 1));
+    }
   };
 
   const handleBarMouseDown = (index: number, event: React.MouseEvent) => {
@@ -62,10 +67,14 @@ const BarChart: React.FC<Props> = ({ bars, setBars }) => {
   };
 
   return (
-    <div className="styles.container flex flex-col h-40" ref={containerRef}>
-      <h1 className="text-center py-3 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500">
-        ~energy curve~
-      </h1>
+    <div className="styles.container flex flex-col h-40 w-80" ref={containerRef}>
+      <div className='z-20'>
+            <Section 
+              headerClassName='text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500' 
+              headerText='~energy curve~' 
+              tooltipText='the energy of the songs in the generated playlist will be ordered to match this curve. bigger bar = more energy.'
+            />
+      </div>
       <div className="-mx-1 flex flex-row">
           <div
             className="w-full mx-1 p-2 bg-black align-bottom"

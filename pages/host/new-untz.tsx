@@ -4,12 +4,13 @@ import BarChart from "../../components/BarChart"
 import SearchBar from "../../components/SearchBar"
 import SearchBarRed from "../../components/SearchBarRed"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Layout from "../../components/Layout"
 import Slider from "rc-slider"
 import 'rc-slider/assets/index.css';
 import Handle from 'rc-slider/lib/Handles/Handle'
 import { SliderProps } from 'rc-slider'
+import Section from '../../components/Section'
 
 interface Props extends SliderProps<number> {
   className?: string;
@@ -22,6 +23,21 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   const [savedSongsRed, setSavedSongsRed] = useState<any[]>([]);
   const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
   const [chaos, setChaos] = useState<number>(50);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const tooltipRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setShowTooltip(false);
+      }
+    }
+
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [tooltipRef]);
 
   const handle = (props: any) => {
     const { value, dragging, index, ...restProps } = props;
@@ -107,7 +123,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
             </h1>
           
             <div className="py-5">
-              <label className="text-blue-300 text-3xl">party name:</label>
+              <label className="text-blue-300 text-3xl">event name:</label>
               <input
                 id="party-name"
                 placeholder="Charter Friday: Prism"
@@ -124,19 +140,38 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               ></input>
             </div>
           
-            <h2 className="text-emerald-300 text-3xl font-bold">must play</h2>
+            <div className='z-50'>
+            <Section 
+              headerClassName='text-emerald-300' 
+              headerText='must play' 
+              tooltipText='these songs WILL be included in the generated playlist. no matter what. you don&apos;t have to choose any of these to start, but you are the host after all, and you should get what you want.'
+            />
+            </div>
             <SearchBar
               savedSongs={savedSongs}
               setSavedSongs={setSavedSongs}
             ></SearchBar>
           
-            <h2 className="text-red-400 text-3xl font-bold pt-4">do not play</h2>
+            <div className='z-40'>
+            <Section 
+              headerClassName='text-red-400' 
+              headerText='do not play' 
+              tooltipText='these songs will NOT be included in the generated playlist. no matter what. you don&apos;t have to choose any of these to start; if your friends request bad songs, you can move them mark them as a do not play from the host dashboard.'
+            />
+            </div>
             <SearchBarRed
               savedSongsRed={savedSongsRed}
               setSavedSongsRed={setSavedSongsRed}
             ></SearchBarRed>
           
-            <h2 className="text-blue-300 text-3xl font-bold py-2">chaos</h2>
+
+            <div className='z-30'>
+            <Section 
+              headerClassName='text-blue-300' 
+              headerText='chaos' 
+              tooltipText='less chaos = the algorithm is more likely to include requests from your friends in the playlists. more chaos = more likely to hear unrequested songs that are recommended based on requested tracks.'
+            />
+            </div>
             <Slider
               defaultValue={chaos}
               onChange={(value) =>
