@@ -77,6 +77,7 @@ const Waiting: NextPage = () => {
       }
 
       useEffect(() => {
+        if (!state) return; // do not fetch if accessCode is not loaded
         async function fetchData() {
             try {
                 const accessCode = state;
