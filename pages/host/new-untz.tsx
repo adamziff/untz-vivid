@@ -67,6 +67,13 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
       return;
     }
 
+    const duration = parseInt(durationInput.value)
+    if (savedSongs.length * 3 > duration) {
+      setIsLoading(false)
+      alert('your duration is too small! either remove some must plays or increase your duration.')
+      return;
+    }
+
     const partyResponse = await fetch("/api/add-party", {
       method: "POST",
       headers: {
@@ -76,7 +83,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
         savedSongs,
         savedSongsRed,
         partyName: partyNameInput.value,
-        duration: parseInt(durationInput.value),
+        duration: duration,
         bars,
         chaos,
       }),

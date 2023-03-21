@@ -50,7 +50,7 @@ const Info: NextPage = () => {
             </div>
 
             <div className='text-white pb-5 text-center'>
-                set your <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 inline">energy curve</p> to control the flow of the vibes,
+                set your <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 inline">~energy curve~</p> to control the flow of the vibes,
                 and choose how much <p className="font-bold text-yellow-300 inline">chaos</p> you want- more chaos means less catering to requests.
             </div>
 
