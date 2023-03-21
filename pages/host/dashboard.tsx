@@ -177,7 +177,7 @@ const Dashboard: NextPage = () => {
                 className="flex justify-between items-center border-b border-gray-300 pb-2"
               >
                 <div>
-                  <h3 className="font-bold">{song.name}</h3>
+                  <h3 className="font-bold text-white">{song.name}</h3>
                   <p className="text-gray-500">
                     {song.artist} &mdash;{' '}
                     <span className="font-semibold">{song.request_count} requests</span>
@@ -246,7 +246,7 @@ const Dashboard: NextPage = () => {
                 className="flex justify-between items-center border-b border-gray-300 pb-2"
               >
                 <div>
-                  <h3 className="font-bold">{song.name}</h3>
+                  <h3 className="font-bold text-white">{song.name}</h3>
                   <p className="text-gray-500">
                     {song.artist} &mdash;{' '}
                     <span className="font-semibold">{song.request_count} requests</span>
@@ -321,7 +321,7 @@ const Dashboard: NextPage = () => {
                 className="flex justify-between items-center border-b border-gray-300 pb-2"
               >
                 <div>
-                  <h3 className="font-bold">{song.name}</h3>
+                  <h3 className="font-bold text-white">{song.name}</h3>
                   <p className="text-gray-500">
                     {song.artist} &mdash;{' '}
                     <span className="font-semibold">{song.request_count} requests</span>
@@ -390,7 +390,7 @@ const Dashboard: NextPage = () => {
                 className="flex justify-between items-center border-b border-gray-300 pb-2"
               >
                 <div>
-                  <h3 className="font-bold">{song.name}</h3>
+                  <h3 className="font-bold text-white">{song.name}</h3>
                   <p className="text-gray-500">
                     {song.artist} &mdash;{' '}
                     <span className="font-semibold">{song.request_count} requests</span>
@@ -463,7 +463,7 @@ const Dashboard: NextPage = () => {
                 className="flex justify-between items-center border-b border-gray-300 pb-2"
               >
                 <div>
-                  <h3 className="font-bold">{song.name}</h3>
+                  <h3 className="font-bold text-white">{song.name}</h3>
                   <p className="text-gray-500">
                     {song.artist} &mdash;{' '}
                     <span className="font-semibold">{song.request_count} requests</span>
@@ -532,7 +532,7 @@ const Dashboard: NextPage = () => {
                 className="flex justify-between items-center border-b border-gray-300 pb-2"
               >
                 <div>
-                  <h3 className="font-bold">{song.name}</h3>
+                  <h3 className="font-bold text-white">{song.name}</h3>
                   <p className="text-gray-500">
                     {song.artist} &mdash;{' '}
                     <span className="font-semibold">{song.request_count} requests</span>
