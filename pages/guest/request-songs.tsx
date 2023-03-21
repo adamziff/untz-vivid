@@ -52,6 +52,10 @@ const RequestSongs: NextPage = () => {
       alert('you can only request up to five songs! click on some of them to unselect them')
       return;
     }
+    if (savedSongs.length < 1) {
+      alert('request at least one song to submit!')
+      return;
+    }
     setIsLoading(true)
     const response = await fetch("/api/save-songs", {
       method: "POST",
