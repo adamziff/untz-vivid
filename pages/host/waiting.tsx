@@ -38,6 +38,7 @@ const Waiting: NextPage = () => {
                 };
                 const playlistResponse = await fetch(
                 `https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(
+                // `http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(
                     JSON.stringify(users)
                 )}&energy_curve=${encodeURIComponent(
                     JSON.stringify(energyCurve)
@@ -148,7 +149,7 @@ const Waiting: NextPage = () => {
                     </h1>
                 
                     <p className="text-emerald-300 p-10 text-center">
-                    ür party playlist is on the way
+                    ür party playlist is on the way (give it a few minutes)
                     </p>
                         
                 </div>

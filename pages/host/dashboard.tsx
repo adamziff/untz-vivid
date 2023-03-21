@@ -44,6 +44,15 @@ const Dashboard: NextPage = () => {
     }
   };
 
+  const copyToAccessCodeClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(accessCode);
+      alert('Access code copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy access code: ', err);
+    }
+  };
+
   useEffect(() => {
     if (!accessCode) return; // do not fetch if accessCode is not loaded
     const fetchData = async () => {
@@ -108,6 +117,16 @@ const Dashboard: NextPage = () => {
     }
   };
 
+  const handleDeleteSongClick = async (spotifyId: string) => {
+    setOpenMenuId(null);
+    try {
+      await axios.post(`/api/delete-song/?spotifyId=${spotifyId}&accessCode=${accessCode}`);
+      setIsChanged(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layout>
         <Head>
@@ -119,10 +138,17 @@ const Dashboard: NextPage = () => {
 
       <div className="w-full flex flex-col md:flex-row justify-center md:justify-start items-center text-center">
         <button
-          className="text-white p-3 text-center border-2 border border-emerald-300 rounded-md w-44 md:ml-2"
+          className="text-white p-3 text-center border-2 border border-white rounded-md w-44 md:ml-2"
           onClick={copyToClipboard}
         >
           Copy Invite Link
+        </button>
+        <div className="md:px-4 py-2"></div>
+        <button
+          className="text-emerald-300 p-3 text-center border-2 border border-emerald-300 rounded-md w-44 md:ml-2"
+          onClick={copyToAccessCodeClipboard}
+        >
+          Copy Host Code
         </button>
         <div className="md:px-4 py-2"></div>
         <Link href={`/host/waiting?state=${accessCode}`}>
@@ -171,16 +197,22 @@ const Dashboard: NextPage = () => {
                     }`}
                   >
                     <button
-                      className="block w-full text-left px-4 py-2 text-sm text-emerald-300"
+                      className="block w-full text-left px-4 py-2 text-sm text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500"
                       onClick={() => handleRemoveMustPlayClick(song.spotify_id)}
                     >
-                      Remove Must Play
+                      Move to Requests
                     </button>
                     <button
                       className="block w-full text-left px-4 py-2 text-sm text-red-400"
                       onClick={() => handleDoNotPlayClick(song.spotify_id)}
                     >
-                      Make Do Not Play
+                      Move to Do Not Plays
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-white"
+                      onClick={() => handleDeleteSongClick(song.spotify_id)}
+                    >
+                      Delete song
                     </button>
                   </div>
                 </div>
@@ -234,16 +266,22 @@ const Dashboard: NextPage = () => {
                     }`}
                   >
                     <button
-                      className="block w-full text-left px-4 py-2 text-sm text-emerald-300"
+                      className="block w-full text-left px-4 py-2 text-sm text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500"
                       onClick={() => handleRemoveMustPlayClick(song.spotify_id)}
                     >
-                      Remove Must Play
+                      Move to Requests
                     </button>
                     <button
                       className="block w-full text-left px-4 py-2 text-sm text-red-400"
                       onClick={() => handleDoNotPlayClick(song.spotify_id)}
                     >
-                      Make Do Not Play
+                      Move to Do Not Plays
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-white"
+                      onClick={() => handleDeleteSongClick(song.spotify_id)}
+                    >
+                      Delete song
                     </button>
                   </div>
                 </div>
@@ -306,13 +344,19 @@ const Dashboard: NextPage = () => {
                       className="block w-full text-left px-4 py-2 text-sm text-emerald-300"
                       onClick={() => handleMustPlayClick(song.spotify_id)}
                     >
-                      Make Must Play
+                      Move to Must Plays
                     </button>
                     <button
                       className="block w-full text-left px-4 py-2 text-sm text-red-400"
                       onClick={() => handleDoNotPlayClick(song.spotify_id)}
                     >
-                      Make Do Not Play
+                      Move to Do Not Plays
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-white"
+                      onClick={() => handleDeleteSongClick(song.spotify_id)}
+                    >
+                      Delete song
                     </button>
                   </div>
                 </div>
@@ -369,13 +413,19 @@ const Dashboard: NextPage = () => {
                       className="block w-full text-left px-4 py-2 text-sm text-emerald-300"
                       onClick={() => handleMustPlayClick(song.spotify_id)}
                     >
-                      Make Must Play
+                      Move to Must Plays
                     </button>
                     <button
                       className="block w-full text-left px-4 py-2 text-sm text-red-400"
                       onClick={() => handleDoNotPlayClick(song.spotify_id)}
                     >
-                      Make Do Not Play
+                      Move to Do Not Plays
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-white"
+                      onClick={() => handleDeleteSongClick(song.spotify_id)}
+                    >
+                      Delete song
                     </button>
                   </div>
                 </div>
@@ -436,13 +486,19 @@ const Dashboard: NextPage = () => {
                       className="block w-full text-left px-4 py-2 text-sm text-emerald-300"
                       onClick={() => handleMustPlayClick(song.spotify_id)}
                     >
-                      Make Must Play
+                      Move to Must Plays
                     </button>
                     <button
-                      className="block w-full text-left px-4 py-2 text-sm text-red-400"
+                      className="block w-full text-left px-4 py-2 text-sm text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500"
                       onClick={() => handleRemoveDoNotPlayClick(song.spotify_id)}
                     >
-                      Remove Do Not Play
+                      Move to Requests
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-white"
+                      onClick={() => handleDeleteSongClick(song.spotify_id)}
+                    >
+                      Delete song
                     </button>
                   </div>
                 </div>
@@ -499,13 +555,19 @@ const Dashboard: NextPage = () => {
                       className="block w-full text-left px-4 py-2 text-sm text-emerald-300"
                       onClick={() => handleMustPlayClick(song.spotify_id)}
                     >
-                      Make Must Play
+                      Move to Must Plays
                     </button>
                     <button
-                      className="block w-full text-left px-4 py-2 text-sm text-red-400"
+                      className="block w-full text-left px-4 py-2 text-sm text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500"
                       onClick={() => handleRemoveDoNotPlayClick(song.spotify_id)}
                     >
-                      Remove Do Not Play
+                      Move to Requests
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-white"
+                      onClick={() => handleDeleteSongClick(song.spotify_id)}
+                    >
+                      Delete song
                     </button>
                   </div>
                 </div>

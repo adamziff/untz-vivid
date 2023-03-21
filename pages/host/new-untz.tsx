@@ -130,7 +130,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
             </h1>
           
             <div className="py-5">
-              <label className="text-blue-300 text-3xl">event name:</label>
+              <label className="text-blue-300 font-bold text-3xl">event name</label>
               <input
                 id="party-name"
                 placeholder="Charter Friday: Prism"
@@ -139,7 +139,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
             </div>
           
             <div className="py-5">
-              <label className="text-blue-300 text-3xl">duration (min):</label>
+              <label className="text-blue-300 font-bold text-3xl">duration (min)</label>
               <input
                 id="duration"
                 placeholder="180"
@@ -163,7 +163,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
             <Section 
               headerClassName='text-red-400' 
               headerText='do not play' 
-              tooltipText='these songs will NOT be included in the generated playlist. no matter what. you don&apos;t have to choose any of these to start; if your friends request bad songs, you can move them mark them as a do not play from the host dashboard.'
+              tooltipText='these songs will NOT be included in the generated playlist. no matter what. you don&apos;t have to choose any of these to start; if your friends request bad songs, you can change them to do not plays from the host dashboard.'
             />
             </div>
             <SearchBarRed
