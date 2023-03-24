@@ -44,7 +44,7 @@ export default function handler(
         .searchTracks(req.query.q, { limit: 5 })
         .then(
           (data: any) => {
-            console.log('Search', data.body);
+            // console.log('Search', data.body);
             res.status(200).json(data.body);
           },
           (err: any) => {

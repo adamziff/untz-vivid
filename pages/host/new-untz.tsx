@@ -22,7 +22,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [savedSongsRed, setSavedSongsRed] = useState<any[]>([]);
   const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
-  const [chaos, setChaos] = useState<number>(50);
+  const [chaos, setChaos] = useState<number>(15);
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLSpanElement>(null);
 
@@ -184,12 +184,14 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               onChange={(value) =>
                 setChaos(typeof value === "number" ? value : value[0])
               }
+              min={1}
+              max={30}
               railStyle={{ backgroundColor: "#d1d5db" }}
               trackStyle={{ backgroundColor: "#10b981" }}
               handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
               style={{ width: "full", maxWidth: "500px" }}
             />
-            <div className="flex justify-between">
+            <div className="flex justify-between text-white">
               <span>{chaos}</span>
             </div>
           

@@ -62,8 +62,12 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
     setSavedSongsRed(savedSongsRed.filter(savedSong => savedSong.id !== song.id));
   };
 
+  const handleClearClick = () => {
+    setQuery('');
+  }
+
   return (
-    <div className="p-2 w-full md:w-1/3">
+    <div className="p-2 w-full md:w-1/3 relative">
       <input
         type="text"
         placeholder="Search Spotify"
@@ -71,6 +75,13 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
         value={query}
         onChange={handleInputChange}
       />
+      {query.length > 0 && (
+        <button className="absolute right-2 pt-3 pr-2" onClick={handleClearClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-300" viewBox="0 0 20 20" fill="gray">
+            <path fillRule="evenodd" d="M14.293 14.293a1 1 0 0 1-1.414 0L10 11.414l-2.879 2.88a1 1 0 1 1-1.414-1.414L8.586 10l-2.88-2.879a1 1 0 1 1 1.414-1.414L10 8.586l2.879-2.88a1 1 0 1 1 1.414 1.414L11.414 10l2.879 2.879a1 1 0 0 1 0 1.414z" clipRule="evenodd" />
+          </svg>
+        </button>
+      )}
       {results.length > 0 && (
         <ul className="list-none bg-black">
          {results.map((song: any) => (
@@ -79,7 +90,10 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
              className="cursor-pointer p-2 text-red-400"
              onClick={() => handleSongClick(song)}
            >
-            {song.name} - {song.artists[0].name}
+            {song.artist ? 
+            <p>{song.name} - {song.artist}</p> :
+            <p>{song.name} - {song.artists[0].name}</p>
+            }
            </li>
          ))}
         </ul>
@@ -91,7 +105,10 @@ const SearchBarRed: React.FC<Props> = ({ savedSongsRed, setSavedSongsRed }) => {
             <li key={song.id} 
                 className="p-2 text-black"
                 onClick={() => handleSelectedSongClick(song)}>
-             {song.name} - {song.artists[0].name}
+             {song.artist ? 
+            <p>{song.name} - {song.artist}</p> :
+            <p>{song.name} - {song.artists[0].name}</p>
+            }
             </li>
           ))}
         </ul>

@@ -9,7 +9,6 @@ interface Props {
 const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
   const [results, setResults] = useState<any>([]);
   const [selectedSong, setSelectedSong] = useState<any>(null);
-  // const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [query, setQuery] = useState<string>('');
   const source = useRef(axios.CancelToken.source());
 
@@ -26,7 +25,6 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
         setResults(response.data.tracks.items);
       } catch (error) {
         if (axios.isCancel(error)) {
-          // console.log('Request cancelled', error.message);
         } else {
           throw error;
         }
@@ -56,17 +54,16 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
     setResults(results.filter((result: any) => result.id !== song.id));
   };
 
-  // useEffect(() => {
-  //   console.log(savedSongs);
-  // }, [savedSongs]);  
-  
-
   const handleSelectedSongClick = (song: any) => {
     setSavedSongs(savedSongs.filter(savedSong => savedSong.id !== song.id));
   };
 
+  const handleClearClick = () => {
+    setQuery('');
+  }
+
   return (
-    <div className="p-2 w-full md:w-1/3">
+    <div className="p-2 w-full md:w-1/3 relative">
       <input
         type="text"
         placeholder="Search Spotify"
@@ -74,6 +71,13 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
         value={query}
         onChange={handleInputChange}
       />
+      {query.length > 0 && (
+        <button className="absolute right-2 pt-3 pr-2" onClick={handleClearClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-emerald-300" viewBox="0 0 20 20" fill="gray">
+            <path fillRule="evenodd" d="M14.293 14.293a1 1 0 0 1-1.414 0L10 11.414l-2.879 2.88a1 1 0 1 1-1.414-1.414L8.586 10l-2.88-2.879a1 1 0 1 1 1.414-1.414L10 8.586l2.879-2.88a1 1 0 1 1 1.414 1.414L11.414 10l2.879 2.879a1 1 0 0 1 0 1.414z" clipRule="evenodd" />
+          </svg>
+        </button>
+      )}
       {results.length > 0 && (
         <ul className="list-none bg-black">
          {results.map((song: any) => (
@@ -82,12 +86,14 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
              className="cursor-pointer p-2 text-emerald-300"
              onClick={() => handleSongClick(song)}
            >
-            {song.name} - {song.artists[0].name}
+            {song.artist ? 
+            <p>{song.name} - {song.artist}</p> :
+            <p>{song.name} - {song.artists[0].name}</p>
+            }
            </li>
          ))}
         </ul>
       )}
-      {/* <h2 className="p-2 text-blue-300">Selected Songs</h2> */}
       {savedSongs.length > 0 && (
         <ul className="list-none bg-emerald-300 rounded-b-md border border-emerald-300">
           {savedSongs.map((song: any) => (
@@ -96,7 +102,10 @@ const SearchBar: React.FC<Props> = ({ savedSongs, setSavedSongs }) => {
               className="p-2 text-black"
               onClick={() => handleSelectedSongClick(song)}
             >
-              {song.name}-{song.artists[0].name}
+              {song.artist ? 
+            <p>{song.name} - {song.artist}</p> :
+            <p>{song.name} - {song.artists[0].name}</p>
+            }
             </li>
           ))}
         </ul>

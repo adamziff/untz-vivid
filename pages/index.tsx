@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         router.push(`/host/dashboard?accessCode=${accessCode}&inviteLink=${inviteLink.inviteLink}`);
       }
       else {
-        alert('invalid access code')
+        alert('invalid host code')
       }
     }
   }
@@ -76,10 +76,10 @@ const Home: NextPage = () => {
             </Link>
 
             <div className="py-4 md:p-10">
-              <p className="text-white p-3">already have an access code? enter it here:</p>
+              <p className="text-white p-3">already have a host code? enter it here:</p>
               <input
                 type="text"
-                placeholder="Access Code"
+                placeholder="Host Code"
                 className="p-2 w-full border border-emerald-300 bg-gray-700 text-white rounded-lg"
                 value={accessCode}
                 onChange={handleInputChange}

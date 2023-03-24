@@ -9,7 +9,7 @@ export default async function checkAccessCode(req: NextApiRequest, res: NextApiR
     // Connect to the database
     await dbConnect();
 
-    // Check if a party with the given access code exists
+    // Check if a party with the given host code exists
     const party: PartyType | null = await Party.findOne({ access_code: accessCode });
 
     if (party) {

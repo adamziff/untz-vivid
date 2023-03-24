@@ -6,20 +6,20 @@ import Layout from '../../components/Layout'
 import SearchBar from '../../components/SearchBar'
 import Head from 'next/head'
 
-const RequestSongs: NextPage = () => {
+const AddRequests: NextPage = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [savedSongs, setSavedSongs] = useState<any[]>([]);
   const [name, setName] = useState<string | null>(null);
   // const [bars, setBars] = useState<number[]>([]);
 //   const accessCode = '0';
-  const guestCode = router.query.guestCode as string;
-  const inviteLink = process.env.BASE_URL + '/guest/request-songs?guestCode=' + guestCode;
+  const accessCode = router.query.accessCode as string;
+  const inviteLink = router.query.inviteLink as string;
 
-  const getName = async (guestCode: string): Promise<string | null> => {
-    if (!guestCode) return null; // do not fetch if accessCode is not loaded
+  const getName = async (accessCode: string): Promise<string | null> => {
+    if (!accessCode) return null; // do not fetch if accessCode is not loaded
     try {
-      const partyResponse = await fetch(`/api/get-party-by-guest-code?guestCode=${guestCode}`)
+      const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
       if (partyResponse.ok) {
           const partyData = await partyResponse.json()
           const party = partyData.data
@@ -41,34 +41,30 @@ const RequestSongs: NextPage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await getName(guestCode);
+      const result = await getName(accessCode);
       setName(result);
     }
     fetchData();
-  }, [guestCode]);
+  }, [accessCode]);
 
   async function handleSubmitSongs() {
-    if (savedSongs.length > 5) {
-      alert('you can only request up to five songs! click on some of them to unselect them')
-      return;
-    }
     if (savedSongs.length < 1) {
-      alert('request at least one song to submit!')
+      alert('pick at least one song to submit!')
       return;
     }
     setIsLoading(true)
-    const response = await fetch("/api/save-songs", {
+    const response = await fetch("/api/add-requests-by-host-code", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        guestCode,
+        accessCode,
         savedSongs,
       }),
     })
     if (response.ok) {
-        router.push(`/guest/request-submitted?invite_link=${inviteLink}`)
+        router.push(`/host/dashboard?accessCode=${accessCode}&inviteLink=${inviteLink}`);
     } else {
       setIsLoading(false)
       console.log("Failed to share üntz")
@@ -79,25 +75,25 @@ const RequestSongs: NextPage = () => {
   return (
       <Layout>
           <Head>
-            <title>request songs</title>
+            <title>add requests</title>
             <meta name="description" content="playlists for every party" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <div className={styles.newuntz}>
               {name ? 
                 <h1 className="basis-full text-4xl md:text-7xl font-bold text-center text-emerald-300">
-                  request songs for {name}
+                  add requests for {name}
                 </h1> : 
                 <h1 className="basis-full text-4xl md:text-7xl font-bold text-center text-emerald-300">
-                  request songs
+                  add requests
                 </h1> 
               }
               
                 <div className="py-5">
-                  <p className='text-blue-300 text-xl'> pick up to five songs that you want to request for the event </p>
+                  <p className='text-blue-300 text-xl'> pick songs that you want to request for the event </p>
                 </div>
               
-                <h2 className="text-emerald-300 text-3xl font-bold">requests</h2>
+                <h2 className="text-emerald-300 text-lg md:text-3xl font-bold">requests</h2>
                 <SearchBar savedSongs={savedSongs} setSavedSongs={setSavedSongs}></SearchBar>
                             
                 <button 
@@ -112,4 +108,4 @@ const RequestSongs: NextPage = () => {
   )
 }
 
-export default RequestSongs
+export default AddRequests

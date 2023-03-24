@@ -34,7 +34,7 @@ const partySchema = new mongoose.Schema<PartyType>({
 
 // Middleware to set the invite_link field when a new Party is created
 partySchema.pre('save', function(this: PartyType, next) {
-    this.invite_link = `https://untz.studio/guest/request-songs?guestCode=${this.guest_code}`;
+    this.invite_link = process.env.BASE_URL + `/guest/request-songs?guestCode=${this.guest_code}`;
     next();
 });
 

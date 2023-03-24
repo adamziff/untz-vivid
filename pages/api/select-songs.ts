@@ -31,7 +31,7 @@ export default async function handler(
   try {
     await dbConnect();
 
-    // Find the party with the given access code
+    // Find the party with the given host code
     const party = await Party.findOne({ party_ac: accessCode });
     if (!party) {
       console.log('select-songs.tsx: party not found')

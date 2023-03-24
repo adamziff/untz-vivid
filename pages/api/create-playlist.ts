@@ -10,7 +10,7 @@ var SpotifyWebApi = require('spotify-web-api-node');
 const clientId = 'f5e1c0e33ba2435ca10ef8beb593984d';
 const clientSecret = process.env.CLIENT_SECRET;
 // const redirectUri = 'http://localhost:3000/host/waiting'
-const redirectUri = 'https://www.untz.studio/host/waiting'
+const redirectUri = process.env.BASE_URL + '/host/waiting'
 // const authCode = process.env.UNTZ_SPOTIFY_AUTH_CODE;
 // console.log('create-playlist.ts: authCode')
 // console.log(authCode)

@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       await dbConnect();
 
-      // Find the Party in the database with a matching access code
+      // Find the Party in the database with a matching host code
       const party = await Party.findOne({ access_code: accessCode });
 
       if (!party) {

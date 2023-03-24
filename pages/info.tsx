@@ -64,7 +64,7 @@ const Info: NextPage = () => {
 
             <div className='text-white pb-5 text-center'>
                 track requests in your <p className="font-bold text-emerald-300 inline">dashboard</p> to see what your friends want to hear. 
-                make sure you save your <p className="font-bold text-emerald-300 inline">access code</p> so you can easily get back to the dashboard.
+                make sure you save your <p className="font-bold text-emerald-300 inline">host code</p> so you can easily get back to the dashboard.
             </div>
 
             <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pt-10">

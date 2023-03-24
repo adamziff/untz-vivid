@@ -47,9 +47,9 @@ const Dashboard: NextPage = () => {
   const copyToAccessCodeClipboard = async () => {
     try {
       await navigator.clipboard.writeText(accessCode);
-      alert('Access code copied to clipboard!');
+      alert('Host code copied to clipboard!');
     } catch (err) {
-      console.error('Failed to copy access code: ', err);
+      console.error('Failed to copy host code: ', err);
     }
   };
 
@@ -152,7 +152,7 @@ const Dashboard: NextPage = () => {
         </button>
         <div className="md:px-4 py-2"></div>
         <Link href={`/host/waiting?state=${accessCode}`}>
-          <button className="bg-black text-white border-2 border border-blue-500 rounded-md p-3 md:mr-2 w-44">
+          <button className="bg-gradient-to-r to-red-500 from-blue-500 text-white rounded-md p-3 md:mr-2 w-44">
             Generate Playlist!
           </button>
         </Link>
@@ -160,8 +160,13 @@ const Dashboard: NextPage = () => {
 
 
         {/* Must Plays Section */}
-      <div className="bg-black shadow rounded-lg p-4">
-        <h2 className="text-2xl font-bold mb-2 text-emerald-300">must plays ({mustPlays.length})</h2>
+        <div className="bg-black shadow rounded-lg p-4 relative">
+          <h2 className="text-2xl font-bold mb-2 text-emerald-300 inline-block">must plays ({mustPlays.length})</h2>
+          <Link href={`/host/add-must-plays?accessCode=${accessCode}&inviteLink=${inviteLink}`}>
+            <button className="md:absolute top-1 md:right-0 mb-2 md:mt-2 mr-2 bg-black border border-emerald-300 text-white py-2 px-4 rounded" type="button">
+              Add Must Play
+            </button>
+          </Link>
         <ul className="space-y-2">
         {mustPlays.slice(0, 3).map((song) => {
             const isOpen = song.spotify_id === openMenuId;
@@ -302,10 +307,17 @@ const Dashboard: NextPage = () => {
         </div>
 
         {/* Requests Section */}
-      <div className="bg-black shadow rounded-lg p-4">
-        <h2 className="text-2xl mb-2 py-3 font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 w-44">
+      <div className="bg-black shadow rounded-lg p-4 relative">
+        <h2 className="text-2xl mb-2 py-3 font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 w-44 inline-block">
           requests ({requests.length})
         </h2>
+        <div className="md:absolute right-0 mb-2 md:mt-2 mr-2 rounded bg-gradient-to-r from-blue-500 to-red-500 p-0.5 top-4 w-max">
+          <Link href={`/host/add-requests?accessCode=${accessCode}&inviteLink=${inviteLink}`}>
+            <button className="bg-black text-white py-2 px-4 rounded" type="button">
+              Add Requests
+            </button>
+          </Link>
+        </div>
         <ul className="space-y-2">
         {requests.slice(0, 3).map((song) => {
             const isOpen = song.spotify_id === openMenuId;
@@ -446,8 +458,13 @@ const Dashboard: NextPage = () => {
         </div>
         
         {/* Do Not Plays Section */}
-      <div className="bg-black shadow rounded-lg p-4">
-        <h2 className="text-2xl font-bold mb-2 text-red-400">do not plays ({doNotPlays.length})</h2>
+      <div className="bg-black shadow rounded-lg p-4 relative">
+        <h2 className="text-2xl font-bold mb-2 text-red-400 inline-block">do not plays ({doNotPlays.length})</h2>
+        <Link href={`/host/add-do-not-plays?accessCode=${accessCode}&inviteLink=${inviteLink}`}>
+            <button className="md:absolute top-1 md:right-0 mb-2 md:mt-2 mr-2 bg-black border border-red-400 text-white py-2 px-4 rounded" type="button">
+              Add Do Not Play
+            </button>
+          </Link>
         <ul className="space-y-2">
         {doNotPlays.slice(0, 3).map((song) => {
             const isOpen = song.spotify_id === openMenuId;

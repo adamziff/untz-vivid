@@ -12,6 +12,11 @@ export interface Song {
 
 export const spotifyToSongs = (spotifyData: Array<object>, play: number, party_ac: string): Array<Song> => {
   return spotifyData.map((obj: any) => {
+    if (isSong(obj)) {
+      obj.play = play;
+      obj.party_ac = party_ac;
+      return obj;
+    }
     const durationInMinutes = Math.round(obj.duration_ms / 60000); // convert duration from ms to minutes and round to nearest minute
     const song: Song = {
       name: obj.name,
@@ -24,6 +29,18 @@ export const spotifyToSongs = (spotifyData: Array<object>, play: number, party_a
     };
     return song;
   });
+};
+
+const isSong = (obj: any): obj is Song => {
+  return (
+    obj &&
+    obj.name &&
+    obj.artist &&
+    obj.duration &&
+    obj.request_count &&
+    obj.spotify_id &&
+    obj.party_ac
+  );
 };
 
 export const getSpotifyIds = (spotifyData: Array<object>): Array<string> => {

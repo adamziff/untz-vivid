@@ -24,9 +24,9 @@ const InviteLink: NextPage = () => {
   const copyAccessCodeToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(accessCode);
-      alert('Access code copied to clipboard!');
+      alert('Host code copied to clipboard!');
     } catch (err) {
-      console.error('Failed to copy access code: ', err);
+      console.error('Failed to copy host code: ', err);
     }
   };
 
@@ -60,7 +60,7 @@ const InviteLink: NextPage = () => {
             </button>
 
             <p className="pt-10 text-emerald-300">
-              2. copy and save your party access code somewhere so you can access your dashboard
+              2. copy and save your party host code somewhere so you can access your dashboard
             </p>
             <p className="pb-10 pt-2 text-gray-400">
               you can enter this code on the home page to get to your party&apos;s dashboard that tracks all your friends&apos; requests
@@ -70,7 +70,7 @@ const InviteLink: NextPage = () => {
               className="text-emerald-300 p-3 text-center border border-emerald-300 rounded-md"
               onClick={copyAccessCodeToClipboard}
             >
-              Copy Access Code
+              Copy Host Code
             </button>
 
             <p className="text-emerald-300 p-10 text-center">

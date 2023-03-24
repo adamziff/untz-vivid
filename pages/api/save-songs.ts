@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       party_ac: party.access_code,
     });
 
-    // Add new songs to the song table with the right access code
+    // Add new songs to the song table with the right host code
     const newSongs = spotifyToSongs(
       savedSongs.filter(
         (song: any) => !existingSongs.some((s: any) => s.spotify_id === song.uri)

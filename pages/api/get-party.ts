@@ -31,7 +31,7 @@ export default async function handler(
     await dbConnect();
     console.log('Connected to MongoDB Atlas');
 
-    // Find the party with the given access code
+    // Find the party with the given host code
     const party = await Party.findOne({ access_code: accessCode });
     if (!party) {
         console.log('get-party.tsx: party not found')
