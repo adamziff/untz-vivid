@@ -137,7 +137,10 @@ const Dashboard: NextPage = () => {
       if (duration && mustPlays.length * 3 > duration) {
         alert('your duration is too small! either remove some must plays or increase your duration.')
         return;
-    } else {
+      } else if (mustPlays.length + requests.length + doNotPlays.length > 42) {
+        alert('too many songs in request - the server does not currently support more than 42 unique songs across all three categories (must plays, requests, do not plays).')
+        return;
+      } else {
         router.push(`/host/waiting?state=${accessCode}`)
       }
     } catch (error) {
