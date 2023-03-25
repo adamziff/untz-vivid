@@ -31,7 +31,9 @@ export default async function handler(
     const doNotPlays = songs.filter((song) => song.play === -1).sort((a, b) => b.request_count - a.request_count);
     const requests = songs.filter((song) => song.play === 0).sort((a, b) => b.request_count - a.request_count);
 
-    res.status(200).json({mustPlays: mustPlays, requests: requests, doNotPlays: doNotPlays });
+    const party = await Party.findOne({ accessCode: accessCode })
+
+    res.status(200).json({mustPlays: mustPlays, requests: requests, doNotPlays: doNotPlays, name: party.name });
 
   } catch (error) {
     console.log(error);

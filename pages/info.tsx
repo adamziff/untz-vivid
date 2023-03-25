@@ -35,48 +35,68 @@ const Info: NextPage = () => {
                     use üntz.studio to create playlists with your friends for the dance floor, dinner party, road trip, and more.
                 </p>
                 <p className="text-gray-400">
-                    follow the instructions below to generate the perfect playlist for your event.
+                    follow the instructions below to generate the perfect playlist for every event.
                     {/* let üntz be your dj for the dance floor, dinner party, road trip, and more.  */}
                 </p>
             </div>
 
-            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl">
+            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pb-5">
                 step 1: create ür party
             </h2>
 
-            <div className='text-white p-5 text-center'>
+            <div className='text-white pb-5 text-center'>
                 pick your <p className="font-bold text-emerald-300 inline">must plays</p>, the songs you absolutely have to hear, 
                 and your <p className="font-bold text-red-500 inline">do not plays</p>, the songs you wouldn&apos;t be caught dead listening to.
+                no matter what any of your guests request, we&apos;ll include/exclude these in any playlist we generate for you.
             </div>
 
             <div className='text-white pb-5 text-center'>
-                set your <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 inline">~energy curve~</p> to control the flow of the vibes,
-                and choose how much <p className="font-bold text-yellow-300 inline">chaos</p> you want- more chaos means less catering to requests.
+                set your <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 inline">~energy curve~</p> to control the flow of the vibes;
+                the algorithm will choose the order of the songs in the playlist to match this curve.
+            </div>
+            <div className='text-white pb-5 text-center'>
+                choose how much <p className="font-bold text-yellow-300 inline">chaos</p> you want. 
+                less chaos = requests from your guests are very likely to be played.
+                more chaos = the algorithm will cater more towards recommended songs based on requests, not the requests themselves.
             </div>
 
-            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pt-10">
+            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pt-10 pb-5">
                 step 2: share with friends
             </h2>
 
-            <div className='text-white p-5 text-center'>
+            <div className='text-white pb-5 text-center'>
                 send the <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500 inline">invite link</p> to your friends so they can request songs.
             </div>
 
-            <div className='text-white pb-5 text-center'>
-                track requests in your <p className="font-bold text-emerald-300 inline">dashboard</p> to see what your friends want to hear. 
+            <div className='text-white pb-1 text-center'>
+                track requests in your <p className="font-bold text-emerald-300 inline">host dashboard</p> to see what your friends want to hear. 
                 make sure you save your <p className="font-bold text-emerald-300 inline">host code</p> so you can easily get back to the dashboard.
             </div>
+            <div className='text-gray-400 pb-5 text-center'>
+                share the host code with your co-hosts so they can access the dashboard too by entering it on the untz.studio home page. guests can&apos;t see what anyone else requests.
+            </div>
 
-            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pt-10">
+            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pt-10 pb-5">
                 step 3: generate playlist
             </h2>
 
-            <div className='text-white p-5 text-center'>
+            <div className='text-white pb-1 text-center'>
                 when you&apos;re ready, click <p className="font-bold text-emerald-300 inline">generate playlist</p>.
-                leave the tab open while the song selection algorithm runs- we&apos;ll let you know when your playlist is ready.
+                leave the tab open while the song selection algorithm runs- the playlist will open automatically when it's ready.
+            </div>
+            <div className='text-gray-400 pb-5 text-center'>
+              the playlist songs are sorted to match the energy curve you set, so make sure you play it in order.
+            </div>
+
+            <h2 className="font-bold text-center text-emerald-300 text-lg md:text-4xl pt-10 pb-5">
+                step 4: relax
+            </h2>
+
+            <div className='text-white pb-5 text-center'>
+                taking aux is stressful. let<p className="font-bold text-emerald-300 inline"> üntz </p>do the hard part for you.
             </div>
         
-            <div className='pb-10'>
+            <div className='py-10'>
                 <Link href="/host/new-untz">
                 <button className="bg-emerald-300 text-black rounded-md px-3 py-1 font-bold">
                     get started

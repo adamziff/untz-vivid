@@ -72,7 +72,7 @@ const BarChart: React.FC<Props> = ({ bars, setBars }) => {
             <Section 
               headerClassName='text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-blue-500' 
               headerText='~energy curve~' 
-              tooltipText='the energy of the songs in the generated playlist will be ordered to match this curve. bigger bar = more energy.'
+              tooltipText='this curve determines the order of the songs in the playlist - use it to control the energy flow of your event. bigger bar = more energy in the songs in that section of the playlist. drag the bars up/down to change their size.'
             />
       </div>
       <div className="-mx-1 flex flex-row">

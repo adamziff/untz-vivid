@@ -19,6 +19,7 @@ const Dashboard: NextPage = () => {
   const [showAllRequests, setShowAllRequests] = useState(false)
   const [showAllDoNotPlays, setShowAllDoNotPlays] = useState(false)
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [name, setPartyName] = useState<string | null>(null);
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -60,10 +61,11 @@ const Dashboard: NextPage = () => {
       try {
         const res = await fetch(`/api/dashboard?accessCode=${accessCode}`)//, {
         if (res.ok) {
-            const { mustPlays, requests, doNotPlays } = await res.json()
+            const { mustPlays, requests, doNotPlays, name } = await res.json()
             setMustPlays(mustPlays)
             setRequests(requests)
             setDoNotPlays(doNotPlays)
+            setPartyName(name)
         } else {
             setMustPlays([])
             setRequests([])
@@ -134,7 +136,15 @@ const Dashboard: NextPage = () => {
             <meta name="description" content="playlists for every party" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
-      <h1 className="text-4xl font-bold mb-8 text-white">Party Dashboard</h1>
+
+        {name ? 
+          <h1 className="basis-full text-4xl font-bold mb-8 text-white">
+            Dashboard - {name}
+          </h1> : 
+          <h1 className="basis-full text-4xl font-bold mb-8 text-white">
+            Dashboard
+          </h1> 
+        }
 
       <div className="w-full flex flex-col md:flex-row justify-center md:justify-start items-center text-center">
         <button

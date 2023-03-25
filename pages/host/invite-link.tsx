@@ -60,10 +60,11 @@ const InviteLink: NextPage = () => {
             </button>
 
             <p className="pt-10 text-emerald-300">
-              2. copy and save your party host code somewhere so you can access your dashboard
+              2. copy and save your host code so you can access your dashboard later
             </p>
-            <p className="pb-10 pt-2 text-gray-400">
-              you can enter this code on the home page to get to your party&apos;s dashboard that tracks all your friends&apos; requests
+            <p className="pb-10 pt-2 md:w-2/3 text-gray-400">
+              you can enter this code on the untz.studio home page to get to your event&apos;s dashboard that tracks all your friends&apos; requests.
+              you can also share this code with your co-hosts so they can access the dashboard as well.
             </p>
 
             <button
@@ -76,7 +77,7 @@ const InviteLink: NextPage = () => {
             <p className="text-emerald-300 p-10 text-center">
                 {/* ür next party starts here */}
                 {/* {inviteLink} */}
-                3. go to the dashboard to track your friends&apos; requests, and generate your playlist when you&apos;re ready
+                3. go to the host dashboard to track your friends&apos; requests, and generate your playlist when you&apos;re ready
               </p>
                     
             <Link href={`/host/dashboard?accessCode=${accessCode}&inviteLink=${inviteLink}`}>
