@@ -29,15 +29,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // remove from doNotPlays
-      else if (party.doNotPlays.includes(spotifyId)) {
+      if (party.doNotPlays.includes(spotifyId)) {
         party.doNotPlays = party.doNotPlays.filter((id: string) => id !== spotifyId);
       }
 
       // remove from requests
-      else if (party.requests.some((arr:string[]) => arr.includes(spotifyId))) {
-        party.requests = party.requests.map((arr:string[]) =>
-          arr.filter((id: string) => id !== spotifyId)
-        );
+      if (party.requests.some((arr: string[]) => arr.includes(spotifyId))) {
+        party.requests = party.requests.map((arr: string[]) => {
+          const updatedArr = arr.filter((id: string) => id !== spotifyId);
+          if (updatedArr.length > 0) {
+            return updatedArr;
+          }
+          return null;
+        }).filter((arr: string[] | null) => arr !== null) as string[][];
       }
 
       await party.save();

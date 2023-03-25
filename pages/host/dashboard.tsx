@@ -142,7 +142,7 @@ const Dashboard: NextPage = () => {
             Dashboard - {name}
           </h1> : 
           <h1 className="basis-full text-4xl font-bold mb-8 text-white">
-            Dashboard
+            Loading Dashboard Data...
           </h1> 
         }
 
