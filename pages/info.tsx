@@ -82,7 +82,7 @@ const Info: NextPage = () => {
 
             <div className='text-white pb-1 text-center'>
                 when you&apos;re ready, click <p className="font-bold text-emerald-300 inline">generate playlist</p>.
-                leave the tab open while the song selection algorithm runs- the playlist will open automatically when it's ready.
+                leave the tab open while the song selection algorithm runs- the playlist will open automatically when it&apos;s ready.
             </div>
             <div className='text-gray-400 pb-5 text-center'>
               the playlist songs are sorted to match the energy curve you set, so make sure you play it in order.
