@@ -20,6 +20,7 @@ const Dashboard: NextPage = () => {
   const [showAllDoNotPlays, setShowAllDoNotPlays] = useState(false)
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [name, setPartyName] = useState<string | null>(null);
+  const [duration, setPartyDuration] = useState<number | null>(null);
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -61,11 +62,12 @@ const Dashboard: NextPage = () => {
       try {
         const res = await fetch(`/api/dashboard?accessCode=${accessCode}`)//, {
         if (res.ok) {
-            const { mustPlays, requests, doNotPlays, name } = await res.json()
+            const { mustPlays, requests, doNotPlays, name, duration } = await res.json()
             setMustPlays(mustPlays)
             setRequests(requests)
             setDoNotPlays(doNotPlays)
             setPartyName(name)
+            setPartyDuration(duration)
         } else {
             setMustPlays([])
             setRequests([])
@@ -129,6 +131,20 @@ const Dashboard: NextPage = () => {
     }
   };
 
+  const handleGeneratePlaylistClick = async () => {
+    setOpenMenuId(null)
+    try {
+      if (duration && mustPlays.length * 3 > duration) {
+        alert('your duration is too small! either remove some must plays or increase your duration.')
+        return;
+    } else {
+        router.push(`/host/waiting?state=${accessCode}`)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Layout>
         <Head>
@@ -161,11 +177,9 @@ const Dashboard: NextPage = () => {
           Copy Host Code
         </button>
         <div className="md:px-4 py-2"></div>
-        <Link href={`/host/waiting?state=${accessCode}`}>
-          <button className="bg-gradient-to-r to-red-500 from-blue-500 text-white rounded-md p-3 md:mr-2 w-44">
-            Generate Playlist!
-          </button>
-        </Link>
+        <button onClick={handleGeneratePlaylistClick} className="bg-gradient-to-r to-red-500 from-blue-500 text-white rounded-md p-3 md:mr-2 w-44">
+          Generate Playlist!
+        </button>
       </div>
 
 
@@ -207,7 +221,7 @@ const Dashboard: NextPage = () => {
                   </button>
                   <div
                     ref={menuRef}
-                    className={`absolute right-0 w-48 py-2 border rounded-lg shadow-xl bg-black ${
+                    className={`absolute right-0 w-48 py-2 border rounded-lg shadow-xl bg-black z-50 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >
@@ -276,7 +290,7 @@ const Dashboard: NextPage = () => {
                   </button>
                   <div
                     ref={menuRef}
-                    className={`absolute right-0 w-48 py-2 bg-black border rounded-lg shadow-xl ${
+                    className={`absolute right-0 w-48 py-2 bg-black border rounded-lg shadow-xl z-50 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >
@@ -358,7 +372,7 @@ const Dashboard: NextPage = () => {
                   </button>
                   <div
                     ref={menuRef}
-                    className={`absolute right-0 w-48 py-2 border rounded-lg shadow-xl bg-black ${
+                    className={`absolute right-0 w-48 py-2 border rounded-lg shadow-xl bg-black z-50 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >
@@ -427,7 +441,7 @@ const Dashboard: NextPage = () => {
                   </button>
                   <div
                     ref={menuRef}
-                    className={`absolute right-0 w-48 py-2 bg-black border rounded-lg shadow-xl ${
+                    className={`absolute right-0 w-48 py-2 bg-black border rounded-lg shadow-xl z-50 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >
@@ -505,7 +519,7 @@ const Dashboard: NextPage = () => {
                   </button>
                   <div
                     ref={menuRef}
-                    className={`absolute right-0 w-48 py-2 border rounded-lg shadow-xl bg-black ${
+                    className={`absolute right-0 w-48 py-2 border rounded-lg shadow-xl bg-black z-50 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >
@@ -574,7 +588,7 @@ const Dashboard: NextPage = () => {
                   </button>
                   <div
                     ref={menuRef}
-                    className={`absolute right-0 w-48 py-2 bg-black border rounded-lg shadow-xl ${
+                    className={`absolute right-0 w-48 py-2 bg-black border rounded-lg shadow-xl z-50 ${
                       isOpen ? '' : 'hidden'
                     }`}
                   >

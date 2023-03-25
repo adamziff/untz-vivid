@@ -33,7 +33,7 @@ export default async function handler(
 
     const party = await Party.findOne({ access_code: accessCode })
 
-    res.status(200).json({mustPlays: mustPlays, requests: requests, doNotPlays: doNotPlays, name: party.name });
+    res.status(200).json({mustPlays: mustPlays, requests: requests, doNotPlays: doNotPlays, name: party.name, duration: party.duration });
 
   } catch (error) {
     console.log(error);
