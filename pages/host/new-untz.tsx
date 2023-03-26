@@ -11,6 +11,7 @@ import 'rc-slider/assets/index.css';
 import Handle from 'rc-slider/lib/Handles/Handle'
 import { SliderProps } from 'rc-slider'
 import Section from '../../components/Section'
+import DurationInput from '../../components/DurationInput'
 
 interface Props extends SliderProps<number> {
   className?: string;
@@ -25,6 +26,18 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   const [chaos, setChaos] = useState<number>(15);
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLSpanElement>(null);
+  const [duration, setDuration] = useState<number>(30);
+
+  const handleDurationChange = (duration: number) => {
+    // if (duration >= 0 && duration <= 300) {
+      // Duration is valid and within the allowed range (0-300 minutes)
+      setDuration(duration);
+    // } else {
+    //   // Duration is invalid
+    //   alert('Duration must be between 1 and 300 minutes.'); // Display an error message
+    // }
+  };
+  
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -53,7 +66,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   async function handleShareUntz() {
     setIsLoading(true)
     const partyNameInput = document.getElementById('party-name') as HTMLInputElement
-    const durationInput = document.getElementById('duration') as HTMLInputElement
+    // const durationInput = document.getElementById('duration') as HTMLInputElement
 
     if (partyNameInput.value.length < 1) {
       setIsLoading(false)
@@ -61,16 +74,21 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
       return;
     }
 
-    if (durationInput.value.length < 1) {
-      setIsLoading(false)
-      alert('enter a duration!')
-      return;
-    }
-
-    const duration = parseInt(durationInput.value)
     if (savedSongs.length * 3 > duration) {
       setIsLoading(false)
       alert('your duration is too small! either remove some must plays or increase your duration.')
+      return;
+    }
+
+    if (duration < 1) {
+      setIsLoading(false)
+      alert('set a duration!')
+      return;
+    }
+
+    if (duration > 300) {
+      setIsLoading(false)
+      alert('your duration is too large- üntz does not currently support playlists longer than five hours')
       return;
     }
 
@@ -138,14 +156,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               ></input>
             </div>
           
-            <div className="py-5">
-              <label className="text-blue-300 font-bold text-3xl">duration (min)</label>
-              <input
-                id="duration"
-                placeholder="180"
-                className="form-control md:px-10 py-2 px-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
-              ></input>
-            </div>
+            <DurationInput onDurationChange={handleDurationChange}></DurationInput>
           
             <div className='z-50'>
             <Section 
