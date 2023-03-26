@@ -12,21 +12,68 @@ import Handle from 'rc-slider/lib/Handles/Handle'
 import { SliderProps } from 'rc-slider'
 import Section from '../../components/Section'
 import DurationInput from '../../components/DurationInput'
+import { PartyType } from '../api/models/party'
 
 interface Props extends SliderProps<number> {
   className?: string;
 }
 
-const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
+const EditUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-  const [savedSongs, setSavedSongs] = useState<any[]>([]);
-  const [savedSongsRed, setSavedSongsRed] = useState<any[]>([]);
   const [bars, setBars] = useState<number[]>([10, 20, 30, 40]);
   const [chaos, setChaos] = useState<number>(15);
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipRef = useRef<HTMLSpanElement>(null);
   const [duration, setDuration] = useState<number>(30);
+  const [partyName, setPartyName] = useState<string | null>(null)
+  const [inviteLink, setInviteLink] = useState<string>('')
+
+  const accessCode = router.query.accessCode as string;
+
+  const getParty = async (accessCode: string): Promise<PartyType | null> => {
+    if (!accessCode) return null; // do not fetch if accessCode is not loaded
+    try {
+      const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
+      if (partyResponse.ok) {
+          const partyData = await partyResponse.json()
+          const party = partyData.data
+        
+          return party;
+
+      } else {
+          console.log("Failed to get party")
+          return null;
+      }
+
+    } catch (error) {
+        console.log("Failed to get party")
+        console.log(error);
+        return null;
+    }
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      const party = await getParty(accessCode);
+      if (party) {
+        setPartyName(party.name);
+        setBars(party.energy_curve.map((value: number) => value * 100));
+        setChaos(party.chaos);
+        setDuration(party.duration);
+        setInviteLink(party.invite_link);
+      }
+    }
+    fetchData();
+  }, [accessCode]);
+
+  // const updatePartyName = (name: string | null) => {
+  //   if (!name) {
+  //     setPartyName('')
+  //   } else {
+  //     setPartyName(name)
+  //   }
+  // }
 
   const handleDurationChange = (duration: number) => {
     // if (duration >= 0 && duration <= 300) {
@@ -65,18 +112,12 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
 
   async function handleShareUntz() {
     setIsLoading(true)
-    const partyNameInput = document.getElementById('party-name') as HTMLInputElement
+    // const partyNameInput = document.getElementById('party-name') as HTMLInputElement
     // const durationInput = document.getElementById('duration') as HTMLInputElement
 
-    if (partyNameInput.value.length < 1) {
+    if (!partyName || partyName.length < 1) {
       setIsLoading(false)
       alert('enter a party name!')
-      return;
-    }
-
-    if (savedSongs.length * 3 > duration) {
-      setIsLoading(false)
-      alert('your duration is too small! either remove some must plays or increase your duration.')
       return;
     }
 
@@ -92,41 +133,25 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
       return;
     }
 
-    const partyResponse = await fetch("/api/add-party", {
-      method: "POST",
+    const partyResponse = await fetch("/api/edit-party", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        savedSongs,
-        savedSongsRed,
-        partyName: partyNameInput.value,
-        duration: duration,
+        accessCode,
+        partyName,
+        duration,
         bars,
         chaos,
       }),
     })
     if (partyResponse.ok) {
-      const { message, accessCode, inviteLink } = await partyResponse.json()
-      const response = await fetch("/api/add-songs", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          savedSongs,
-          savedSongsRed,
-          accessCode
-        }),
-      })
-      if (response.ok) {
         setIsLoading(false)
         // const data = await response.json()
-        router.push(`/host/invite-link?access_code=${accessCode}&invite_link=${inviteLink}`)
-      } else {
-        setIsLoading(false)
-        console.log("Failed to share üntz")
-      }
+        console.log(accessCode)
+        console.log(inviteLink)
+        router.push(`/host/dashboard?accessCode=${accessCode}&inviteLink=${inviteLink}`)
     } else {
       setIsLoading(false)
       console.log("Failed to share üntz")
@@ -137,52 +162,48 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   return (
       <Layout>
           <Head>
-            <title>new üntz</title>
+            <title>edit üntz</title>
             <meta name="description" content="playlists for every party" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <div className={styles.newuntz}>
             {/* <div className="flex flex-col justify-center items-center"> */}
             <h1 className="basis-full text-6xl md:text-7xl font-bold text-center text-emerald-300">
-              new üntz
+              edit üntz
             </h1>
-          
-            <div className="py-5">
-              <label className="text-blue-300 font-bold text-3xl">event name</label>
-              <input
-                id="party-name"
-                placeholder="Charter Friday: Prism"
-                className="form-control md:px-10 p-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
-              ></input>
-            </div>
-          
-            <DurationInput initialDuration={duration} onDurationChange={handleDurationChange}></DurationInput>
-          
-            <div className='z-50'>
-            <Section 
-              headerClassName='text-emerald-300' 
-              headerText='must play' 
-              tooltipText='these songs WILL be included in the generated playlist. no matter what. you don&apos;t have to choose any of these to start, but you are the host after all, and you should get what you want.'
-            />
-            </div>
-            <SearchBar
-              savedSongs={savedSongs}
-              setSavedSongs={setSavedSongs}
-            ></SearchBar>
-          
-            <div className='z-40'>
-            <Section 
-              headerClassName='text-red-400' 
-              headerText='do not play' 
-              tooltipText='these songs will NOT be included in the generated playlist. no matter what. you don&apos;t have to choose any of these to start; if your friends request bad songs, you can change them to do not plays from the host dashboard.'
-            />
-            </div>
-            <SearchBarRed
-              savedSongsRed={savedSongsRed}
-              setSavedSongsRed={setSavedSongsRed}
-            ></SearchBarRed>
-          
 
+            {partyName !== null ? 
+                <div className="py-5">
+                  <label className="text-blue-300 font-bold text-3xl">event name</label>
+                  <input
+                    id="party-name"
+                    placeholder="Charter Friday: Prism"
+                    className="form-control md:px-10 p-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
+                    defaultValue={partyName}
+                    onChange={(event) => setPartyName(event.target.value)}
+                  ></input>
+                </div> : 
+              <h1 className="basis-full text-4xl font-bold text-white">
+                loading üntz settings...
+
+                <div className="py-5">
+                  <label className="text-blue-300 font-bold text-3xl">event name</label>
+                  <input
+                    id="party-name"
+                    placeholder="Charter Friday: Prism"
+                    className="form-control md:px-10 p-2 text-white block text-3xl outline-blue-300 bg-gray-700 rounded-lg"
+                    onChange={(event) => setPartyName(event.target.value)}
+                  ></input>
+                </div>
+              </h1> 
+            }
+
+            { partyName !== null ? 
+              <DurationInput initialDuration={duration} onDurationChange={handleDurationChange}></DurationInput>
+            :
+              <div></div>
+            } 
+          
             <div className='z-30'>
             <Section 
               headerClassName='text-blue-300' 
@@ -190,6 +211,8 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               tooltipText='less chaos = the algorithm is more likely to include requests from your friends in the playlists. more chaos = more likely to hear unrequested songs that are recommended based on requested tracks.'
             />
             </div>
+
+            { partyName !== null ? 
             <Slider
               defaultValue={chaos}
               onChange={(value) =>
@@ -201,13 +224,26 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               trackStyle={{ backgroundColor: "#10b981" }}
               handleStyle={{ backgroundColor: "#10b981", borderColor: "#10b981" }}
               style={{ width: "full", maxWidth: "500px" }}
-            />
+            /> 
+            : 
+            <div></div>
+            }
+
+            { partyName !== null ? 
             <div className="flex justify-between text-white">
               <span>{chaos}</span>
             </div>
+            :
+              <div></div>
+            }
+            
           
-            <BarChart bars={bars} setBars={setBars}></BarChart>
-          
+            { partyName !== null ? 
+              <BarChart bars={bars} setBars={setBars}></BarChart>
+            :
+              <div></div>
+            }  
+
             <div className="p-10"></div>
           
             <button
@@ -223,4 +259,4 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
   )
 }
 
-export default NewUntz;
+export default EditUntz;

@@ -2,11 +2,12 @@ import { useState } from 'react';
 
 interface DurationInputProps {
   onDurationChange: (duration: number) => void;
+  initialDuration: number;
 }
 
-const DurationInput = ({ onDurationChange }: DurationInputProps) => {
-  const [hours, setHours] = useState('0');
-  const [minutes, setMinutes] = useState('30');
+const DurationInput = ({ onDurationChange, initialDuration }: DurationInputProps) => {
+    const [hours, setHours] = useState(Math.floor(initialDuration / 60).toString());
+    const [minutes, setMinutes] = useState((initialDuration % 60).toString());
 
   const handleHoursChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const hoursValue = event.target.value.replace(/\D/g, ''); // allow only digits

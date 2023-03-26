@@ -137,6 +137,9 @@ const Dashboard: NextPage = () => {
       if (duration && mustPlays.length * 3 > duration) {
         alert('your duration is too small! either remove some must plays or increase your duration.')
         return;
+      } else if (mustPlays.length + requests.length === 0) {
+        alert('pick at least one song to generate a playlist.')
+        return;
       } else if (mustPlays.length + requests.length + doNotPlays.length > 42) {
         alert('too many songs in request - the server does not currently support more than 42 unique songs across all three categories (must plays, requests, do not plays).')
         return;
@@ -166,15 +169,22 @@ const Dashboard: NextPage = () => {
         }
 
       <div className="w-full flex flex-col md:flex-row justify-center md:justify-start items-center text-center">
-        <button
-          className="text-white p-3 text-center border-2 border border-white rounded-md w-44 md:ml-2"
+      <Link href={`/host/edit-untz?accessCode=${accessCode}`}>
+          <button
+            className="text-blue-400 p-3 text-center border-2 border border-blue-400 rounded-md w-44 md:ml-2"
+          >
+            Edit Settings
+          </button>
+        </Link>
+        <div className="md:px-4 py-2"></div><button
+          className="text-white p-3 text-center border-2 border border-emerald-300 rounded-md w-44 md:ml-2"
           onClick={copyToClipboard}
         >
           Copy Invite Link
         </button>
         <div className="md:px-4 py-2"></div>
         <button
-          className="text-emerald-300 p-3 text-center border-2 border border-emerald-300 rounded-md w-44 md:ml-2"
+          className="text-white p-3 text-center border-2 border border-emerald-300 rounded-md w-44 md:ml-2"
           onClick={copyToAccessCodeClipboard}
         >
           Copy Host Code
