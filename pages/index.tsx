@@ -59,8 +59,8 @@ const Home: NextPage = () => {
               ür next party starts here
             </p>
         
-            {data ? <p className='text-white'>Song Selection Server is live!</p> : <p className='text-white'>Checking on Song Selection server...</p>}
-            <div className='p-3'></div>
+            {/* {data ? <p className='text-white'>Song Selection Server is live!</p> : <p className='text-white'>Checking on Song Selection server...</p>} */}
+            {/* <div className='p-3'></div> */}
         
             <Link href="/host/new-untz">
               <button className="bg-emerald-300 text-black rounded-md px-20 py-1 font-bold">

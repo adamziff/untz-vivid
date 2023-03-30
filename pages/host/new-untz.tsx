@@ -147,7 +147,7 @@ const NewUntz: React.FC<Props> = ({ className, ...sliderProps }) => {
               new üntz
             </h1>
           
-            <div className="py-5">
+            <div className="py-5 px-2">
               <label className="text-blue-300 font-bold text-3xl">event name</label>
               <input
                 id="party-name"
