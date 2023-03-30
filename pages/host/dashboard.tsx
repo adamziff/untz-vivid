@@ -144,7 +144,7 @@ const Dashboard: NextPage = () => {
         alert('too many songs in request - the server does not currently support more than 42 unique songs across all three categories (must plays, requests, do not plays).')
         return;
       } else {
-        router.push(`/host/waiting?state=${accessCode}`)
+        router.push(`/host/waiting?accessCode=${accessCode}&name=${name}`)
       }
     } catch (error) {
       console.log(error);

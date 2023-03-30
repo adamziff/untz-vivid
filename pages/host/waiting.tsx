@@ -11,77 +11,86 @@ import { useState } from 'react'
 const Waiting: NextPage = () => {
     const router = useRouter()
     // const code = router.query.code as string;
-    const state = router.query.state as string;
+    const accessCode = router.query.accessCode as string;
+    const name = router.query.name as string;
     const [playlistLink, setPlaylistLink] = useState<string | null>(null);
     const [requestInfo, setRequestInfo] = useState<string>('');
 
-    const selectSongs = async (accessCode: string): Promise<{ songs: string[]; partyName: string }> => {
+    const selectSongs = async (accessCode: string): Promise<{ songs: string[] }> => {
     // const selectSongs = async (accessCode: string) => {
         try {
-            setRequestInfo('getting party info')
-            const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
-            if (partyResponse.ok) {
-                const partyData = await partyResponse.json()
-                setRequestInfo('party info accessed, running song selection algorithm')
-                const party = partyData.data
+            // setRequestInfo('getting party info')
+            // const partyResponse = await fetch(`/api/get-party?accessCode=${accessCode}`)
+            // if (partyResponse.ok) {
+            //     const partyData = await partyResponse.json()
+            //     setRequestInfo('party info accessed, running song selection algorithm')
+            //     const party = partyData.data
               
-                const users = party.requests;
-                const energyCurve = party.energy_curve;
-                const chaos = party.chaos
-                const numSongs = Math.round(party.duration/3) // assumes average 3 minutes / song
-                const mustPlays = party.mustPlays;
-                const doNotPlays = party.doNotPlays;
+            //     const users = party.requests;
+            //     const energyCurve = party.energy_curve;
+            //     const chaos = party.chaos
+            //     const numSongs = Math.round(party.duration/3) // assumes average 3 minutes / song
+            //     const mustPlays = party.mustPlays;
+            //     const doNotPlays = party.doNotPlays;
 
                 console.log('generating playlist')
+                setRequestInfo('running song selection algorithm')
                 const fetchOptions: Partial<RequestInit> & { timeout: number } = {
                 timeout: 300000,
                 };
                 const playlistResponse = await fetch(
-                `https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(
-                // `http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(
-                    JSON.stringify(users)
-                )}&energy_curve=${encodeURIComponent(
-                    JSON.stringify(energyCurve)
-                )}&chaos=${chaos}&num_songs_to_select=${numSongs}
-                &must_plays=${encodeURIComponent(JSON.stringify(mustPlays))}
-                &do_not_plays=${encodeURIComponent(JSON.stringify(doNotPlays))}`,
-                fetchOptions
+                    `https://untz-backend.azurewebsites.net/api/generate-playlist?accessCode=${
+                    // `http://localhost:8000/api/generate-playlist?accessCode=${
+                        accessCode
+                    }`,
+                    fetchOptions
                 );
+                // const playlistResponse = await fetch(
+                // `https://untz-backend.azurewebsites.net/api/generate-playlist?users=${encodeURIComponent(
+                // // `http://localhost:8000/api/generate-playlist?users=${encodeURIComponent(
+                //     JSON.stringify(users)
+                // )}&energy_curve=${encodeURIComponent(
+                //     JSON.stringify(energyCurve)
+                // )}&chaos=${chaos}&num_songs_to_select=${numSongs}
+                // &must_plays=${encodeURIComponent(JSON.stringify(mustPlays))}
+                // &do_not_plays=${encodeURIComponent(JSON.stringify(doNotPlays))}`,
+                // fetchOptions
+                // );
                 if (playlistResponse.ok) {
                     const playlist = await playlistResponse.json()
                     setRequestInfo('songs selected! creating spotify playlist')
                     console.log('generated playlist successfully')
                     console.log(playlist)
                     console.log(playlist.tracks.length + ' songs')
-                    return {songs: playlist.tracks, partyName: party.name};
+                    return {songs: playlist.tracks};
                 } else {
                     setRequestInfo('song selection algorithm failed')
                     console.log("Playlist returned, response bad")
-                    console.log(partyResponse)
+                    // console.log(partyResponse)
                     const playlistError = await playlistResponse.json()
                     console.log(playlistError)
-                    return {songs: [], partyName: 'error'};
+                    return {songs: []};
                 }
-            } else {
-                setRequestInfo('failed to get party info')
-                console.log("Failed to get party")
-                return {songs: [], partyName: 'error'};
-            }
+            // } else {
+            //     setRequestInfo('failed to get party info')
+            //     console.log("Failed to get party")
+            //     return {songs: []};
+            // }
 
         } catch (error) {
             setRequestInfo('playlist generation failed')
             console.log("Failed to generate playlist")
             console.log(error);
-            return {songs: [], partyName: 'error'};
+            return {songs: []};
         }
       }
 
       useEffect(() => {
-        if (!state) return; // do not fetch if accessCode is not loaded
+        if (!accessCode) return; // do not fetch if accessCode is not loaded
+        if (!name) return; // do not fetch if name is not loaded
         async function fetchData() {
             try {
-                const accessCode = state;
-                const {songs, partyName} = await selectSongs(accessCode);
+                const {songs} = await selectSongs(accessCode);
 
                 // error handling
                 if (songs.length === 0) {
@@ -109,18 +118,18 @@ const Waiting: NextPage = () => {
                         }
                     }
                     // Call createPlaylist after selectSongs
-                    await createPlaylist(songs, partyName)
+                    await createPlaylist(songs, name)
                 }
             } catch (error) {
                 console.log(error)
             }
         }
         // Only run the effect when both code and state exist
-        if (state) {
+        if (accessCode && name) {
         // if (code && state) {
             fetchData();
         }
-    }, [state]);
+    }, [accessCode, name]);
     // }, [code, state]);
       
 
@@ -138,7 +147,7 @@ const Waiting: NextPage = () => {
                         ready!
                     </h1>
                 
-                    <p className="text-emerald-300 p-10 text-center">
+                    <p className="text-emerald-300 py-5 px-3 text-center">
                         ür party playlist is here:
                     </p>
                     <p className='text-white'>{playlistLink}</p> 
@@ -149,7 +158,7 @@ const Waiting: NextPage = () => {
                     generating...
                     </h1>
                 
-                    <p className="text-emerald-300 p-10 text-center">
+                    <p className="text-emerald-300 py-5 px-3 text-center">
                     ür party playlist is on the way (give it a few minutes)
                     </p>
                         

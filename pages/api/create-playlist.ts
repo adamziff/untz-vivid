@@ -79,9 +79,20 @@ export default async function handler(
             // console.log('Playlist URI:', playlistUri);
 
 
-            // const { body: snapshot_id } = await spotifyApi.addTracksToPlaylist(playlistId, songs);
-            const { body: snapshot_id } = await spotifyApi.addTracksToPlaylist(playlist.id, songs);
-            console.log('Added tracks to playlist! ', snapshot_id)
+            // const { body: snapshot_id } = await spotifyApi.addTracksToPlaylist(playlist.id, songs);
+            const batchSize = 100; // Number of tracks to add at once
+            const trackSections = Math.ceil(songs.length / batchSize);
+
+            let snapshotId;
+            for (let i = 0; i < trackSections; i++) {
+              const startIndex = i * batchSize;
+              const endIndex = startIndex + batchSize;
+              const tracksToAdd = songs.slice(startIndex, endIndex);
+
+              const { body } = await spotifyApi.addTracksToPlaylist(playlist.id, tracksToAdd);
+              snapshotId = body.snapshot_id;
+            }
+            console.log('Added tracks to playlist! ', snapshotId)
             res.status(200).json({ data: 'Songs added successfully!', link: playlist.external_urls.spotify });
           },
           function(err: any) {
