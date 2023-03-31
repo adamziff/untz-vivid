@@ -140,9 +140,6 @@ const Dashboard: NextPage = () => {
       } else if (mustPlays.length + requests.length === 0) {
         alert('pick at least one song to generate a playlist.')
         return;
-      } else if (mustPlays.length + requests.length + doNotPlays.length > 42) {
-        alert('too many songs in request - the server does not currently support more than 42 unique songs across all three categories (must plays, requests, do not plays).')
-        return;
       } else {
         router.push(`/host/waiting?accessCode=${accessCode}&name=${name}`)
       }
