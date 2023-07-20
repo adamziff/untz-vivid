@@ -116,10 +116,10 @@ const Info: NextPage = () => {
                   </h2>
                   <Image src="/Headshot_No_Tie.jpg" alt="DJ Ziff" width={300} height={280} />
                   <p className="py-2 text-white">
-                    Hey y&apos;all! I&apos;m a senior Computer Science major at Princeton, and
-                    I&apos;m building üntz for my senior thesis. I&apos;m also an avid
-                    musician and songwriter, and I hope to work in the music tech industry
-                    after I graduate this spring.
+                    Hey y&apos;all! I just graduated from Princeton as a Computer Science major, I&apos;m also an avid
+                    musician and songwriter, and I built üntz for my senior thesis.
+                    I'm moving to New York after a summer of traveling Europe, and I'm 
+                    looking for a product role in the tech industry.
                   </p>
                   <Link href="https://www.linkedin.com/in/adamziff/">
                     <p className="text-gray-400 underline hover:text-gray-600">LinkedIn</p>

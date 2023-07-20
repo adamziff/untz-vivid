@@ -70,8 +70,8 @@ const Home: NextPage = () => {
 
             <div className='p-10'></div>
             <Link href="/info">
-              <button className="bg-black text-emerald-300 rounded-md px-3 py-1 font-bold border border-emerald-300 rounded:md">
-                not sure what to do? click here
+              <button className="bg-black text-blue-300 rounded-md px-3 py-1 font-bold border border-blue-300 rounded:md">
+                how to use üntz
               </button>
             </Link>
 
