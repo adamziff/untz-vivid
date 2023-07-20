@@ -140,7 +140,7 @@ const Waiting: NextPage = () => {
                 </p>
 
                 <p className="text-gray-400 py-5 px-3 text-center">
-                here's an example of a playlist created with üntz: 
+                here&apos;s an example of a playlist created with üntz: 
                 </p>
 
                 <Link href="https://open.spotify.com/playlist/5TtsyVFjPfez96xm8GbLfa">

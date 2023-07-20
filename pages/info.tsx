@@ -118,7 +118,7 @@ const Info: NextPage = () => {
                   <p className="py-2 text-white">
                     Hey y&apos;all! I just graduated from Princeton as a Computer Science major, I&apos;m also an avid
                     musician and songwriter, and I built üntz for my senior thesis.
-                    I'm moving to New York after a summer of traveling Europe, and I'm 
+                    I&apos;m moving to New York after a summer of traveling Europe, and I&apos;m 
                     looking for a product role in the tech industry.
                   </p>
                   <Link href="https://www.linkedin.com/in/adamziff/">
