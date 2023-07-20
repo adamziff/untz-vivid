@@ -105,7 +105,7 @@ const Waiting: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            {playlistLink ? 
+            {/* {playlistLink ? 
                 <div className={styles.main}>
                     <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
                         ready!
@@ -127,7 +127,18 @@ const Waiting: NextPage = () => {
                     </p>
                         
                 </div>
-            }
+            } */}
+
+            <div className={styles.main}>
+                <h1 className="font-bold text-center text-white text-4xl md:text-7xl">
+                playlist generation is unavailable
+                </h1>
+            
+                <p className="text-emerald-300 py-5 px-3 text-center">
+                ür developer ran out of school funding for Azure credits and needs to refactor the server :)
+                </p>
+                    
+            </div>
 
             <p className="text-red-400 p-10 text-center">
                 {requestInfo}
